@@ -4,7 +4,9 @@ import { join } from "node:path";
 import { describe, it } from "node:test";
 
 const buildDir = join(import.meta.dirname, "__fixtures__", "build");
-const files = readdirSync(buildDir);
+const files = readdirSync(buildDir).filter((fileName) =>
+  fileName.endsWith(".mjs"),
+);
 
 describe("getUserAgent returns values from bundles", async () => {
   const userAgentPrefix = existsSync(
