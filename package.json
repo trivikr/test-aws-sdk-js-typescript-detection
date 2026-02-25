@@ -1,0 +1,12 @@
+{
+  "name": "test-aws-sdk-js-typescript-detection",
+  "version": "1.0.0",
+  "description": "Testing for TypeScript detection feature added in https://github.com/aws/aws-sdk-js-v3/pull/7786",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@aws-sdk/util-user-agent-node": "file:aws-sdk-util-user-agent-node-3.972.12.tgz"
+  }
+}
