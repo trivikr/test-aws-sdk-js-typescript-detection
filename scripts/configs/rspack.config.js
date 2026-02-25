@@ -21,7 +21,9 @@ const createConfig = (minify, moduleSystem) => ({
     ],
   },
   plugins: [new rspack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })],
-  experiments: { outputModule: true },
+  experiments: {
+    outputModule: moduleSystem === ModuleSystem.esm ? true : false,
+  },
   entry: getInputPath(),
   output: {
     path: getOutputDir(),

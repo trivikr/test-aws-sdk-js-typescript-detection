@@ -1,41 +1,37 @@
-import {fileURLToPath as __webpack_fileURLToPath__} from "node:url";
-var __webpack_dirname__ = __webpack_fileURLToPath__(import.meta.url.replace(/\/(?:[^\/]*)$/, ""));
-import { platform as __WEBPACK_EXTERNAL_MODULE_os_platform__, release as __WEBPACK_EXTERNAL_MODULE_os_release__ } from "os";
-import { env as __WEBPACK_EXTERNAL_MODULE_process_env__, versions as __WEBPACK_EXTERNAL_MODULE_process_versions__ } from "process";
-import { readFile as __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__ } from "node:fs/promises";
-import { join as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__, normalize as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_normalize__, sep as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__ } from "node:path";
-/******/ // The require scope
-/******/ var __webpack_require__ = {};
-/******/ 
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
 /************************************************************************/
-/******/ /* webpack/runtime/define property getters */
-/******/ (() => {
-/******/ 	// define getter functions for harmony exports
-/******/ 	__webpack_require__.d = (exports, definition) => {
-/******/ 		for(var key in definition) {
-/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
 /******/ 			}
-/******/ 		}
-/******/ 	};
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/hasOwnProperty shorthand */
-/******/ (() => {
-/******/ 	__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ })();
-/******/ 
-/******/ /* webpack/runtime/make namespace object */
-/******/ (() => {
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = (exports) => {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/ })();
-/******/ 
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // ESM COMPAT FLAG
@@ -47,39 +43,39 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// external "os"
-
+const external_os_namespaceObject = require("os");
 ;// external "process"
-
+const external_process_namespaceObject = require("process");
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getRuntimeUserAgentPair.js
 
 const getRuntimeUserAgentPair = () => {
     const runtimesToCheck = ["deno", "bun", "llrt"];
     for (const runtime of runtimesToCheck) {
-        if (__WEBPACK_EXTERNAL_MODULE_process_versions__[runtime]) {
-            return [`md/${runtime}`, __WEBPACK_EXTERNAL_MODULE_process_versions__[runtime]];
+        if (external_process_namespaceObject.versions[runtime]) {
+            return [`md/${runtime}`, external_process_namespaceObject.versions[runtime]];
         }
     }
-    return ["md/nodejs", __WEBPACK_EXTERNAL_MODULE_process_versions__.node];
+    return ["md/nodejs", external_process_namespaceObject.versions.node];
 };
 
 ;// external "node:fs/promises"
-
+const promises_namespaceObject = require("node:fs/promises");
 ;// external "node:path"
-
+const external_node_path_namespaceObject = require("node:path");
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPath.js
 
 const getTypeScriptPackageJsonPath = (dirname = "") => {
     let nodeModulesPath;
-    const normalizedPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_normalize__(dirname);
-    const parts = normalizedPath.split(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
+    const normalizedPath = (0,external_node_path_namespaceObject.normalize)(dirname);
+    const parts = normalizedPath.split(external_node_path_namespaceObject.sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
     if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex + 1).join(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
+        nodeModulesPath = parts.slice(0, nodeModulesIndex + 1).join(external_node_path_namespaceObject.sep);
     }
     else {
         nodeModulesPath = dirname;
     }
-    return __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(nodeModulesPath, "typescript", "package.json");
+    return (0,external_node_path_namespaceObject.join)(nodeModulesPath, "typescript", "package.json");
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
@@ -94,7 +90,7 @@ const getTypeScriptUserAgentPair = async () => {
         return ["md/tsc", tscVersion];
     }
     try {
-        const packageJson = await __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__(getTypeScriptPackageJsonPath(__webpack_dirname__), "utf-8");
+        const packageJson = await (0,promises_namespaceObject.readFile)(getTypeScriptPackageJsonPath(__dirname), "utf-8");
         tscVersion = JSON.parse(packageJson).version;
         return ["md/tsc", tscVersion];
     }
@@ -130,7 +126,7 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         const sections = [
             ["aws-sdk-js", clientVersion],
             ["ua", "2.1"],
-            [`os/${__WEBPACK_EXTERNAL_MODULE_os_platform__()}`, __WEBPACK_EXTERNAL_MODULE_os_release__()],
+            [`os/${(0,external_os_namespaceObject.platform)()}`, (0,external_os_namespaceObject.release)()],
             ["lang/js"],
             runtimeUserAgentPair,
         ];
@@ -145,8 +141,8 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         if (serviceId) {
             sections.push([`api/${serviceId}`, clientVersion]);
         }
-        if (__WEBPACK_EXTERNAL_MODULE_process_env__.AWS_EXECUTION_ENV) {
-            sections.push([`exec-env/${__WEBPACK_EXTERNAL_MODULE_process_env__.AWS_EXECUTION_ENV}`]);
+        if (external_process_namespaceObject.env.AWS_EXECUTION_ENV) {
+            sections.push([`exec-env/${external_process_namespaceObject.env.AWS_EXECUTION_ENV}`]);
         }
         const appId = await config?.userAgentAppId?.();
         const resolvedUserAgent = appId ? [...sections, [`app/${appId}`]] : [...sections];
@@ -165,3 +161,5 @@ const getUserAgent = async () =>
   })();
 
 module.exports = __webpack_exports__;
+/******/ })()
+;
