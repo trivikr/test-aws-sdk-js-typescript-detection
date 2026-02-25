@@ -29,6 +29,8 @@ jobs:
         run: docker run --rm -v "$(pwd)":/app generate-bundles
       - name: check for changes
         run: |
+          # ignore change in package-lock.json
+          git checkout -- package-lock.json
           if [ -n "$(git status --porcelain)" ]; then
             echo "Error: Files were modified or added"
             git status
