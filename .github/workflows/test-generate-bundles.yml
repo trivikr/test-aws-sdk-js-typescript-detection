@@ -1,0 +1,37 @@
+name: test-generate-bundles
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - scripts/**
+      - package-lock.json
+      - .github/workflows/test-generate-bundles.yml
+
+jobs:
+  test-generate-bundles:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: docker/setup-buildx-action@v3
+      - name: build docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: scripts
+          load: true
+          tags: generate-bundles
+          cache-from: type=gha,scope=${{ hashFiles('package-lock.json') }}
+          cache-to: type=gha,mode=max,scope=${{ hashFiles('package-lock.json') }}
+      - name: test generate bundles
+        run: docker run --rm -v "$(pwd)":/app generate-bundles
+      - name: check for changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "Error: Files were modified or added"
+            git status
+            git diff
+            exit 1
+          fi
