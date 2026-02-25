@@ -21,6 +21,15 @@ for (const minify of [true, false]) {
         format: moduleSystem,
         // esbuild defaults to "browser" platform https://esbuild.github.io/api/#platform
         platform: "node",
+        banner: {
+          js:
+            moduleSystem === ModuleSystem.esm
+              ? `
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+    `.trim()
+              : "",
+        },
       }),
     );
   }
