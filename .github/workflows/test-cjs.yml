@@ -14,9 +14,9 @@ jobs:
       - uses: actions/setup-node@v6
       - name: install
         run: npm install
-      - name: test
+      - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs
-      - name: install
+      - name: install typescript
         run: npm install --save-dev typescript
-      - name: test
+      - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs

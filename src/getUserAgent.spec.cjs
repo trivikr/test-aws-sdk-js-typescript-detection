@@ -1,22 +1,34 @@
 const { strictEqual } = require("node:assert");
 const { existsSync } = require("node:fs");
 const { join } = require("node:path");
-const { test } = require("node:test");
+const { describe, it } = require("node:test");
 const { getUserAgent } = require("./getUserAgent.cjs");
 
-test("getUserAgent returns values", async () => {
+describe("getUserAgent returns values", async () => {
   const userAgent = await getUserAgent();
-  strictEqual(userAgent[0][0], "aws-sdk-js");
-  strictEqual(userAgent[1][0], "ua");
-  strictEqual(userAgent[3][0], "lang/js");
-  strictEqual(userAgent[4][0], "md/nodejs");
+
+  const prefixToTest = [
+    [0, "aws-sdk-js"],
+    [1, "ua"],
+    // [2, "os/darwin"], // Skipping as this changes based on OS platform
+    [3, "lang/js"],
+    [4, "md/nodejs"],
+  ];
+
   if (
     existsSync(
       join(process.cwd(), "node_modules", "typescript", "package.json"),
     )
   ) {
-    strictEqual(userAgent[5][0], "md/tsc");
+    prefixToTest.push([5, "md/tsc"]);
+    prefixToTest.push([6, "api/s3"]);
   } else {
-    strictEqual(userAgent[5][0], "api/s3");
+    prefixToTest.push([5, "api/s3"]);
+  }
+
+  for (const [index, expected] of prefixToTest) {
+    it(`should return '${expected}' at index [${index}][0]`, () => {
+      strictEqual(userAgent[index][0], expected);
+    });
   }
 });
