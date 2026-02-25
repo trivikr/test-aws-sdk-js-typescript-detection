@@ -1,4 +1,4 @@
-name: test-bundles
+name: test-bundles-cjs
 
 on:
   pull_request:
@@ -14,9 +14,9 @@ jobs:
       - uses: actions/setup-node@v6
       - name: install
         run: npm install
-      - name: test-bundles
-        run: node --test src/getUserAgent.bundle.spec.mjs
+      - name: test-bundles-cjs
+        run: node --test src/getUserAgent.bundle.spec.cjs
       - name: install typescript
         run: npm install --save-dev typescript
-      - name: test-bundles
-        run: node --test src/getUserAgent.bundle.spec.mjs
+      - name: test-bundles-cjs
+        run: node --test src/getUserAgent.bundle.spec.cjs
