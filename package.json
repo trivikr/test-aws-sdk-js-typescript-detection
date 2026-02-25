@@ -8,5 +8,19 @@
   },
   "dependencies": {
     "@aws-sdk/util-user-agent-node": "file:aws-sdk-util-user-agent-node-3.972.12.tgz"
-  }
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^29.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rspack/cli": "^1.7.3",
+    "@rspack/core": "^1.7.3",
+    "esbuild": "~0.27.2",
+    "rolldown": "1.0.0-rc.1",
+    "rollup": "^4.56.0",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "type": "module"
 }
