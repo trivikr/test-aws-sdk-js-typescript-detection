@@ -1,7 +1,5 @@
-import {fileURLToPath as __rspack_fileURLToPath} from "node:url";
-import {dirname as __rspack_dirname} from "node:path";
-import { createRequire as __rspack_createRequire } from "node:module";
-const __rspack_createRequire_require = __rspack_createRequire(import.meta.url);
+(() => {
+"use strict";
 // The require scope
 var __webpack_require__ = {};
 
@@ -39,9 +37,9 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: external "os"
-const external_os_namespaceObject = __rspack_createRequire_require("os");
+const external_os_namespaceObject = require("os");
 ;// CONCATENATED MODULE: external "process"
-const external_process_namespaceObject = __rspack_createRequire_require("process");
+const external_process_namespaceObject = require("process");
 ;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getRuntimeUserAgentPair.js
 
 const getRuntimeUserAgentPair = () => {
@@ -55,9 +53,9 @@ const getRuntimeUserAgentPair = () => {
 };
 
 ;// CONCATENATED MODULE: external "node:fs/promises"
-const promises_namespaceObject = __rspack_createRequire_require("node:fs/promises");
+const promises_namespaceObject = require("node:fs/promises");
 ;// CONCATENATED MODULE: external "node:path"
-const external_node_path_namespaceObject = __rspack_createRequire_require("node:path");
+const external_node_path_namespaceObject = require("node:path");
 ;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPath.js
 
 const getTypeScriptPackageJsonPath = (dirname = "") => {
@@ -75,7 +73,6 @@ const getTypeScriptPackageJsonPath = (dirname = "") => {
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
-var getTypeScriptUserAgentPair_dirname = __rspack_dirname(__rspack_fileURLToPath(import.meta.url));
 
 
 let tscVersion;
@@ -87,7 +84,7 @@ const getTypeScriptUserAgentPair = async () => {
         return ["md/tsc", tscVersion];
     }
     try {
-        const packageJson = await (0,promises_namespaceObject.readFile)(getTypeScriptPackageJsonPath(getTypeScriptUserAgentPair_dirname), "utf-8");
+        const packageJson = await (0,promises_namespaceObject.readFile)(getTypeScriptPackageJsonPath(__dirname), "utf-8");
         tscVersion = JSON.parse(packageJson).version;
         return ["md/tsc", tscVersion];
     }
@@ -158,3 +155,5 @@ const getUserAgent = async () =>
   })();
 
 module.exports = __webpack_exports__;
+})()
+;

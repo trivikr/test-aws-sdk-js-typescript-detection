@@ -17,7 +17,9 @@ const createConfig = (minify, moduleSystem) => ({
     minimize: minify,
   },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })],
-  experiments: { outputModule: true },
+  experiments: {
+    outputModule: moduleSystem === ModuleSystem.esm ? true : false,
+  },
   entry: getInputPath(),
   output: {
     path: getOutputDir(),
