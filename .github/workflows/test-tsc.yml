@@ -6,6 +6,9 @@ on:
   push:
     branches: [main]
 
+env:
+  TS_VERSION: "5.9.3"
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -14,7 +17,7 @@ jobs:
       - uses: actions/setup-node@v6
       - name: install
         run: npm install
-          npm install --save-dev typescript
+          npm install -D -E typescript@$TS_VERSION
       - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs
       - name: test-mjs
