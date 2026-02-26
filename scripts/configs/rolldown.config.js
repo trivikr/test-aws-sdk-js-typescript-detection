@@ -1,0 +1,32 @@
+import { join } from "node:path";
+import { defineConfig } from "rolldown";
+
+import { ModuleSystem } from "./utils/constants.js";
+import { getOutputDir } from "./utils/getOutputDir.js";
+import { getInputPath } from "./utils/getInputPath.js";
+import { getOutputFilename } from "./utils/getOutputFilename.js";
+
+const createConfig = (minify, moduleSystem) =>
+  defineConfig({
+    input: getInputPath(),
+    output: {
+      file: join(
+        getOutputDir(),
+        getOutputFilename("rolldown", minify, moduleSystem),
+      ),
+      format: moduleSystem,
+      inlineDynamicImports: true,
+      minify,
+    },
+    // rolldown defaults to "browser" platform for non-cjs formats: https://rolldown.rs/options/platform#platform
+    platform: "node",
+  });
+
+const configs = [];
+for (const minify of [true, false]) {
+  for (const moduleSystem of Object.values(ModuleSystem)) {
+    configs.push(createConfig(minify, moduleSystem));
+  }
+}
+
+export default configs;
