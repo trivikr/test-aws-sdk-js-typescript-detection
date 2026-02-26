@@ -18,3 +18,18 @@ jobs:
         run: node --test src/getUserAgent.spec.cjs
       - name: test-mjs
         run: node --test src/getUserAgent.spec.cjs
+
+  test-typescript:
+    runs-on: ubuntu-latest
+    env:
+      TS_VERSION: "5.9.3"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - name: install
+        run: npm install
+          npm install -D -E typescript@$TS_VERSION
+      - name: test-cjs
+        run: node --test src/getUserAgent.spec.cjs
+      - name: test-mjs
+        run: node --test src/getUserAgent.spec.mjs
