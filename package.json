@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "@aws-sdk/util-user-agent-node": "file:aws-sdk-util-user-agent-node-3.972.12.tgz"
+    "@aws-sdk/util-user-agent-node": "file:aws-sdk-util-user-agent-node-3.972.13.tgz"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^29.0.0",

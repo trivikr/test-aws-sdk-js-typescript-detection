@@ -1,7 +1,7 @@
 import {fileURLToPath as __webpack_fileURLToPath__} from "node:url";
 var __webpack_dirname__ = __webpack_fileURLToPath__(import.meta.url.replace(/\/(?:[^\/]*)$/, ""));
-import { platform as __WEBPACK_EXTERNAL_MODULE_os_platform__, release as __WEBPACK_EXTERNAL_MODULE_os_release__ } from "os";
-import { env as __WEBPACK_EXTERNAL_MODULE_process_env__, versions as __WEBPACK_EXTERNAL_MODULE_process_versions__ } from "process";
+import { platform as __WEBPACK_EXTERNAL_MODULE_node_os_e12349cb_platform__, release as __WEBPACK_EXTERNAL_MODULE_node_os_e12349cb_release__ } from "node:os";
+import { env as __WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_env__, versions as __WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_versions__ } from "node:process";
 import { readFile as __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__ } from "node:fs/promises";
 import { join as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__, normalize as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_normalize__, sep as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__ } from "node:path";
 /******/ // The require scope
@@ -28,20 +28,20 @@ import { join as __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__, normalize 
 /************************************************************************/
 var __webpack_exports__ = {};
 
-;// external "os"
+;// external "node:os"
 
-;// external "process"
+;// external "node:process"
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getRuntimeUserAgentPair.js
 
 const getRuntimeUserAgentPair = () => {
     const runtimesToCheck = ["deno", "bun", "llrt"];
     for (const runtime of runtimesToCheck) {
-        if (__WEBPACK_EXTERNAL_MODULE_process_versions__[runtime]) {
-            return [`md/${runtime}`, __WEBPACK_EXTERNAL_MODULE_process_versions__[runtime]];
+        if (__WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_versions__[runtime]) {
+            return [`md/${runtime}`, __WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_versions__[runtime]];
         }
     }
-    return ["md/nodejs", __WEBPACK_EXTERNAL_MODULE_process_versions__.node];
+    return ["md/nodejs", __WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_versions__.node];
 };
 
 ;// external "node:fs/promises"
@@ -72,12 +72,17 @@ const getTypeScriptUserAgentPair = async () => {
     if (tscVersion === null) {
         return undefined;
     }
-    else if (tscVersion) {
+    else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
     try {
         const packageJson = await __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__(getTypeScriptPackageJsonPath(__webpack_dirname__), "utf-8");
-        tscVersion = JSON.parse(packageJson).version;
+        const { version } = JSON.parse(packageJson);
+        if (typeof version !== "string") {
+            tscVersion = null;
+            return undefined;
+        }
+        tscVersion = version;
         return ["md/tsc", tscVersion];
     }
     catch {
@@ -112,7 +117,7 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         const sections = [
             ["aws-sdk-js", clientVersion],
             ["ua", "2.1"],
-            [`os/${__WEBPACK_EXTERNAL_MODULE_os_platform__()}`, __WEBPACK_EXTERNAL_MODULE_os_release__()],
+            [`os/${__WEBPACK_EXTERNAL_MODULE_node_os_e12349cb_platform__()}`, __WEBPACK_EXTERNAL_MODULE_node_os_e12349cb_release__()],
             ["lang/js"],
             runtimeUserAgentPair,
         ];
@@ -127,8 +132,8 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         if (serviceId) {
             sections.push([`api/${serviceId}`, clientVersion]);
         }
-        if (__WEBPACK_EXTERNAL_MODULE_process_env__.AWS_EXECUTION_ENV) {
-            sections.push([`exec-env/${__WEBPACK_EXTERNAL_MODULE_process_env__.AWS_EXECUTION_ENV}`]);
+        if (__WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_env__.AWS_EXECUTION_ENV) {
+            sections.push([`exec-env/${__WEBPACK_EXTERNAL_MODULE_node_process_8d178d73_env__.AWS_EXECUTION_ENV}`]);
         }
         const appId = await config?.userAgentAppId?.();
         const resolvedUserAgent = appId ? [...sections, [`app/${appId}`]] : [...sections];

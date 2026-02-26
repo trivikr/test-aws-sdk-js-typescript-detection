@@ -11143,8 +11143,8 @@ var require_dist_cjs$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
 //#endregion
 //#region node_modules/@aws-sdk/util-user-agent-node/dist-cjs/index.js
 var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var os = __require("os");
-	var process$1 = __require("process");
+	var node_os = __require("node:os");
+	var node_process = __require("node:process");
 	var promises = __require("node:fs/promises");
 	var node_path = __require("node:path");
 	var middlewareUserAgent = require_dist_cjs$1();
@@ -11153,8 +11153,8 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 			"deno",
 			"bun",
 			"llrt"
-		]) if (process$1.versions[runtime]) return [`md/${runtime}`, process$1.versions[runtime]];
-		return ["md/nodejs", process$1.versions.node];
+		]) if (node_process.versions[runtime]) return [`md/${runtime}`, node_process.versions[runtime]];
+		return ["md/nodejs", node_process.versions.node];
 	};
 	const getTypeScriptPackageJsonPath = (dirname = "") => {
 		let nodeModulesPath;
@@ -11167,10 +11167,15 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 	let tscVersion;
 	const getTypeScriptUserAgentPair = async () => {
 		if (tscVersion === null) return;
-		else if (tscVersion) return ["md/tsc", tscVersion];
+		else if (typeof tscVersion === "string") return ["md/tsc", tscVersion];
 		try {
 			const packageJson = await promises.readFile(getTypeScriptPackageJsonPath(__dirname), "utf-8");
-			tscVersion = JSON.parse(packageJson).version;
+			const { version } = JSON.parse(packageJson);
+			if (typeof version !== "string") {
+				tscVersion = null;
+				return;
+			}
+			tscVersion = version;
 			return ["md/tsc", tscVersion];
 		} catch {
 			tscVersion = null;
@@ -11187,7 +11192,7 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 			const sections = [
 				["aws-sdk-js", clientVersion],
 				["ua", "2.1"],
-				[`os/${os.platform()}`, os.release()],
+				[`os/${node_os.platform()}`, node_os.release()],
 				["lang/js"],
 				runtimeUserAgentPair
 			];
@@ -11196,7 +11201,7 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 			const crtAvailable = isCrtAvailable();
 			if (crtAvailable) sections.push(crtAvailable);
 			if (serviceId) sections.push([`api/${serviceId}`, clientVersion]);
-			if (process$1.env.AWS_EXECUTION_ENV) sections.push([`exec-env/${process$1.env.AWS_EXECUTION_ENV}`]);
+			if (node_process.env.AWS_EXECUTION_ENV) sections.push([`exec-env/${node_process.env.AWS_EXECUTION_ENV}`]);
 			const appId = await config?.userAgentAppId?.();
 			return appId ? [...sections, [`app/${appId}`]] : [...sections];
 		};

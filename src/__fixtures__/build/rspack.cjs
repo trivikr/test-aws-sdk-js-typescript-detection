@@ -36,20 +36,20 @@ __webpack_require__.d(__webpack_exports__, {
   getUserAgent: () => (/* binding */ getUserAgent)
 });
 
-;// CONCATENATED MODULE: external "os"
-const external_os_namespaceObject = require("os");
-;// CONCATENATED MODULE: external "process"
-const external_process_namespaceObject = require("process");
+;// CONCATENATED MODULE: external "node:os"
+const external_node_os_namespaceObject = require("node:os");
+;// CONCATENATED MODULE: external "node:process"
+const external_node_process_namespaceObject = require("node:process");
 ;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getRuntimeUserAgentPair.js
 
 const getRuntimeUserAgentPair = () => {
     const runtimesToCheck = ["deno", "bun", "llrt"];
     for (const runtime of runtimesToCheck) {
-        if (external_process_namespaceObject.versions[runtime]) {
-            return [`md/${runtime}`, external_process_namespaceObject.versions[runtime]];
+        if (external_node_process_namespaceObject.versions[runtime]) {
+            return [`md/${runtime}`, external_node_process_namespaceObject.versions[runtime]];
         }
     }
-    return ["md/nodejs", external_process_namespaceObject.versions.node];
+    return ["md/nodejs", external_node_process_namespaceObject.versions.node];
 };
 
 ;// CONCATENATED MODULE: external "node:fs/promises"
@@ -80,12 +80,17 @@ const getTypeScriptUserAgentPair = async () => {
     if (tscVersion === null) {
         return undefined;
     }
-    else if (tscVersion) {
+    else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
     try {
         const packageJson = await (0,promises_namespaceObject.readFile)(getTypeScriptPackageJsonPath(__dirname), "utf-8");
-        tscVersion = JSON.parse(packageJson).version;
+        const { version } = JSON.parse(packageJson);
+        if (typeof version !== "string") {
+            tscVersion = null;
+            return undefined;
+        }
+        tscVersion = version;
         return ["md/tsc", tscVersion];
     }
     catch {
@@ -120,7 +125,7 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         const sections = [
             ["aws-sdk-js", clientVersion],
             ["ua", "2.1"],
-            [`os/${(0,external_os_namespaceObject.platform)()}`, (0,external_os_namespaceObject.release)()],
+            [`os/${(0,external_node_os_namespaceObject.platform)()}`, (0,external_node_os_namespaceObject.release)()],
             ["lang/js"],
             runtimeUserAgentPair,
         ];
@@ -135,8 +140,8 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         if (serviceId) {
             sections.push([`api/${serviceId}`, clientVersion]);
         }
-        if (external_process_namespaceObject.env.AWS_EXECUTION_ENV) {
-            sections.push([`exec-env/${external_process_namespaceObject.env.AWS_EXECUTION_ENV}`]);
+        if (external_node_process_namespaceObject.env.AWS_EXECUTION_ENV) {
+            sections.push([`exec-env/${external_node_process_namespaceObject.env.AWS_EXECUTION_ENV}`]);
         }
         const appId = await config?.userAgentAppId?.();
         const resolvedUserAgent = appId ? [...sections, [`app/${appId}`]] : [...sections];
