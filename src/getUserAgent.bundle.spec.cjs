@@ -10,7 +10,15 @@ const files = readdirSync(buildDir).filter((fileName) =>
 
 describe("getUserAgent returns values from bundles", async () => {
   const userAgentPrefix = existsSync(
-    join(process.cwd(), "node_modules", "typescript", "package.json"),
+    join(
+      process.cwd(),
+      "src",
+      "__fixtures__",
+      "build",
+      "node_modules",
+      "typescript",
+      "package.json",
+    ),
   )
     ? "md/tsc"
     : "api/s3";
