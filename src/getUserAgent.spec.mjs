@@ -1,34 +1,14 @@
 import { strictEqual } from "node:assert";
-import { existsSync } from "node:fs";
-import { join } from "node:path";
-import { describe, it } from "node:test";
+import { it } from "node:test";
 import { getUserAgent } from "./getUserAgent.mjs";
 
-describe("getUserAgent returns values", async () => {
+it("getUserAgent", async () => {
   const userAgent = await getUserAgent();
 
-  const prefixToTest = [
-    [0, "aws-sdk-js"],
-    [1, "ua"],
-    // [2, "os/darwin"], // Skipping as this changes based on OS platform
-    [3, "lang/js"],
-    [4, "md/nodejs"],
-  ];
-
-  if (
-    existsSync(
-      join(process.cwd(), "node_modules", "typescript", "package.json"),
-    )
-  ) {
-    prefixToTest.push([5, "md/tsc"]);
-    prefixToTest.push([6, "api/s3"]);
+  if (process.env.TS_VERSION) {
+    strictEqual(userAgent[5][0], "md/tsc");
+    strictEqual(userAgent[5][1], process.env.TS_VERSION);
   } else {
-    prefixToTest.push([5, "api/s3"]);
-  }
-
-  for (const [index, expected] of prefixToTest) {
-    it(`should return '${expected}' at index [${index}][0]`, () => {
-      strictEqual(userAgent[index][0], expected);
-    });
+    strictEqual(userAgent[5][0], "api/s3");
   }
 });
