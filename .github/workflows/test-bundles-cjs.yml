@@ -17,6 +17,6 @@ jobs:
       - name: test-bundles-cjs
         run: node --test src/getUserAgent.bundle.spec.cjs
       - name: install typescript
-        run: npm install --save-dev typescript
+        run: npm install --save-dev typescript --prefix ./src/__fixtures__/build
       - name: test-bundles-cjs
         run: node --test src/getUserAgent.bundle.spec.cjs
