@@ -1,5 +1,5 @@
 const { strictEqual } = require("node:assert");
-const { existsSync, readdirSync } = require("node:fs");
+const { readdirSync } = require("node:fs");
 const { join } = require("node:path");
 const { describe, it } = require("node:test");
 
@@ -8,25 +8,18 @@ const files = readdirSync(buildDir).filter((fileName) =>
   fileName.endsWith(".cjs"),
 );
 
-describe("getUserAgent returns values from bundles", async () => {
-  const userAgentPrefix = existsSync(
-    join(
-      __dirname,
-      "__fixtures__",
-      "build",
-      "node_modules",
-      "typescript",
-      "package.json",
-    ),
-  )
-    ? "md/tsc"
-    : "api/s3";
-
+describe("getUserAgent from bundles", async () => {
   for (const file of files) {
-    it(`${file}: getUserAgent returns '${userAgentPrefix}'`, async () => {
+    it(file, async () => {
       const { getUserAgent } = require(join(buildDir, file));
       const userAgent = await getUserAgent();
-      strictEqual(userAgent[5][0], userAgentPrefix);
+
+      if (process.env.TS_VERSION) {
+        strictEqual(userAgent[5][0], "md/tsc");
+        strictEqual(userAgent[5][1], process.env.TS_VERSION);
+      } else {
+        strictEqual(userAgent[5][0], "api/s3");
+      }
     });
   }
 });
