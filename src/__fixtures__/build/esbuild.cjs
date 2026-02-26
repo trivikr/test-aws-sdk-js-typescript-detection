@@ -13251,11 +13251,11 @@ var require_dist_cjs26 = __commonJS({
       const parts = normalizedPath.split(node_path.sep);
       const nodeModulesIndex = parts.indexOf("node_modules");
       if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex + 1).join(node_path.sep);
+        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(node_path.sep);
       } else {
         nodeModulesPath = dirname;
       }
-      return node_path.join(nodeModulesPath, "typescript", "package.json");
+      return node_path.join(nodeModulesPath, "node_modules", "typescript", "package.json");
     };
     var tscVersion;
     var getTypeScriptUserAgentPair = async () => {

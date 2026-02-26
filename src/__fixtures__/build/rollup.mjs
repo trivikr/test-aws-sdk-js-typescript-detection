@@ -19,12 +19,12 @@ const getTypeScriptPackageJsonPath = (dirname = "") => {
     const parts = normalizedPath.split(sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
     if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex + 1).join(sep);
+        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(sep);
     }
     else {
         nodeModulesPath = dirname;
     }
-    return join(nodeModulesPath, "typescript", "package.json");
+    return join(nodeModulesPath, "node_modules", "typescript", "package.json");
 };
 
 let tscVersion;

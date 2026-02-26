@@ -70,12 +70,12 @@ const getTypeScriptPackageJsonPath = (dirname = "") => {
     const parts = normalizedPath.split(external_node_path_namespaceObject.sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
     if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex + 1).join(external_node_path_namespaceObject.sep);
+        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(external_node_path_namespaceObject.sep);
     }
     else {
         nodeModulesPath = dirname;
     }
-    return (0,external_node_path_namespaceObject.join)(nodeModulesPath, "typescript", "package.json");
+    return (0,external_node_path_namespaceObject.join)(nodeModulesPath, "node_modules", "typescript", "package.json");
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
