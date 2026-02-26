@@ -56,12 +56,12 @@ const getTypeScriptPackageJsonPath = (dirname = "") => {
     const parts = normalizedPath.split(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
     const nodeModulesIndex = parts.indexOf("node_modules");
     if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex + 1).join(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
+        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
     }
     else {
         nodeModulesPath = dirname;
     }
-    return __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(nodeModulesPath, "typescript", "package.json");
+    return __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(nodeModulesPath, "node_modules", "typescript", "package.json");
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
