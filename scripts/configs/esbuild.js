@@ -27,6 +27,9 @@ for (const minify of [true, false]) {
               ? `
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
+import { fileURLToPath as __ftp } from 'url';
+import { dirname as __dn } from 'path';
+const __dirname = __dn(__ftp(import.meta.url));
     `.trim()
               : "",
         },
