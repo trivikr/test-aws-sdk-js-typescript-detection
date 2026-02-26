@@ -1,4 +1,4 @@
-name: test-mjs
+name: test-tsc
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ env:
   TS_VERSION: "5.9.3"
 
 jobs:
-  test:
+  test-tsc:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
