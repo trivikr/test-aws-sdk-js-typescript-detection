@@ -11,8 +11,7 @@ const files = readdirSync(buildDir).filter((fileName) =>
 describe("getUserAgent returns values from bundles", async () => {
   const userAgentPrefix = existsSync(
     join(
-      process.cwd(),
-      "src",
+      __dirname,
       "__fixtures__",
       "build",
       "node_modules",
