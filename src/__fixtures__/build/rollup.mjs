@@ -1,8 +1,8 @@
 import { fileURLToPath as __ftp } from 'url';
 import { dirname as __dn } from 'path';
 const __dirname = __dn(__ftp(import.meta.url));
-import { platform, release } from 'os';
-import { versions, env } from 'process';
+import { platform, release } from 'node:os';
+import { versions, env } from 'node:process';
 import { readFile } from 'node:fs/promises';
 import { normalize, sep, join } from 'node:path';
 
@@ -35,12 +35,17 @@ const getTypeScriptUserAgentPair = async () => {
     if (tscVersion === null) {
         return undefined;
     }
-    else if (tscVersion) {
+    else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
     try {
         const packageJson = await readFile(getTypeScriptPackageJsonPath(__dirname), "utf-8");
-        tscVersion = JSON.parse(packageJson).version;
+        const { version } = JSON.parse(packageJson);
+        if (typeof version !== "string") {
+            tscVersion = null;
+            return undefined;
+        }
+        tscVersion = version;
         return ["md/tsc", tscVersion];
     }
     catch {

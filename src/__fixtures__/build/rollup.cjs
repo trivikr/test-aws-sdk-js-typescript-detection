@@ -1,18 +1,18 @@
 'use strict';
 
-var os = require('os');
-var process = require('process');
+var node_os = require('node:os');
+var node_process = require('node:process');
 var promises = require('node:fs/promises');
 var node_path = require('node:path');
 
 const getRuntimeUserAgentPair = () => {
     const runtimesToCheck = ["deno", "bun", "llrt"];
     for (const runtime of runtimesToCheck) {
-        if (process.versions[runtime]) {
-            return [`md/${runtime}`, process.versions[runtime]];
+        if (node_process.versions[runtime]) {
+            return [`md/${runtime}`, node_process.versions[runtime]];
         }
     }
-    return ["md/nodejs", process.versions.node];
+    return ["md/nodejs", node_process.versions.node];
 };
 
 const getTypeScriptPackageJsonPath = (dirname = "") => {
@@ -34,12 +34,17 @@ const getTypeScriptUserAgentPair = async () => {
     if (tscVersion === null) {
         return undefined;
     }
-    else if (tscVersion) {
+    else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
     try {
         const packageJson = await promises.readFile(getTypeScriptPackageJsonPath(__dirname), "utf-8");
-        tscVersion = JSON.parse(packageJson).version;
+        const { version } = JSON.parse(packageJson);
+        if (typeof version !== "string") {
+            tscVersion = null;
+            return undefined;
+        }
+        tscVersion = version;
         return ["md/tsc", tscVersion];
     }
     catch {
@@ -57,7 +62,7 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         const sections = [
             ["aws-sdk-js", clientVersion],
             ["ua", "2.1"],
-            [`os/${os.platform()}`, os.release()],
+            [`os/${node_os.platform()}`, node_os.release()],
             ["lang/js"],
             runtimeUserAgentPair,
         ];
@@ -72,8 +77,8 @@ const createDefaultUserAgentProvider = ({ serviceId, clientVersion }) => {
         if (serviceId) {
             sections.push([`api/${serviceId}`, clientVersion]);
         }
-        if (process.env.AWS_EXECUTION_ENV) {
-            sections.push([`exec-env/${process.env.AWS_EXECUTION_ENV}`]);
+        if (node_process.env.AWS_EXECUTION_ENV) {
+            sections.push([`exec-env/${node_process.env.AWS_EXECUTION_ENV}`]);
         }
         const appId = await config?.userAgentAppId?.();
         const resolvedUserAgent = appId ? [...sections, [`app/${appId}`]] : [...sections];
