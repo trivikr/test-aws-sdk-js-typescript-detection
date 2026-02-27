@@ -15,6 +15,16 @@ const getRuntimeUserAgentPair = () => {
     return ["md/nodejs", node_process.versions.node];
 };
 
+const SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?$/;
+const getSanitizedTypeScriptVersion = (version = "") => {
+    const match = version.match(SEMVER_REGEX);
+    if (!match) {
+        return undefined;
+    }
+    const [major, minor, patch, prerelease] = [match[1], match[2], match[3], match[4]];
+    return prerelease ? `${major}.${minor}.${patch}-${prerelease}` : `${major}.${minor}.${patch}`;
+};
+
 const getTypeScriptPackageJsonPath = (dirname = "") => {
     let nodeModulesPath;
     const normalizedPath = node_path.normalize(dirname);
@@ -40,11 +50,12 @@ const getTypeScriptUserAgentPair = async () => {
     try {
         const packageJson = await promises.readFile(getTypeScriptPackageJsonPath(__dirname), "utf-8");
         const { version } = JSON.parse(packageJson);
-        if (typeof version !== "string") {
+        const sanitizedVersion = getSanitizedTypeScriptVersion(version);
+        if (typeof sanitizedVersion !== "string") {
             tscVersion = null;
             return undefined;
         }
-        tscVersion = version;
+        tscVersion = sanitizedVersion;
         return ["md/tsc", tscVersion];
     }
     catch {
