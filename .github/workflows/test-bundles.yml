@@ -33,3 +33,18 @@ jobs:
         run: node --test src/getUserAgent.bundle.spec.cjs
       - name: test-bundles-mjs
         run: node --test src/getUserAgent.bundle.spec.mjs
+
+  test-typescript-prerelease:
+    runs-on: ubuntu-latest
+    env:
+      TS_VERSION: "5.9.0-dev.20250731"
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+      - name: install
+        run: npm install
+          npm install -D -E typescript@$TS_VERSION --prefix ./src/__fixtures__/build
+      - name: test-bundles-cjs
+        run: node --test src/getUserAgent.bundle.spec.cjs
+      - name: test-bundles-mjs
+        run: node --test src/getUserAgent.bundle.spec.mjs
