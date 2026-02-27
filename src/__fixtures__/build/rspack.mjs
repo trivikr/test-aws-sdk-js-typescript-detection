@@ -44,6 +44,17 @@ const getRuntimeUserAgentPair = () => {
 
 ;// CONCATENATED MODULE: external "node:fs/promises"
 const promises_namespaceObject = __rspack_createRequire_require("node:fs/promises");
+;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getSanitizedTypeScriptVersion.js
+const SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?$/;
+const getSanitizedTypeScriptVersion = (version = "") => {
+    const match = version.match(SEMVER_REGEX);
+    if (!match) {
+        return undefined;
+    }
+    const [major, minor, patch, prerelease] = [match[1], match[2], match[3], match[4]];
+    return prerelease ? `${major}.${minor}.${patch}-${prerelease}` : `${major}.${minor}.${patch}`;
+};
+
 ;// CONCATENATED MODULE: external "node:path"
 const external_node_path_namespaceObject = __rspack_createRequire_require("node:path");
 ;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPath.js
@@ -66,6 +77,7 @@ const getTypeScriptPackageJsonPath = (dirname = "") => {
 var getTypeScriptUserAgentPair_dirname = __rspack_dirname(__rspack_fileURLToPath(import.meta.url));
 
 
+
 let tscVersion;
 const getTypeScriptUserAgentPair = async () => {
     if (tscVersion === null) {
@@ -77,11 +89,12 @@ const getTypeScriptUserAgentPair = async () => {
     try {
         const packageJson = await (0,promises_namespaceObject.readFile)(getTypeScriptPackageJsonPath(getTypeScriptUserAgentPair_dirname), "utf-8");
         const { version } = JSON.parse(packageJson);
-        if (typeof version !== "string") {
+        const sanitizedVersion = getSanitizedTypeScriptVersion(version);
+        if (typeof sanitizedVersion !== "string") {
             tscVersion = null;
             return undefined;
         }
-        tscVersion = version;
+        tscVersion = sanitizedVersion;
         return ["md/tsc", tscVersion];
     }
     catch {
