@@ -73,20 +73,25 @@ const getSanitizedTypeScriptVersion = (version = "") => {
 
 ;// external "node:path"
 const external_node_path_namespaceObject = require("node:path");
-;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPath.js
+;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPaths.js
 
-const getTypeScriptPackageJsonPath = (dirname = "") => {
-    let nodeModulesPath;
+const typescriptPackageJsonPath = (0,external_node_path_namespaceObject.join)("node_modules", "typescript", "package.json");
+const getTypeScriptPackageJsonPaths = (dirname) => {
+    const cwdPath = (0,external_node_path_namespaceObject.join)(process.cwd(), typescriptPackageJsonPath);
+    if (!dirname) {
+        return [cwdPath];
+    }
+    const paths = [];
     const normalizedPath = (0,external_node_path_namespaceObject.normalize)(dirname);
     const parts = normalizedPath.split(external_node_path_namespaceObject.sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
-    if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(external_node_path_namespaceObject.sep);
+    const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(external_node_path_namespaceObject.sep) : dirname;
+    const parentDirPath = (0,external_node_path_namespaceObject.join)(parentDir, typescriptPackageJsonPath);
+    paths.push(parentDirPath);
+    if (cwdPath !== parentDirPath) {
+        paths.push(cwdPath);
     }
-    else {
-        nodeModulesPath = dirname;
-    }
-    return (0,external_node_path_namespaceObject.join)(nodeModulesPath, "node_modules", "typescript", "package.json");
+    return paths;
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
@@ -101,20 +106,22 @@ const getTypeScriptUserAgentPair = async () => {
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
-    try {
-        const packageJson = await (0,promises_namespaceObject.readFile)(getTypeScriptPackageJsonPath(__dirname), "utf-8");
-        const { version } = JSON.parse(packageJson);
-        const sanitizedVersion = getSanitizedTypeScriptVersion(version);
-        if (typeof sanitizedVersion !== "string") {
-            tscVersion = null;
-            return undefined;
+    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(__dirname)) {
+        try {
+            const packageJson = await (0,promises_namespaceObject.readFile)(typescriptPackageJsonPath, "utf-8");
+            const { version } = JSON.parse(packageJson);
+            const sanitizedVersion = getSanitizedTypeScriptVersion(version);
+            if (typeof sanitizedVersion !== "string") {
+                continue;
+            }
+            tscVersion = sanitizedVersion;
+            return ["md/tsc", tscVersion];
         }
-        tscVersion = sanitizedVersion;
-        return ["md/tsc", tscVersion];
+        catch {
+        }
     }
-    catch {
-        tscVersion = null;
-    }
+    tscVersion = null;
+    return undefined;
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/crt-availability.js
