@@ -17,14 +17,6 @@ const createConfig = (minify, moduleSystem) =>
       format: moduleSystem,
       inlineDynamicImports: true,
       minify,
-      banner:
-        moduleSystem === ModuleSystem.esm
-          ? `
-import { fileURLToPath as __ftp } from 'url';
-import { dirname as __dn } from 'path';
-const __dirname = __dn(__ftp(import.meta.url));
-    `.trim()
-          : "",
     },
     // rolldown defaults to "browser" platform for non-cjs formats: https://rolldown.rs/options/platform#platform
     platform: "node",
