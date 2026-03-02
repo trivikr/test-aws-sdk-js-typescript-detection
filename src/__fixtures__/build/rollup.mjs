@@ -4,7 +4,7 @@ const __dirname = __dn(__ftp(import.meta.url));
 import { platform, release } from 'node:os';
 import { versions, env } from 'node:process';
 import { readFile } from 'node:fs/promises';
-import { normalize, sep, join } from 'node:path';
+import { join, normalize, sep } from 'node:path';
 
 const getRuntimeUserAgentPair = () => {
     const runtimesToCheck = ["deno", "bun", "llrt"];
@@ -26,18 +26,23 @@ const getSanitizedTypeScriptVersion = (version = "") => {
     return prerelease ? `${major}.${minor}.${patch}-${prerelease}` : `${major}.${minor}.${patch}`;
 };
 
-const getTypeScriptPackageJsonPath = (dirname = "") => {
-    let nodeModulesPath;
+const typescriptPackageJsonPath = join("node_modules", "typescript", "package.json");
+const getTypeScriptPackageJsonPaths = (dirname) => {
+    const cwdPath = join(process.cwd(), typescriptPackageJsonPath);
+    if (!dirname) {
+        return [cwdPath];
+    }
+    const paths = [];
     const normalizedPath = normalize(dirname);
     const parts = normalizedPath.split(sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
-    if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(sep);
+    const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(sep) : dirname;
+    const parentDirPath = join(parentDir, typescriptPackageJsonPath);
+    paths.push(parentDirPath);
+    if (cwdPath !== parentDirPath) {
+        paths.push(cwdPath);
     }
-    else {
-        nodeModulesPath = dirname;
-    }
-    return join(nodeModulesPath, "node_modules", "typescript", "package.json");
+    return paths;
 };
 
 let tscVersion;
@@ -48,20 +53,23 @@ const getTypeScriptUserAgentPair = async () => {
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
-    try {
-        const packageJson = await readFile(getTypeScriptPackageJsonPath(__dirname), "utf-8");
-        const { version } = JSON.parse(packageJson);
-        const sanitizedVersion = getSanitizedTypeScriptVersion(version);
-        if (typeof sanitizedVersion !== "string") {
-            tscVersion = null;
-            return undefined;
+    const dirname = typeof __dirname !== "undefined" ? __dirname : undefined;
+    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {
+        try {
+            const packageJson = await readFile(typescriptPackageJsonPath, "utf-8");
+            const { version } = JSON.parse(packageJson);
+            const sanitizedVersion = getSanitizedTypeScriptVersion(version);
+            if (typeof sanitizedVersion !== "string") {
+                continue;
+            }
+            tscVersion = sanitizedVersion;
+            return ["md/tsc", tscVersion];
         }
-        tscVersion = sanitizedVersion;
-        return ["md/tsc", tscVersion];
+        catch {
+        }
     }
-    catch {
-        tscVersion = null;
-    }
+    tscVersion = null;
+    return undefined;
 };
 
 const isCrtAvailable = () => {

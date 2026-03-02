@@ -59,20 +59,25 @@ const getSanitizedTypeScriptVersion = (version = "") => {
 
 ;// external "node:path"
 
-;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPath.js
+;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptPackageJsonPaths.js
 
-const getTypeScriptPackageJsonPath = (dirname = "") => {
-    let nodeModulesPath;
+const typescriptPackageJsonPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__("node_modules", "typescript", "package.json");
+const getTypeScriptPackageJsonPaths = (dirname) => {
+    const cwdPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(process.cwd(), typescriptPackageJsonPath);
+    if (!dirname) {
+        return [cwdPath];
+    }
+    const paths = [];
     const normalizedPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_normalize__(dirname);
     const parts = normalizedPath.split(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
     const nodeModulesIndex = parts.indexOf("node_modules");
-    if (nodeModulesIndex !== -1) {
-        nodeModulesPath = parts.slice(0, nodeModulesIndex).join(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
+    const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__) : dirname;
+    const parentDirPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(parentDir, typescriptPackageJsonPath);
+    paths.push(parentDirPath);
+    if (cwdPath !== parentDirPath) {
+        paths.push(cwdPath);
     }
-    else {
-        nodeModulesPath = dirname;
-    }
-    return __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(nodeModulesPath, "node_modules", "typescript", "package.json");
+    return paths;
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
@@ -87,20 +92,23 @@ const getTypeScriptUserAgentPair = async () => {
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
-    try {
-        const packageJson = await __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__(getTypeScriptPackageJsonPath(__webpack_dirname__), "utf-8");
-        const { version } = JSON.parse(packageJson);
-        const sanitizedVersion = getSanitizedTypeScriptVersion(version);
-        if (typeof sanitizedVersion !== "string") {
-            tscVersion = null;
-            return undefined;
+    const dirname =  true ? __webpack_dirname__ : 0;
+    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {
+        try {
+            const packageJson = await __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__(typescriptPackageJsonPath, "utf-8");
+            const { version } = JSON.parse(packageJson);
+            const sanitizedVersion = getSanitizedTypeScriptVersion(version);
+            if (typeof sanitizedVersion !== "string") {
+                continue;
+            }
+            tscVersion = sanitizedVersion;
+            return ["md/tsc", tscVersion];
         }
-        tscVersion = sanitizedVersion;
-        return ["md/tsc", tscVersion];
+        catch {
+        }
     }
-    catch {
-        tscVersion = null;
-    }
+    tscVersion = null;
+    return undefined;
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/crt-availability.js
