@@ -92,7 +92,8 @@ const getTypeScriptUserAgentPair = async () => {
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
-    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(__webpack_dirname__)) {
+    const dirname =  true ? __webpack_dirname__ : 0;
+    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {
         try {
             const packageJson = await __WEBPACK_EXTERNAL_MODULE_node_fs_promises_4a3ebc43_readFile__(typescriptPackageJsonPath, "utf-8");
             const { version } = JSON.parse(packageJson);

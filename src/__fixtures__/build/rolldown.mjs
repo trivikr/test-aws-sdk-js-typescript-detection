@@ -11182,7 +11182,8 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 	const getTypeScriptUserAgentPair = async () => {
 		if (tscVersion === null) return;
 		else if (typeof tscVersion === "string") return ["md/tsc", tscVersion];
-		for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(__dirname)) try {
+		const dirname = typeof __dirname !== "undefined" ? __dirname : void 0;
+		for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) try {
 			const packageJson = await promises.readFile(typescriptPackageJsonPath, "utf-8");
 			const { version } = JSON.parse(packageJson);
 			const sanitizedVersion = getSanitizedTypeScriptVersion(version);

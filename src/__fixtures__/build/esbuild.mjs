@@ -13287,7 +13287,8 @@ var require_dist_cjs26 = __commonJS({
       } else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
       }
-      for (const typescriptPackageJsonPath2 of getTypeScriptPackageJsonPaths(__dirname)) {
+      const dirname = typeof __dirname !== "undefined" ? __dirname : void 0;
+      for (const typescriptPackageJsonPath2 of getTypeScriptPackageJsonPaths(dirname)) {
         try {
           const packageJson = await promises.readFile(typescriptPackageJsonPath2, "utf-8");
           const { version } = JSON.parse(packageJson);

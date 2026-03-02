@@ -52,7 +52,8 @@ const getTypeScriptUserAgentPair = async () => {
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
     }
-    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(__dirname)) {
+    const dirname = typeof __dirname !== "undefined" ? __dirname : undefined;
+    for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {
         try {
             const packageJson = await promises.readFile(typescriptPackageJsonPath, "utf-8");
             const { version } = JSON.parse(packageJson);
