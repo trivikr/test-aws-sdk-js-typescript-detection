@@ -1,6 +1,3 @@
-import { fileURLToPath as __ftp } from 'url';
-import { dirname as __dn } from 'path';
-const __dirname = __dn(__ftp(import.meta.url));
 import { platform, release } from 'node:os';
 import { versions, env } from 'node:process';
 import { readFile } from 'node:fs/promises';
