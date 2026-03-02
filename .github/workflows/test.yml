@@ -19,22 +19,25 @@ jobs:
       - name: test-mjs
         run: node --test src/getUserAgent.spec.cjs
 
-  test-typescript:
+  test-typescript-dirname:
     runs-on: ubuntu-latest
     env:
-      TSC_VERSION: "5.9.3"
+      TSC_VERSION: "5.9.0-dev.20250731"
+      TSC_VERSION_UNSEEN: "5.9.3"
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
       - name: install
-        run: npm install
-          npm install -D -E typescript@$TSC_VERSION
+        run: |
+          npm install
+          npm install -D -E typescript@$TSC_VERSION --prefix ./src/__fixtures__/build
+          npm install -D -E typescript@$TSC_VERSION_UNSEEN
       - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs
       - name: test-mjs
         run: node --test src/getUserAgent.spec.mjs
 
-  test-typescript-prerelease:
+  test-typescript-process-cwd:
     runs-on: ubuntu-latest
     env:
       TSC_VERSION: "5.9.0-dev.20250731"
@@ -42,7 +45,8 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
       - name: install
-        run: npm install
+        run: |
+          npm install
           npm install -D -E typescript@$TSC_VERSION
       - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs
