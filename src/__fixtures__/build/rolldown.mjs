@@ -11168,31 +11168,33 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 		];
 		return prerelease ? `${major}.${minor}.${patch}-${prerelease}` : `${major}.${minor}.${patch}`;
 	};
-	const getTypeScriptPackageJsonPath = (dirname = "") => {
-		let nodeModulesPath;
+	const typescriptPackageJsonPath = node_path.join("node_modules", "typescript", "package.json");
+	const getTypeScriptPackageJsonPaths = (dirname) => {
+		const cwdPath = node_path.join(process.cwd(), typescriptPackageJsonPath);
+		if (!dirname) return [cwdPath];
+		const paths = [];
 		const parts = node_path.normalize(dirname).split(node_path.sep);
 		const nodeModulesIndex = parts.indexOf("node_modules");
-		if (nodeModulesIndex !== -1) nodeModulesPath = parts.slice(0, nodeModulesIndex).join(node_path.sep);
-		else nodeModulesPath = dirname;
-		return node_path.join(nodeModulesPath, "node_modules", "typescript", "package.json");
+		const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : dirname;
+		const parentDirPath = node_path.join(parentDir, typescriptPackageJsonPath);
+		paths.push(parentDirPath);
+		if (cwdPath !== parentDirPath) paths.push(cwdPath);
+		return paths;
 	};
 	let tscVersion;
 	const getTypeScriptUserAgentPair = async () => {
 		if (tscVersion === null) return;
 		else if (typeof tscVersion === "string") return ["md/tsc", tscVersion];
-		try {
-			const packageJson = await promises.readFile(getTypeScriptPackageJsonPath(__dirname), "utf-8");
+		const dirname = typeof __dirname !== "undefined" ? __dirname : void 0;
+		for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) try {
+			const packageJson = await promises.readFile(typescriptPackageJsonPath, "utf-8");
 			const { version } = JSON.parse(packageJson);
 			const sanitizedVersion = getSanitizedTypeScriptVersion(version);
-			if (typeof sanitizedVersion !== "string") {
-				tscVersion = null;
-				return;
-			}
+			if (typeof sanitizedVersion !== "string") continue;
 			tscVersion = sanitizedVersion;
 			return ["md/tsc", tscVersion];
-		} catch {
-			tscVersion = null;
-		}
+		} catch {}
+		tscVersion = null;
 	};
 	const crtAvailability = { isCrtAvailable: false };
 	const isCrtAvailable = () => {
