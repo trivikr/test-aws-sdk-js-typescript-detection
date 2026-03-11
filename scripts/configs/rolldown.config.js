@@ -6,17 +6,14 @@ import { getOutputDir } from "./utils/getOutputDir.js";
 import { getInputPath } from "./utils/getInputPath.js";
 import { getOutputFilename } from "./utils/getOutputFilename.js";
 
-const createConfig = (minify, moduleSystem) =>
+const createConfig = (moduleSystem) =>
   defineConfig({
     input: getInputPath(),
     output: {
-      file: join(
-        getOutputDir(),
-        getOutputFilename("rolldown", minify, moduleSystem),
-      ),
+      file: join(getOutputDir(), getOutputFilename("rolldown", moduleSystem)),
       format: moduleSystem,
       inlineDynamicImports: true,
-      minify,
+      minify: false,
       banner:
         moduleSystem === ModuleSystem.esm
           ? `
@@ -31,10 +28,8 @@ const __dirname = __dn(__ftp(import.meta.url));
   });
 
 const configs = [];
-for (const minify of [true, false]) {
-  for (const moduleSystem of Object.values(ModuleSystem)) {
-    configs.push(createConfig(minify, moduleSystem));
-  }
+for (const moduleSystem of Object.values(ModuleSystem)) {
+  configs.push(createConfig(moduleSystem));
 }
 
 export default configs;
