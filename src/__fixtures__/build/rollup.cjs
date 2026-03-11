@@ -31,17 +31,15 @@ const getTypeScriptPackageJsonPaths = (dirname) => {
     if (!dirname) {
         return [cwdPath];
     }
-    const paths = [];
     const normalizedPath = node_path.normalize(dirname);
     const parts = normalizedPath.split(node_path.sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
     const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : dirname;
     const parentDirPath = node_path.join(parentDir, typescriptPackageJsonPath);
-    paths.push(parentDirPath);
-    if (cwdPath !== parentDirPath) {
-        paths.push(cwdPath);
+    if (cwdPath === parentDirPath) {
+        return [cwdPath];
     }
-    return paths;
+    return [parentDirPath, cwdPath];
 };
 
 let tscVersion;
@@ -51,6 +49,10 @@ const getTypeScriptUserAgentPair = async () => {
     }
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
+    }
+    if (process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED) {
+        tscVersion = null;
+        return undefined;
     }
     const dirname = typeof __dirname !== "undefined" ? __dirname : undefined;
     for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {

@@ -42,7 +42,7 @@ var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
 //#endregion
 //#region node_modules/@smithy/types/dist-cjs/index.js
-var require_dist_cjs$25 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$27 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	exports.HttpAuthLocation = void 0;
 	(function(HttpAuthLocation) {
 		HttpAuthLocation["HEADER"] = "header";
@@ -125,14 +125,14 @@ var require_dist_cjs$25 = /* @__PURE__ */ __commonJSMin(((exports) => {
 //#region node_modules/@smithy/core/dist-es/getSmithyContext.js
 var import_dist_cjs$48, getSmithyContext$5;
 var init_getSmithyContext = __esmMin((() => {
-	import_dist_cjs$48 = require_dist_cjs$25();
+	import_dist_cjs$48 = require_dist_cjs$27();
 	getSmithyContext$5 = (context) => context[import_dist_cjs$48.SMITHY_CONTEXT_KEY] || (context[import_dist_cjs$48.SMITHY_CONTEXT_KEY] = {});
 }));
 
 //#endregion
 //#region node_modules/@smithy/util-middleware/dist-cjs/index.js
-var require_dist_cjs$24 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var types = require_dist_cjs$25();
+var require_dist_cjs$26 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var types = require_dist_cjs$27();
 	const getSmithyContext = (context) => context[types.SMITHY_CONTEXT_KEY] || (context[types.SMITHY_CONTEXT_KEY] = {});
 	const normalizeProvider = (input) => {
 		if (typeof input === "function") return input;
@@ -165,7 +165,7 @@ function convertHttpAuthSchemesToMap(httpAuthSchemes) {
 }
 var import_dist_cjs$47, httpAuthSchemeMiddleware;
 var init_httpAuthSchemeMiddleware = __esmMin((() => {
-	import_dist_cjs$47 = require_dist_cjs$24();
+	import_dist_cjs$47 = require_dist_cjs$26();
 	init_resolveAuthOptions();
 	httpAuthSchemeMiddleware = (config, mwOptions) => (next, context) => async (args) => {
 		const resolvedOptions = resolveAuthOptions(config.httpAuthSchemeProvider(await mwOptions.httpAuthSchemeParametersProvider(config, context, args.input)), config.authSchemePreference ? await config.authSchemePreference() : []);
@@ -221,8 +221,8 @@ var init_getHttpAuthSchemeEndpointRuleSetPlugin = __esmMin((() => {
 
 //#endregion
 //#region node_modules/@smithy/protocol-http/dist-cjs/index.js
-var require_dist_cjs$23 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var types = require_dist_cjs$25();
+var require_dist_cjs$25 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var types = require_dist_cjs$27();
 	const getHttpHandlerExtensionConfiguration = (runtimeConfig) => {
 		return {
 			setHttpHandler(handler) {
@@ -369,8 +369,8 @@ var require_dist_cjs$23 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/middleware-serde/dist-cjs/index.js
-var require_dist_cjs$22 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var protocolHttp = require_dist_cjs$23();
+var require_dist_cjs$24 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var protocolHttp = require_dist_cjs$25();
 	const serializerMiddlewareOption = {
 		name: "serializerMiddleware",
 		step: "serialize",
@@ -384,7 +384,7 @@ var require_dist_cjs$22 = /* @__PURE__ */ __commonJSMin(((exports) => {
 //#region node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js
 var import_dist_cjs$46, httpAuthSchemeMiddlewareOptions, getHttpAuthSchemePlugin;
 var init_getHttpAuthSchemePlugin = __esmMin((() => {
-	import_dist_cjs$46 = require_dist_cjs$22();
+	import_dist_cjs$46 = require_dist_cjs$24();
 	init_httpAuthSchemeMiddleware();
 	httpAuthSchemeMiddlewareOptions = {
 		step: "serialize",
@@ -414,8 +414,8 @@ var init_middleware_http_auth_scheme = __esmMin((() => {
 //#region node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js
 var import_dist_cjs$44, import_dist_cjs$45, defaultErrorHandler, defaultSuccessHandler, httpSigningMiddleware;
 var init_httpSigningMiddleware = __esmMin((() => {
-	import_dist_cjs$44 = require_dist_cjs$23();
-	import_dist_cjs$45 = require_dist_cjs$24();
+	import_dist_cjs$44 = require_dist_cjs$25();
+	import_dist_cjs$45 = require_dist_cjs$26();
 	defaultErrorHandler = (signingProperties) => (error) => {
 		throw error;
 	};
@@ -516,15 +516,15 @@ var init_createPaginator = __esmMin((() => {
 
 //#endregion
 //#region node_modules/@smithy/is-array-buffer/dist-cjs/index.js
-var require_dist_cjs$21 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$23 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	const isArrayBuffer = (arg) => typeof ArrayBuffer === "function" && arg instanceof ArrayBuffer || Object.prototype.toString.call(arg) === "[object ArrayBuffer]";
 	exports.isArrayBuffer = isArrayBuffer;
 }));
 
 //#endregion
 //#region node_modules/@smithy/util-buffer-from/dist-cjs/index.js
-var require_dist_cjs$20 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var isArrayBuffer = require_dist_cjs$21();
+var require_dist_cjs$22 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var isArrayBuffer = require_dist_cjs$23();
 	var buffer = __require("buffer");
 	const fromArrayBuffer = (input, offset = 0, length = input.byteLength - offset) => {
 		if (!isArrayBuffer.isArrayBuffer(input)) throw new TypeError(`The "input" argument must be ArrayBuffer. Received type ${typeof input} (${input})`);
@@ -543,7 +543,7 @@ var require_dist_cjs$20 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var require_fromBase64 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.fromBase64 = void 0;
-	const util_buffer_from_1 = require_dist_cjs$20();
+	const util_buffer_from_1 = require_dist_cjs$22();
 	const BASE64_REGEX = /^[A-Za-z0-9+/]*={0,2}$/;
 	const fromBase64 = (input) => {
 		if (input.length * 3 % 4 !== 0) throw new TypeError(`Incorrect padding on base64 string.`);
@@ -556,8 +556,8 @@ var require_fromBase64 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/util-utf8/dist-cjs/index.js
-var require_dist_cjs$19 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var utilBufferFrom = require_dist_cjs$20();
+var require_dist_cjs$21 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var utilBufferFrom = require_dist_cjs$22();
 	const fromUtf8 = (input) => {
 		const buf = utilBufferFrom.fromString(input, "utf8");
 		return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength / Uint8Array.BYTES_PER_ELEMENT);
@@ -582,8 +582,8 @@ var require_dist_cjs$19 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var require_toBase64 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.toBase64 = void 0;
-	const util_buffer_from_1 = require_dist_cjs$20();
-	const util_utf8_1 = require_dist_cjs$19();
+	const util_buffer_from_1 = require_dist_cjs$22();
+	const util_utf8_1 = require_dist_cjs$21();
 	const toBase64 = (_input) => {
 		let input;
 		if (typeof _input === "string") input = (0, util_utf8_1.fromUtf8)(_input);
@@ -596,7 +596,7 @@ var require_toBase64 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/util-base64/dist-cjs/index.js
-var require_dist_cjs$18 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$20 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	var fromBase64 = require_fromBase64();
 	var toBase64 = require_toBase64();
 	Object.prototype.hasOwnProperty.call(fromBase64, "__proto__") && !Object.prototype.hasOwnProperty.call(exports, "__proto__") && Object.defineProperty(exports, "__proto__", {
@@ -620,7 +620,7 @@ var require_dist_cjs$18 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var require_ChecksumStream = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.ChecksumStream = void 0;
-	const util_base64_1 = require_dist_cjs$18();
+	const util_base64_1 = require_dist_cjs$20();
 	const stream_1$3 = __require("stream");
 	var ChecksumStream = class extends stream_1$3.Duplex {
 		expectedChecksum;
@@ -701,7 +701,7 @@ var require_ChecksumStream_browser = /* @__PURE__ */ __commonJSMin(((exports) =>
 var require_createChecksumStream_browser = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.createChecksumStream = void 0;
-	const util_base64_1 = require_dist_cjs$18();
+	const util_base64_1 = require_dist_cjs$20();
 	const stream_type_check_1 = require_stream_type_check();
 	const ChecksumStream_browser_1 = require_ChecksumStream_browser();
 	const createChecksumStream = ({ expectedChecksum, checksum, source, checksumSourceLocation, base64Encoder }) => {
@@ -1065,7 +1065,7 @@ var require_headStream = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/util-uri-escape/dist-cjs/index.js
-var require_dist_cjs$17 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$19 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	const escapeUri = (uri) => encodeURIComponent(uri).replace(/[!'()*]/g, hexEncode);
 	const hexEncode = (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`;
 	const escapeUriPath = (uri) => uri.split("/").map(escapeUri).join("/");
@@ -1075,8 +1075,8 @@ var require_dist_cjs$17 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/querystring-builder/dist-cjs/index.js
-var require_dist_cjs$16 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var utilUriEscape = require_dist_cjs$17();
+var require_dist_cjs$18 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var utilUriEscape = require_dist_cjs$19();
 	function buildQueryString(query) {
 		const parts = [];
 		for (let key of Object.keys(query).sort()) {
@@ -1096,13 +1096,25 @@ var require_dist_cjs$16 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/node-http-handler/dist-cjs/index.js
-var require_dist_cjs$15 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var protocolHttp = require_dist_cjs$23();
-	var querystringBuilder = require_dist_cjs$16();
+var require_dist_cjs$17 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var protocolHttp = require_dist_cjs$25();
+	var querystringBuilder = require_dist_cjs$18();
 	var http = __require("http");
 	var https = __require("https");
 	var stream = __require("stream");
 	var http2 = __require("http2");
+	function buildAbortError(abortSignal) {
+		const reason = abortSignal && typeof abortSignal === "object" && "reason" in abortSignal ? abortSignal.reason : void 0;
+		if (reason) {
+			if (reason instanceof Error) return reason;
+			const abortError = new Error(String(reason));
+			abortError.name = "AbortError";
+			return abortError;
+		}
+		const abortError = /* @__PURE__ */ new Error("Request aborted");
+		abortError.name = "AbortError";
+		return abortError;
+	}
 	const NODEJS_TIMEOUT_ERROR_CODES = [
 		"ECONNRESET",
 		"EPIPE",
@@ -1331,9 +1343,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
 					_reject(arg);
 				};
 				if (abortSignal?.aborted) {
-					const abortError = /* @__PURE__ */ new Error("Request aborted");
-					abortError.name = "AbortError";
-					reject(abortError);
+					reject(buildAbortError(abortSignal));
 					return;
 				}
 				const isSSL = request.protocol === "https:";
@@ -1380,9 +1390,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
 				if (abortSignal) {
 					const onAbort = () => {
 						req.destroy();
-						const abortError = /* @__PURE__ */ new Error("Request aborted");
-						abortError.name = "AbortError";
-						reject(abortError);
+						reject(buildAbortError(abortSignal));
 					};
 					if (typeof abortSignal.addEventListener === "function") {
 						const signal = abortSignal;
@@ -1549,9 +1557,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
 				};
 				if (abortSignal?.aborted) {
 					fulfilled = true;
-					const abortError = /* @__PURE__ */ new Error("Request aborted");
-					abortError.name = "AbortError";
-					reject(abortError);
+					reject(buildAbortError(abortSignal));
 					return;
 				}
 				const { hostname, method, port, protocol, query } = request;
@@ -1600,9 +1606,7 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
 				if (abortSignal) {
 					const onAbort = () => {
 						req.close();
-						const abortError = /* @__PURE__ */ new Error("Request aborted");
-						abortError.name = "AbortError";
-						rejectWithDestroy(abortError);
+						rejectWithDestroy(buildAbortError(abortSignal));
 					};
 					if (typeof abortSignal.addEventListener === "function") {
 						const signal = abortSignal;
@@ -1693,10 +1697,10 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
 
 //#endregion
 //#region node_modules/@smithy/fetch-http-handler/dist-cjs/index.js
-var require_dist_cjs$14 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var protocolHttp = require_dist_cjs$23();
-	var querystringBuilder = require_dist_cjs$16();
-	var utilBase64 = require_dist_cjs$18();
+var require_dist_cjs$16 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var protocolHttp = require_dist_cjs$25();
+	var querystringBuilder = require_dist_cjs$18();
+	var utilBase64 = require_dist_cjs$20();
 	function createRequest(url, requestOptions) {
 		return new Request(url, requestOptions);
 	}
@@ -1732,8 +1736,7 @@ var require_dist_cjs$14 = /* @__PURE__ */ __commonJSMin(((exports) => {
 			const keepAlive = this.config.keepAlive === true;
 			const credentials = this.config.credentials;
 			if (abortSignal?.aborted) {
-				const abortError = /* @__PURE__ */ new Error("Request aborted");
-				abortError.name = "AbortError";
+				const abortError = buildAbortError(abortSignal);
 				return Promise.reject(abortError);
 			}
 			let path = request.path;
@@ -1777,9 +1780,7 @@ var require_dist_cjs$14 = /* @__PURE__ */ __commonJSMin(((exports) => {
 			}), requestTimeout(requestTimeoutInMs)];
 			if (abortSignal) raceOfPromises.push(new Promise((resolve, reject) => {
 				const onAbort = () => {
-					const abortError = /* @__PURE__ */ new Error("Request aborted");
-					abortError.name = "AbortError";
-					reject(abortError);
+					reject(buildAbortError(abortSignal));
 				};
 				if (typeof abortSignal.addEventListener === "function") {
 					const signal = abortSignal;
@@ -1800,6 +1801,18 @@ var require_dist_cjs$14 = /* @__PURE__ */ __commonJSMin(((exports) => {
 			return this.config ?? {};
 		}
 	};
+	function buildAbortError(abortSignal) {
+		const reason = abortSignal && typeof abortSignal === "object" && "reason" in abortSignal ? abortSignal.reason : void 0;
+		if (reason) {
+			if (reason instanceof Error) return reason;
+			const abortError = new Error(String(reason));
+			abortError.name = "AbortError";
+			return abortError;
+		}
+		const abortError = /* @__PURE__ */ new Error("Request aborted");
+		abortError.name = "AbortError";
+		return abortError;
+	}
 	const streamCollector = async (stream) => {
 		if (typeof Blob === "function" && stream instanceof Blob || stream.constructor?.name === "Blob") {
 			if (Blob.prototype.arrayBuffer !== void 0) return new Uint8Array(await stream.arrayBuffer());
@@ -1855,7 +1868,7 @@ var require_dist_cjs$14 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/util-hex-encoding/dist-cjs/index.js
-var require_dist_cjs$13 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$15 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	const SHORT_TO_HEX = {};
 	const HEX_TO_SHORT = {};
 	for (let i = 0; i < 256; i++) {
@@ -1888,10 +1901,10 @@ var require_dist_cjs$13 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var require_sdk_stream_mixin_browser = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.sdkStreamMixin = void 0;
-	const fetch_http_handler_1 = require_dist_cjs$14();
-	const util_base64_1 = require_dist_cjs$18();
-	const util_hex_encoding_1 = require_dist_cjs$13();
-	const util_utf8_1 = require_dist_cjs$19();
+	const fetch_http_handler_1 = require_dist_cjs$16();
+	const util_base64_1 = require_dist_cjs$20();
+	const util_hex_encoding_1 = require_dist_cjs$15();
+	const util_utf8_1 = require_dist_cjs$21();
 	const stream_type_check_1 = require_stream_type_check();
 	const ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED = "The stream has already been transformed.";
 	const sdkStreamMixin = (stream) => {
@@ -1937,8 +1950,8 @@ var require_sdk_stream_mixin_browser = /* @__PURE__ */ __commonJSMin(((exports) 
 var require_sdk_stream_mixin = /* @__PURE__ */ __commonJSMin(((exports) => {
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.sdkStreamMixin = void 0;
-	const node_http_handler_1 = require_dist_cjs$15();
-	const util_buffer_from_1 = require_dist_cjs$20();
+	const node_http_handler_1 = require_dist_cjs$17();
+	const util_buffer_from_1 = require_dist_cjs$22();
 	const stream_1$1 = __require("stream");
 	const sdk_stream_mixin_browser_1 = require_sdk_stream_mixin_browser();
 	const ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED = "The stream has already been transformed.";
@@ -2005,9 +2018,9 @@ var require_splitStream = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/util-stream/dist-cjs/index.js
-var require_dist_cjs$12 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var utilBase64 = require_dist_cjs$18();
-	var utilUtf8 = require_dist_cjs$19();
+var require_dist_cjs$14 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var utilBase64 = require_dist_cjs$20();
+	var utilUtf8 = require_dist_cjs$21();
 	var ChecksumStream = require_ChecksumStream();
 	var createChecksumStream = require_createChecksumStream();
 	var createBufferedReadable = require_createBufferedReadable();
@@ -2091,7 +2104,7 @@ var require_dist_cjs$12 = /* @__PURE__ */ __commonJSMin(((exports) => {
 //#region node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js
 var import_dist_cjs$43, collectBody$1;
 var init_collect_stream_body = __esmMin((() => {
-	import_dist_cjs$43 = require_dist_cjs$12();
+	import_dist_cjs$43 = require_dist_cjs$14();
 	collectBody$1 = async (streamBody = new Uint8Array(), context) => {
 		if (streamBody instanceof Uint8Array) return import_dist_cjs$43.Uint8ArrayBlobAdapter.mutate(streamBody);
 		if (!streamBody) return import_dist_cjs$43.Uint8ArrayBlobAdapter.mutate(new Uint8Array());
@@ -2136,8 +2149,8 @@ var init_operation = __esmMin((() => {
 //#region node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js
 var import_dist_cjs$41, import_dist_cjs$42, schemaDeserializationMiddleware, findHeader;
 var init_schemaDeserializationMiddleware = __esmMin((() => {
-	import_dist_cjs$41 = require_dist_cjs$23();
-	import_dist_cjs$42 = require_dist_cjs$24();
+	import_dist_cjs$41 = require_dist_cjs$25();
+	import_dist_cjs$42 = require_dist_cjs$26();
 	init_operation();
 	schemaDeserializationMiddleware = (config) => (next, context) => async (args) => {
 		const { response } = await next(args);
@@ -2196,7 +2209,7 @@ var init_schemaDeserializationMiddleware = __esmMin((() => {
 //#region node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js
 var import_dist_cjs$40, schemaSerializationMiddleware;
 var init_schemaSerializationMiddleware = __esmMin((() => {
-	import_dist_cjs$40 = require_dist_cjs$24();
+	import_dist_cjs$40 = require_dist_cjs$26();
 	init_operation();
 	schemaSerializationMiddleware = (config) => (next, context) => async (args) => {
 		const { operationSchema } = (0, import_dist_cjs$40.getSmithyContext)(context);
@@ -2578,7 +2591,7 @@ var init_NormalizedSchema = __esmMin((() => {
 				return member(isMemberSchema(memberSchema) ? memberSchema : [memberSchema, 0], memberName);
 			}
 			if (this.isDocumentSchema()) return member([15, 0], memberName);
-			throw new Error(`@smithy/core/schema - ${this.getName(true)} has no no member=${memberName}.`);
+			throw new Error(`@smithy/core/schema - ${this.getName(true)} has no member=${memberName}.`);
 		}
 		getMemberSchemas() {
 			const buffer = {};
@@ -3683,7 +3696,7 @@ var require_randomUUID = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/uuid/dist-cjs/index.js
-var require_dist_cjs$11 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$13 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	var randomUUID = require_randomUUID();
 	const decimalToHex = Array.from({ length: 256 }, (_, i) => i.toString(16).padStart(2, "0"));
 	const v4 = () => {
@@ -3701,7 +3714,7 @@ var require_dist_cjs$11 = /* @__PURE__ */ __commonJSMin(((exports) => {
 //#region node_modules/@smithy/core/dist-es/submodules/serde/generateIdempotencyToken.js
 var import_dist_cjs$39;
 var init_generateIdempotencyToken = __esmMin((() => {
-	import_dist_cjs$39 = require_dist_cjs$11();
+	import_dist_cjs$39 = require_dist_cjs$13();
 }));
 
 //#endregion
@@ -3994,7 +4007,7 @@ var init_SerdeContext = __esmMin((() => {
 //#region node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js
 var import_dist_cjs$38, EventStreamSerde;
 var init_EventStreamSerde = __esmMin((() => {
-	import_dist_cjs$38 = require_dist_cjs$19();
+	import_dist_cjs$38 = require_dist_cjs$21();
 	EventStreamSerde = class {
 		marshaller;
 		serializer;
@@ -4171,7 +4184,7 @@ var init_EventStreamSerde = __esmMin((() => {
 				} else if (eventSchema.isUnitSchema()) serializer.write(eventSchema, {});
 				else throw new Error("@smithy/core/event-streams - non-struct member not supported in event stream union.");
 			}
-			const messageSerialization = serializer.flush();
+			const messageSerialization = serializer.flush() ?? new Uint8Array();
 			return {
 				body: typeof messageSerialization === "string" ? (this.serdeContext?.utf8Decoder ?? import_dist_cjs$38.fromUtf8)(messageSerialization) : messageSerialization,
 				eventType,
@@ -4194,7 +4207,7 @@ var init_event_streams = __esmMin((() => {
 var import_dist_cjs$37, HttpProtocol;
 var init_HttpProtocol = __esmMin((() => {
 	init_schema();
-	import_dist_cjs$37 = require_dist_cjs$23();
+	import_dist_cjs$37 = require_dist_cjs$25();
 	init_SerdeContext();
 	HttpProtocol = class extends SerdeContext {
 		options;
@@ -4307,8 +4320,8 @@ var import_dist_cjs$35, import_dist_cjs$36, HttpBindingProtocol;
 var init_HttpBindingProtocol = __esmMin((() => {
 	init_schema();
 	init_serde();
-	import_dist_cjs$35 = require_dist_cjs$23();
-	import_dist_cjs$36 = require_dist_cjs$12();
+	import_dist_cjs$35 = require_dist_cjs$25();
+	import_dist_cjs$36 = require_dist_cjs$14();
 	init_collect_stream_body();
 	init_extended_encode_uri_component();
 	init_HttpProtocol();
@@ -4526,7 +4539,7 @@ var init_HttpBindingProtocol = __esmMin((() => {
 var import_dist_cjs$34, RpcProtocol;
 var init_RpcProtocol = __esmMin((() => {
 	init_schema();
-	import_dist_cjs$34 = require_dist_cjs$23();
+	import_dist_cjs$34 = require_dist_cjs$25();
 	init_collect_stream_body();
 	init_HttpProtocol();
 	RpcProtocol = class extends HttpProtocol {
@@ -4632,7 +4645,7 @@ function requestBuilder(input, context) {
 }
 var import_dist_cjs$33, RequestBuilder;
 var init_requestBuilder$1 = __esmMin((() => {
-	import_dist_cjs$33 = require_dist_cjs$23();
+	import_dist_cjs$33 = require_dist_cjs$25();
 	init_resolve_path();
 	RequestBuilder = class {
 		input;
@@ -4715,8 +4728,8 @@ var import_dist_cjs$31, import_dist_cjs$32, FromStringShapeDeserializer;
 var init_FromStringShapeDeserializer = __esmMin((() => {
 	init_schema();
 	init_serde();
-	import_dist_cjs$31 = require_dist_cjs$18();
-	import_dist_cjs$32 = require_dist_cjs$19();
+	import_dist_cjs$31 = require_dist_cjs$20();
+	import_dist_cjs$32 = require_dist_cjs$21();
 	init_SerdeContext();
 	init_determineTimestampFormat();
 	FromStringShapeDeserializer = class extends SerdeContext {
@@ -4763,7 +4776,7 @@ var init_FromStringShapeDeserializer = __esmMin((() => {
 var import_dist_cjs$30, HttpInterceptingShapeDeserializer;
 var init_HttpInterceptingShapeDeserializer = __esmMin((() => {
 	init_schema();
-	import_dist_cjs$30 = require_dist_cjs$19();
+	import_dist_cjs$30 = require_dist_cjs$21();
 	init_SerdeContext();
 	init_FromStringShapeDeserializer();
 	HttpInterceptingShapeDeserializer = class extends SerdeContext {
@@ -4805,7 +4818,7 @@ var import_dist_cjs$29, ToStringShapeSerializer;
 var init_ToStringShapeSerializer = __esmMin((() => {
 	init_schema();
 	init_serde();
-	import_dist_cjs$29 = require_dist_cjs$18();
+	import_dist_cjs$29 = require_dist_cjs$20();
 	init_SerdeContext();
 	init_determineTimestampFormat();
 	ToStringShapeSerializer = class extends SerdeContext {
@@ -4990,8 +5003,8 @@ var init_DefaultIdentityProviderConfig = __esmMin((() => {
 //#region node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js
 var import_dist_cjs$27, import_dist_cjs$28, HttpApiKeyAuthSigner;
 var init_httpApiKeyAuth = __esmMin((() => {
-	import_dist_cjs$27 = require_dist_cjs$23();
-	import_dist_cjs$28 = require_dist_cjs$25();
+	import_dist_cjs$27 = require_dist_cjs$25();
+	import_dist_cjs$28 = require_dist_cjs$27();
 	HttpApiKeyAuthSigner = class {
 		async sign(httpRequest, identity, signingProperties) {
 			if (!signingProperties) throw new Error("request could not be signed with `apiKey` since the `name` and `in` signer properties are missing");
@@ -5011,7 +5024,7 @@ var init_httpApiKeyAuth = __esmMin((() => {
 //#region node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js
 var import_dist_cjs$26, HttpBearerAuthSigner;
 var init_httpBearerAuth = __esmMin((() => {
-	import_dist_cjs$26 = require_dist_cjs$23();
+	import_dist_cjs$26 = require_dist_cjs$25();
 	HttpBearerAuthSigner = class {
 		async sign(httpRequest, identity, signingProperties) {
 			const clonedRequest = import_dist_cjs$26.HttpRequest.clone(httpRequest);
@@ -5136,8 +5149,8 @@ var init_dist_es$1 = __esmMin((() => {
 
 //#endregion
 //#region node_modules/@smithy/util-endpoints/dist-cjs/index.js
-var require_dist_cjs$10 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var types = require_dist_cjs$25();
+var require_dist_cjs$12 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var types = require_dist_cjs$27();
 	var EndpointCache = class {
 		capacity;
 		data = /* @__PURE__ */ new Map();
@@ -5487,7 +5500,7 @@ var require_dist_cjs$10 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/querystring-parser/dist-cjs/index.js
-var require_dist_cjs$9 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$11 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	function parseQueryString(querystring) {
 		const query = {};
 		querystring = querystring.replace(/^\?/, "");
@@ -5506,8 +5519,8 @@ var require_dist_cjs$9 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/url-parser/dist-cjs/index.js
-var require_dist_cjs$8 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var querystringParser = require_dist_cjs$9();
+var require_dist_cjs$10 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var querystringParser = require_dist_cjs$11();
 	const parseUrl = (url) => {
 		if (typeof url === "string") return parseUrl(new URL(url));
 		const { hostname, pathname, port, protocol, search } = url;
@@ -5526,9 +5539,9 @@ var require_dist_cjs$8 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@aws-sdk/util-endpoints/dist-cjs/index.js
-var require_dist_cjs$7 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var utilEndpoints = require_dist_cjs$10();
-	var urlParser = require_dist_cjs$8();
+var require_dist_cjs$9 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var utilEndpoints = require_dist_cjs$12();
+	var urlParser = require_dist_cjs$10();
 	const isVirtualHostableS3Bucket = (value, allowSubDomains = false) => {
 		if (allowSubDomains) {
 			for (const label of value.split(".")) if (!isVirtualHostableS3Bucket(label)) return false;
@@ -5841,7 +5854,7 @@ var init_client = __esmMin((() => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js
 var import_dist_cjs$25, getDateHeader;
 var init_getDateHeader = __esmMin((() => {
-	import_dist_cjs$25 = require_dist_cjs$23();
+	import_dist_cjs$25 = require_dist_cjs$25();
 	getDateHeader = (response) => import_dist_cjs$25.HttpResponse.isInstance(response) ? response.headers?.date ?? response.headers?.Date : void 0;
 }));
 
@@ -5884,7 +5897,7 @@ var init_utils = __esmMin((() => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js
 var import_dist_cjs$24, throwSigningPropertyError, validateSigningProperties, AwsSdkSigV4Signer, AWSSDKSigV4Signer;
 var init_AwsSdkSigV4Signer = __esmMin((() => {
-	import_dist_cjs$24 = require_dist_cjs$23();
+	import_dist_cjs$24 = require_dist_cjs$25();
 	init_utils();
 	throwSigningPropertyError = (name, property) => {
 		if (!property) throw new Error(`Property \`${name}\` is not resolved for AWS SDK SigV4Auth`);
@@ -5949,7 +5962,7 @@ var init_AwsSdkSigV4Signer = __esmMin((() => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js
 var import_dist_cjs$23, AwsSdkSigV4ASigner;
 var init_AwsSdkSigV4ASigner = __esmMin((() => {
-	import_dist_cjs$23 = require_dist_cjs$23();
+	import_dist_cjs$23 = require_dist_cjs$25();
 	init_utils();
 	init_AwsSdkSigV4Signer();
 	AwsSdkSigV4ASigner = class extends AwsSdkSigV4Signer {
@@ -6006,7 +6019,7 @@ var init_NODE_AUTH_SCHEME_PREFERENCE_OPTIONS = __esmMin((() => {
 
 //#endregion
 //#region node_modules/@smithy/property-provider/dist-cjs/index.js
-var require_dist_cjs$6 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$8 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	var ProviderError = class ProviderError extends Error {
 		name = "ProviderError";
 		tryNextLink;
@@ -6037,7 +6050,7 @@ var require_dist_cjs$6 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var import_dist_cjs$22, resolveAwsSdkSigV4AConfig, NODE_SIGV4A_CONFIG_OPTIONS;
 var init_resolveAwsSdkSigV4AConfig = __esmMin((() => {
 	init_dist_es$1();
-	import_dist_cjs$22 = require_dist_cjs$6();
+	import_dist_cjs$22 = require_dist_cjs$8();
 	resolveAwsSdkSigV4AConfig = (config) => {
 		config.sigv4aSigningRegionSet = normalizeProvider(config.sigv4aSigningRegionSet);
 		return config;
@@ -6057,13 +6070,13 @@ var init_resolveAwsSdkSigV4AConfig = __esmMin((() => {
 
 //#endregion
 //#region node_modules/@smithy/signature-v4/dist-cjs/index.js
-var require_dist_cjs$5 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var utilHexEncoding = require_dist_cjs$13();
-	var utilUtf8 = require_dist_cjs$19();
-	var isArrayBuffer = require_dist_cjs$21();
-	var protocolHttp = require_dist_cjs$23();
-	var utilMiddleware = require_dist_cjs$24();
-	var utilUriEscape = require_dist_cjs$17();
+var require_dist_cjs$7 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var utilHexEncoding = require_dist_cjs$15();
+	var utilUtf8 = require_dist_cjs$21();
+	var isArrayBuffer = require_dist_cjs$23();
+	var protocolHttp = require_dist_cjs$25();
+	var utilMiddleware = require_dist_cjs$26();
+	var utilUriEscape = require_dist_cjs$19();
 	const ALGORITHM_QUERY_PARAM = "X-Amz-Algorithm";
 	const CREDENTIAL_QUERY_PARAM = "X-Amz-Credential";
 	const AMZ_DATE_QUERY_PARAM = "X-Amz-Date";
@@ -6500,7 +6513,7 @@ var import_dist_cjs$21, resolveAwsSdkSigV4Config, resolveAWSSDKSigV4Config;
 var init_resolveAwsSdkSigV4Config = __esmMin((() => {
 	init_client();
 	init_dist_es$1();
-	import_dist_cjs$21 = require_dist_cjs$5();
+	import_dist_cjs$21 = require_dist_cjs$7();
 	resolveAwsSdkSigV4Config = (config) => {
 		let inputCredentials = config.credentials;
 		let isUserSupplied = !!config.credentials;
@@ -6933,7 +6946,7 @@ function castBigInt(bigInt) {
 var import_dist_cjs$20, USE_TEXT_DECODER, USE_BUFFER$1, payload, dataView$1, textDecoder, _offset, minorValueToArgumentLength;
 var init_cbor_decode = __esmMin((() => {
 	init_serde();
-	import_dist_cjs$20 = require_dist_cjs$19();
+	import_dist_cjs$20 = require_dist_cjs$21();
 	init_cbor_types();
 	USE_TEXT_DECODER = typeof TextDecoder !== "undefined";
 	USE_BUFFER$1 = typeof Buffer !== "undefined";
@@ -7117,7 +7130,7 @@ function encode(_input) {
 var import_dist_cjs$19, USE_BUFFER, data, dataView, cursor;
 var init_cbor_encode = __esmMin((() => {
 	init_serde();
-	import_dist_cjs$19 = require_dist_cjs$19();
+	import_dist_cjs$19 = require_dist_cjs$21();
 	init_cbor_types();
 	USE_BUFFER = typeof Buffer !== "undefined";
 	data = alloc(2048);
@@ -7184,7 +7197,7 @@ var init_CborCodec = __esmMin((() => {
 	init_protocols$1();
 	init_schema();
 	init_serde();
-	import_dist_cjs$18 = require_dist_cjs$18();
+	import_dist_cjs$18 = require_dist_cjs$20();
 	init_cbor$1();
 	init_parseCborBody();
 	CborCodec = class extends SerdeContext {
@@ -7287,21 +7300,16 @@ var init_CborCodec = __esmMin((() => {
 				if (ns.isListSchema()) {
 					const newArray = [];
 					const memberSchema = ns.getValueSchema();
-					const sparse = !!ns.getMergedTraits().sparse;
 					for (const item of value) {
 						const itemValue = this.readValue(memberSchema, item);
-						if (itemValue != null || sparse) newArray.push(itemValue);
+						newArray.push(itemValue);
 					}
 					return newArray;
 				}
 				const newObject = {};
 				if (ns.isMapSchema()) {
-					const sparse = !!ns.getMergedTraits().sparse;
 					const targetSchema = ns.getValueSchema();
-					for (const key of Object.keys(value)) {
-						const itemValue = this.readValue(targetSchema, value[key]);
-						if (itemValue != null || sparse) newObject[key] = itemValue;
-					}
+					for (const key of Object.keys(value)) newObject[key] = this.readValue(targetSchema, value[key]);
 				} else if (ns.isStructSchema()) {
 					const isUnion = ns.isUnionSchema();
 					let keys;
@@ -7329,7 +7337,7 @@ var import_dist_cjs$17, SmithyRpcV2CborProtocol;
 var init_SmithyRpcV2CborProtocol = __esmMin((() => {
 	init_protocols$1();
 	init_schema();
-	import_dist_cjs$17 = require_dist_cjs$24();
+	import_dist_cjs$17 = require_dist_cjs$26();
 	init_CborCodec();
 	init_parseCborBody();
 	SmithyRpcV2CborProtocol = class extends RpcProtocol {
@@ -7428,7 +7436,7 @@ var init_cbor = __esmMin((() => {
 
 //#endregion
 //#region node_modules/@smithy/middleware-stack/dist-cjs/index.js
-var require_dist_cjs$4 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$6 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	const getAllAliases = (name, aliases) => {
 		const _aliases = [];
 		if (name) _aliases.push(name);
@@ -7647,10 +7655,10 @@ var require_dist_cjs$4 = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@smithy/smithy-client/dist-cjs/index.js
-var require_dist_cjs$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
-	var middlewareStack = require_dist_cjs$4();
+var require_dist_cjs$5 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var middlewareStack = require_dist_cjs$6();
 	var protocols = (init_protocols$1(), __toCommonJS(protocols_exports));
-	var types = require_dist_cjs$25();
+	var types = require_dist_cjs$27();
 	var schema = (init_schema(), __toCommonJS(schema_exports));
 	var serde = (init_serde(), __toCommonJS(serde_exports));
 	var Client = class {
@@ -8145,7 +8153,7 @@ var require_dist_cjs$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var import_dist_cjs$16, ProtocolLib;
 var init_ProtocolLib = __esmMin((() => {
 	init_schema();
-	import_dist_cjs$16 = require_dist_cjs$3();
+	import_dist_cjs$16 = require_dist_cjs$5();
 	ProtocolLib = class {
 		queryCompat;
 		constructor(queryCompat = false) {
@@ -8395,8 +8403,8 @@ var init_jsonReviver = __esmMin((() => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js
 var import_dist_cjs$14, import_dist_cjs$15, collectBodyString;
 var init_common = __esmMin((() => {
-	import_dist_cjs$14 = require_dist_cjs$3();
-	import_dist_cjs$15 = require_dist_cjs$19();
+	import_dist_cjs$14 = require_dist_cjs$5();
+	import_dist_cjs$15 = require_dist_cjs$21();
 	collectBodyString = (streamBody, context) => (0, import_dist_cjs$14.collectBody)(streamBody, context).then((body) => (context?.utf8Encoder ?? import_dist_cjs$15.toUtf8)(body));
 }));
 
@@ -8446,7 +8454,7 @@ var init_JsonShapeDeserializer = __esmMin((() => {
 	init_protocols$1();
 	init_schema();
 	init_serde();
-	import_dist_cjs$13 = require_dist_cjs$18();
+	import_dist_cjs$13 = require_dist_cjs$20();
 	init_ConfigurableSerdeContext();
 	init_UnionSerde();
 	init_jsonReviver();
@@ -8495,15 +8503,13 @@ var init_JsonShapeDeserializer = __esmMin((() => {
 				if (Array.isArray(value) && ns.isListSchema()) {
 					const listMember = ns.getValueSchema();
 					const out = [];
-					const sparse = !!ns.getMergedTraits().sparse;
-					for (const item of value) if (sparse || item != null) out.push(this._read(listMember, item));
+					for (const item of value) out.push(this._read(listMember, item));
 					return out;
 				}
 				if (ns.isMapSchema()) {
 					const mapMember = ns.getValueSchema();
 					const out = {};
-					const sparse = !!ns.getMergedTraits().sparse;
-					for (const [_k, _v] of Object.entries(value)) if (sparse || _v != null) out[_k] = this._read(mapMember, _v);
+					for (const [_k, _v] of Object.entries(value)) out[_k] = this._read(mapMember, _v);
 					return out;
 				}
 			}
@@ -8594,7 +8600,7 @@ var init_JsonShapeSerializer = __esmMin((() => {
 	init_protocols$1();
 	init_schema();
 	init_serde();
-	import_dist_cjs$12 = require_dist_cjs$18();
+	import_dist_cjs$12 = require_dist_cjs$20();
 	init_ConfigurableSerdeContext();
 	init_jsonReplacer();
 	JsonShapeSerializer = class extends SerdeContextConfig {
@@ -8939,7 +8945,7 @@ var init_AwsRestJsonProtocol = __esmMin((() => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/awsExpectUnion.js
 var import_dist_cjs$11, awsExpectUnion;
 var init_awsExpectUnion = __esmMin((() => {
-	import_dist_cjs$11 = require_dist_cjs$3();
+	import_dist_cjs$11 = require_dist_cjs$5();
 	awsExpectUnion = (value) => {
 		if (value == null) return;
 		if (typeof value === "object" && "__type" in value) delete value.__type;
@@ -8965,9 +8971,9 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			}
 		}, e = {};
 		t.r(e), t.d(e, {
-			XMLBuilder: () => dt,
+			XMLBuilder: () => gt,
 			XMLParser: () => it,
-			XMLValidator: () => gt
+			XMLValidator: () => xt
 		});
 		const i = new RegExp("^[:A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD][:A-Za-z_\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD\\-.\\d\\u00B7\\u0300-\\u036F\\u203F-\\u2040]*$");
 		function s(t, e) {
@@ -8993,75 +8999,75 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			const n = [];
 			let i = !1, s = !1;
 			"﻿" === t[0] && (t = t.substr(1));
-			for (let o = 0; o < t.length; o++) if ("<" === t[o] && "?" === t[o + 1]) {
-				if (o += 2, o = u(t, o), o.err) return o;
+			for (let r = 0; r < t.length; r++) if ("<" === t[r] && "?" === t[r + 1]) {
+				if (r += 2, r = u(t, r), r.err) return r;
 			} else {
-				if ("<" !== t[o]) {
-					if (l(t[o])) continue;
-					return m("InvalidChar", "char '" + t[o] + "' is not expected.", b(t, o));
+				if ("<" !== t[r]) {
+					if (l(t[r])) continue;
+					return m("InvalidChar", "char '" + t[r] + "' is not expected.", N(t, r));
 				}
 				{
-					let a = o;
-					if (o++, "!" === t[o]) {
-						o = h(t, o);
+					let o = r;
+					if (r++, "!" === t[r]) {
+						r = d(t, r);
 						continue;
 					}
 					{
-						let d = !1;
-						"/" === t[o] && (d = !0, o++);
-						let p = "";
-						for (; o < t.length && ">" !== t[o] && " " !== t[o] && "	" !== t[o] && "\n" !== t[o] && "\r" !== t[o]; o++) p += t[o];
-						if (p = p.trim(), "/" === p[p.length - 1] && (p = p.substring(0, p.length - 1), o--), !r(p)) {
+						let a = !1;
+						"/" === t[r] && (a = !0, r++);
+						let h = "";
+						for (; r < t.length && ">" !== t[r] && " " !== t[r] && "	" !== t[r] && "\n" !== t[r] && "\r" !== t[r]; r++) h += t[r];
+						if (h = h.trim(), "/" === h[h.length - 1] && (h = h.substring(0, h.length - 1), r--), !b(h)) {
 							let e;
-							return e = 0 === p.trim().length ? "Invalid space after '<'." : "Tag '" + p + "' is an invalid name.", m("InvalidTag", e, b(t, o));
+							return e = 0 === h.trim().length ? "Invalid space after '<'." : "Tag '" + h + "' is an invalid name.", m("InvalidTag", e, N(t, r));
 						}
-						const c = f(t, o);
-						if (!1 === c) return m("InvalidAttr", "Attributes for '" + p + "' have open quote.", b(t, o));
-						let E = c.value;
-						if (o = c.index, "/" === E[E.length - 1]) {
-							const n = o - E.length;
-							E = E.substring(0, E.length - 1);
-							const s = g(E, e);
-							if (!0 !== s) return m(s.err.code, s.err.msg, b(t, n + s.err.line));
+						const p = c(t, r);
+						if (!1 === p) return m("InvalidAttr", "Attributes for '" + h + "' have open quote.", N(t, r));
+						let f = p.value;
+						if (r = p.index, "/" === f[f.length - 1]) {
+							const n = r - f.length;
+							f = f.substring(0, f.length - 1);
+							const s = g(f, e);
+							if (!0 !== s) return m(s.err.code, s.err.msg, N(t, n + s.err.line));
 							i = !0;
-						} else if (d) {
-							if (!c.tagClosed) return m("InvalidTag", "Closing tag '" + p + "' doesn't have proper closing.", b(t, o));
-							if (E.trim().length > 0) return m("InvalidTag", "Closing tag '" + p + "' can't have attributes or invalid starting.", b(t, a));
-							if (0 === n.length) return m("InvalidTag", "Closing tag '" + p + "' has not been opened.", b(t, a));
+						} else if (a) {
+							if (!p.tagClosed) return m("InvalidTag", "Closing tag '" + h + "' doesn't have proper closing.", N(t, r));
+							if (f.trim().length > 0) return m("InvalidTag", "Closing tag '" + h + "' can't have attributes or invalid starting.", N(t, o));
+							if (0 === n.length) return m("InvalidTag", "Closing tag '" + h + "' has not been opened.", N(t, o));
 							{
 								const e = n.pop();
-								if (p !== e.tagName) {
-									let n = b(t, e.tagStartPos);
-									return m("InvalidTag", "Expected closing tag '" + e.tagName + "' (opened in line " + n.line + ", col " + n.col + ") instead of closing tag '" + p + "'.", b(t, a));
+								if (h !== e.tagName) {
+									let n = N(t, e.tagStartPos);
+									return m("InvalidTag", "Expected closing tag '" + e.tagName + "' (opened in line " + n.line + ", col " + n.col + ") instead of closing tag '" + h + "'.", N(t, o));
 								}
 								0 == n.length && (s = !0);
 							}
 						} else {
-							const r = g(E, e);
-							if (!0 !== r) return m(r.err.code, r.err.msg, b(t, o - E.length + r.err.line));
-							if (!0 === s) return m("InvalidXml", "Multiple possible root nodes found.", b(t, o));
-							-1 !== e.unpairedTags.indexOf(p) || n.push({
-								tagName: p,
-								tagStartPos: a
+							const a = g(f, e);
+							if (!0 !== a) return m(a.err.code, a.err.msg, N(t, r - f.length + a.err.line));
+							if (!0 === s) return m("InvalidXml", "Multiple possible root nodes found.", N(t, r));
+							-1 !== e.unpairedTags.indexOf(h) || n.push({
+								tagName: h,
+								tagStartPos: o
 							}), i = !0;
 						}
-						for (o++; o < t.length; o++) if ("<" === t[o]) {
-							if ("!" === t[o + 1]) {
-								o++, o = h(t, o);
+						for (r++; r < t.length; r++) if ("<" === t[r]) {
+							if ("!" === t[r + 1]) {
+								r++, r = d(t, r);
 								continue;
 							}
-							if ("?" !== t[o + 1]) break;
-							if (o = u(t, ++o), o.err) return o;
-						} else if ("&" === t[o]) {
-							const e = x(t, o);
-							if (-1 == e) return m("InvalidChar", "char '&' is not expected.", b(t, o));
-							o = e;
-						} else if (!0 === s && !l(t[o])) return m("InvalidXml", "Extra text at the end", b(t, o));
-						"<" === t[o] && o--;
+							if ("?" !== t[r + 1]) break;
+							if (r = u(t, ++r), r.err) return r;
+						} else if ("&" === t[r]) {
+							const e = x(t, r);
+							if (-1 == e) return m("InvalidChar", "char '&' is not expected.", N(t, r));
+							r = e;
+						} else if (!0 === s && !l(t[r])) return m("InvalidXml", "Extra text at the end", N(t, r));
+						"<" === t[r] && r--;
 					}
 				}
 			}
-			return i ? 1 == n.length ? m("InvalidTag", "Unclosed tag '" + n[0].tagName + "'.", b(t, n[0].tagStartPos)) : !(n.length > 0) || m("InvalidXml", "Invalid '" + JSON.stringify(n.map(((t) => t.tagName)), null, 4).replace(/\r?\n/g, "") + "' found.", {
+			return i ? 1 == n.length ? m("InvalidTag", "Unclosed tag '" + n[0].tagName + "'.", N(t, n[0].tagStartPos)) : !(n.length > 0) || m("InvalidXml", "Invalid '" + JSON.stringify(n.map((t) => t.tagName), null, 4).replace(/\r?\n/g, "") + "' found.", {
 				line: 1,
 				col: 1
 			}) : m("InvalidXml", "Start tag expected.", 1);
@@ -9071,18 +9077,18 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		}
 		function u(t, e) {
 			const n = e;
-			for (; e < t.length; e++) if ("?" != t[e] && " " != t[e]);
-			else {
+			for (; e < t.length; e++) if ("?" == t[e] || " " == t[e]) {
 				const i = t.substr(n, e - n);
-				if (e > 5 && "xml" === i) return m("InvalidXml", "XML declaration allowed only at the start of the document.", b(t, e));
+				if (e > 5 && "xml" === i) return m("InvalidXml", "XML declaration allowed only at the start of the document.", N(t, e));
 				if ("?" == t[e] && ">" == t[e + 1]) {
 					e++;
 					break;
 				}
+				continue;
 			}
 			return e;
 		}
-		function h(t, e) {
+		function d(t, e) {
 			if (t.length > e + 5 && "-" === t[e + 1] && "-" === t[e + 2]) {
 				for (e += 3; e < t.length; e++) if ("-" === t[e] && "-" === t[e + 1] && ">" === t[e + 2]) {
 					e += 2;
@@ -9100,11 +9106,11 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			}
 			return e;
 		}
-		const d = "\"", p = "'";
-		function f(t, e) {
+		const h = "\"", p = "'";
+		function c(t, e) {
 			let n = "", i = "", s = !1;
 			for (; e < t.length; e++) {
-				if (t[e] === d || t[e] === p) "" === i ? i = t[e] : i !== t[e] || (i = "");
+				if (t[e] === h || t[e] === p) "" === i ? i = t[e] : i !== t[e] || (i = "");
 				else if (">" === t[e] && "" === i) {
 					s = !0;
 					break;
@@ -9117,16 +9123,16 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				tagClosed: s
 			};
 		}
-		const c = /* @__PURE__ */ new RegExp("(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['\"])(([\\s\\S])*?)\\5)?", "g");
+		const f = /* @__PURE__ */ new RegExp("(\\s*)([^\\s=]+)(\\s*=)?(\\s*(['\"])(([\\s\\S])*?)\\5)?", "g");
 		function g(t, e) {
-			const n = s(t, c), i = {};
+			const n = s(t, f), i = {};
 			for (let t = 0; t < n.length; t++) {
-				if (0 === n[t][1].length) return m("InvalidAttr", "Attribute '" + n[t][2] + "' has no space in starting.", N(n[t]));
-				if (void 0 !== n[t][3] && void 0 === n[t][4]) return m("InvalidAttr", "Attribute '" + n[t][2] + "' is without value.", N(n[t]));
-				if (void 0 === n[t][3] && !e.allowBooleanAttributes) return m("InvalidAttr", "boolean attribute '" + n[t][2] + "' is not allowed.", N(n[t]));
+				if (0 === n[t][1].length) return m("InvalidAttr", "Attribute '" + n[t][2] + "' has no space in starting.", y(n[t]));
+				if (void 0 !== n[t][3] && void 0 === n[t][4]) return m("InvalidAttr", "Attribute '" + n[t][2] + "' is without value.", y(n[t]));
+				if (void 0 === n[t][3] && !e.allowBooleanAttributes) return m("InvalidAttr", "boolean attribute '" + n[t][2] + "' is not allowed.", y(n[t]));
 				const s = n[t][2];
-				if (!E(s)) return m("InvalidAttr", "Attribute '" + s + "' is an invalid name.", N(n[t]));
-				if (i.hasOwnProperty(s)) return m("InvalidAttr", "Attribute '" + s + "' is repeated.", N(n[t]));
+				if (!E(s)) return m("InvalidAttr", "Attribute '" + s + "' is an invalid name.", y(n[t]));
+				if (Object.prototype.hasOwnProperty.call(i, s)) return m("InvalidAttr", "Attribute '" + s + "' is repeated.", y(n[t]));
 				i[s] = 1;
 			}
 			return !0;
@@ -9159,17 +9165,20 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		function E(t) {
 			return r(t);
 		}
-		function b(t, e) {
+		function b(t) {
+			return r(t);
+		}
+		function N(t, e) {
 			const n = t.substring(0, e).split(/\r?\n/);
 			return {
 				line: n.length,
 				col: n[n.length - 1].length + 1
 			};
 		}
-		function N(t) {
+		function y(t) {
 			return t.startIndex + t[1].length;
 		}
-		const y = {
+		const T = {
 			preserveOrder: !1,
 			attributeNamePrefix: "@_",
 			attributesGroupName: !1,
@@ -9206,9 +9215,11 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			updateTag: function(t, e, n) {
 				return t;
 			},
-			captureMetaData: !1
+			captureMetaData: !1,
+			maxNestedTags: 100,
+			strictReservedNames: !0
 		};
-		function T(t) {
+		function w(t) {
 			return "boolean" == typeof t ? {
 				enabled: t,
 				maxEntitySize: 1e4,
@@ -9225,17 +9236,17 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				maxExpandedLength: t.maxExpandedLength ?? 1e5,
 				allowedTags: t.allowedTags ?? null,
 				tagFilter: t.tagFilter ?? null
-			} : T(!0);
+			} : w(!0);
 		}
-		const w = function(t) {
-			const e = Object.assign({}, y, t);
-			return e.processEntities = T(e.processEntities), e;
+		const v = function(t) {
+			const e = Object.assign({}, T, t);
+			return e.processEntities = w(e.processEntities), e;
 		};
-		let v;
-		v = "function" != typeof Symbol ? "@@xmlMetadata" : Symbol("XML Node Metadata");
+		let O;
+		O = "function" != typeof Symbol ? "@@xmlMetadata" : Symbol("XML Node Metadata");
 		class I {
 			constructor(t) {
-				this.tagname = t, this.child = [], this[":@"] = {};
+				this.tagname = t, this.child = [], this[":@"] = Object.create(null);
 			}
 			add(t, e) {
 				"__proto__" === t && (t = "#__proto__"), this.child.push({ [t]: e });
@@ -9244,18 +9255,18 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				"__proto__" === t.tagname && (t.tagname = "#__proto__"), t[":@"] && Object.keys(t[":@"]).length > 0 ? this.child.push({
 					[t.tagname]: t.child,
 					":@": t[":@"]
-				}) : this.child.push({ [t.tagname]: t.child }), void 0 !== e && (this.child[this.child.length - 1][v] = { startIndex: e });
+				}) : this.child.push({ [t.tagname]: t.child }), void 0 !== e && (this.child[this.child.length - 1][O] = { startIndex: e });
 			}
 			static getMetaDataSymbol() {
-				return v;
+				return O;
 			}
 		}
-		class O {
+		class P {
 			constructor(t) {
 				this.suppressValidationErr = !t, this.options = t;
 			}
 			readDocType(t, e) {
-				const n = {};
+				const n = Object.create(null);
 				if ("O" !== t[e + 3] || "C" !== t[e + 4] || "T" !== t[e + 5] || "Y" !== t[e + 6] || "P" !== t[e + 7] || "E" !== t[e + 8]) throw new Error("Invalid Tag instead of DOCTYPE");
 				{
 					e += 9;
@@ -9264,7 +9275,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 						if (r ? "-" === t[e - 1] && "-" === t[e - 2] && (r = !1, i--) : i--, 0 === i) break;
 					} else "[" === t[e] ? s = !0 : o += t[e];
 					else {
-						if (s && A(t, "!ENTITY", e)) {
+						if (s && S(t, "!ENTITY", e)) {
 							let i, s;
 							if (e += 7, [i, s, e] = this.readEntityExp(t, e + 1, this.suppressValidationErr), -1 === s.indexOf("&")) {
 								const t = i.replace(/[.\-+*:]/g, "\\.");
@@ -9273,17 +9284,17 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 									val: s
 								};
 							}
-						} else if (s && A(t, "!ELEMENT", e)) {
+						} else if (s && S(t, "!ELEMENT", e)) {
 							e += 8;
 							const { index: n } = this.readElementExp(t, e + 1);
 							e = n;
-						} else if (s && A(t, "!ATTLIST", e)) e += 8;
-						else if (s && A(t, "!NOTATION", e)) {
+						} else if (s && S(t, "!ATTLIST", e)) e += 8;
+						else if (s && S(t, "!NOTATION", e)) {
 							e += 9;
 							const { index: n } = this.readNotationExp(t, e + 1, this.suppressValidationErr);
 							e = n;
 						} else {
-							if (!A(t, "!--", e)) throw new Error("Invalid DOCTYPE");
+							if (!S(t, "!--", e)) throw new Error("Invalid DOCTYPE");
 							r = !0;
 						}
 						i++, o = "";
@@ -9296,10 +9307,10 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				};
 			}
 			readEntityExp(t, e) {
-				e = P(t, e);
+				e = A(t, e);
 				let n = "";
 				for (; e < t.length && !/\s/.test(t[e]) && "\"" !== t[e] && "'" !== t[e];) n += t[e], e++;
-				if (S(n), e = P(t, e), !this.suppressValidationErr) {
+				if (C(n), e = A(t, e), !this.suppressValidationErr) {
 					if ("SYSTEM" === t.substring(e, e + 6).toUpperCase()) throw new Error("External entities are not supported");
 					if ("%" === t[e]) throw new Error("Parameter entities are not supported");
 				}
@@ -9312,15 +9323,15 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				];
 			}
 			readNotationExp(t, e) {
-				e = P(t, e);
+				e = A(t, e);
 				let n = "";
 				for (; e < t.length && !/\s/.test(t[e]);) n += t[e], e++;
-				!this.suppressValidationErr && S(n), e = P(t, e);
+				!this.suppressValidationErr && C(n), e = A(t, e);
 				const i = t.substring(e, e + 6).toUpperCase();
 				if (!this.suppressValidationErr && "SYSTEM" !== i && "PUBLIC" !== i) throw new Error(`Expected SYSTEM or PUBLIC, found "${i}"`);
-				e += i.length, e = P(t, e);
+				e += i.length, e = A(t, e);
 				let s = null, r = null;
-				if ("PUBLIC" === i) [e, s] = this.readIdentifierVal(t, e, "publicIdentifier"), "\"" !== t[e = P(t, e)] && "'" !== t[e] || ([e, r] = this.readIdentifierVal(t, e, "systemIdentifier"));
+				if ("PUBLIC" === i) [e, s] = this.readIdentifierVal(t, e, "publicIdentifier"), "\"" !== t[e = A(t, e)] && "'" !== t[e] || ([e, r] = this.readIdentifierVal(t, e, "systemIdentifier"));
 				else if ("SYSTEM" === i && ([e, r] = this.readIdentifierVal(t, e, "systemIdentifier"), !this.suppressValidationErr && !r)) throw new Error("Missing mandatory system identifier for SYSTEM notation");
 				return {
 					notationName: n,
@@ -9338,13 +9349,13 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				return [++e, i];
 			}
 			readElementExp(t, e) {
-				e = P(t, e);
+				e = A(t, e);
 				let n = "";
 				for (; e < t.length && !/\s/.test(t[e]);) n += t[e], e++;
 				if (!this.suppressValidationErr && !r(n)) throw new Error(`Invalid element name: "${n}"`);
 				let i = "";
-				if ("E" === t[e = P(t, e)] && A(t, "MPTY", e)) e += 4;
-				else if ("A" === t[e] && A(t, "NY", e)) e += 2;
+				if ("E" === t[e = A(t, e)] && S(t, "MPTY", e)) e += 4;
+				else if ("A" === t[e] && S(t, "NY", e)) e += 2;
 				else if ("(" === t[e]) {
 					for (e++; e < t.length && ")" !== t[e];) i += t[e], e++;
 					if (")" !== t[e]) throw new Error("Unterminated content model");
@@ -9356,24 +9367,24 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				};
 			}
 			readAttlistExp(t, e) {
-				e = P(t, e);
+				e = A(t, e);
 				let n = "";
 				for (; e < t.length && !/\s/.test(t[e]);) n += t[e], e++;
-				S(n), e = P(t, e);
+				C(n), e = A(t, e);
 				let i = "";
 				for (; e < t.length && !/\s/.test(t[e]);) i += t[e], e++;
-				if (!S(i)) throw new Error(`Invalid attribute name: "${i}"`);
-				e = P(t, e);
+				if (!C(i)) throw new Error(`Invalid attribute name: "${i}"`);
+				e = A(t, e);
 				let s = "";
 				if ("NOTATION" === t.substring(e, e + 8).toUpperCase()) {
-					if (s = "NOTATION", "(" !== t[e = P(t, e += 8)]) throw new Error(`Expected '(', found "${t[e]}"`);
+					if (s = "NOTATION", "(" !== t[e = A(t, e += 8)]) throw new Error(`Expected '(', found "${t[e]}"`);
 					e++;
 					let n = [];
 					for (; e < t.length && ")" !== t[e];) {
 						let i = "";
 						for (; e < t.length && "|" !== t[e] && ")" !== t[e];) i += t[e], e++;
-						if (i = i.trim(), !S(i)) throw new Error(`Invalid notation name: "${i}"`);
-						n.push(i), "|" === t[e] && (e++, e = P(t, e));
+						if (i = i.trim(), !C(i)) throw new Error(`Invalid notation name: "${i}"`);
+						n.push(i), "|" === t[e] && (e++, e = A(t, e));
 					}
 					if (")" !== t[e]) throw new Error("Unterminated list of notations");
 					e++, s += " (" + n.join("|") + ")";
@@ -9390,7 +9401,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 						"NMTOKENS"
 					].includes(s.toUpperCase())) throw new Error(`Invalid attribute type: "${s}"`);
 				}
-				e = P(t, e);
+				e = A(t, e);
 				let r = "";
 				return "#REQUIRED" === t.substring(e, e + 8).toUpperCase() ? (r = "#REQUIRED", e += 8) : "#IMPLIED" === t.substring(e, e + 7).toUpperCase() ? (r = "#IMPLIED", e += 7) : [e, r] = this.readIdentifierVal(t, e, "ATTLIST"), {
 					elementName: n,
@@ -9401,35 +9412,28 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				};
 			}
 		}
-		const P = (t, e) => {
+		const A = (t, e) => {
 			for (; e < t.length && /\s/.test(t[e]);) e++;
 			return e;
 		};
-		function A(t, e, n) {
+		function S(t, e, n) {
 			for (let i = 0; i < e.length; i++) if (e[i] !== t[n + i + 1]) return !1;
 			return !0;
 		}
-		function S(t) {
+		function C(t) {
 			if (r(t)) return t;
 			throw new Error(`Invalid entity name ${t}`);
 		}
-		const C = /^[-+]?0x[a-fA-F0-9]+$/, $ = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/, V = {
+		const $ = /^[-+]?0x[a-fA-F0-9]+$/, V = /^([\-\+])?(0*)([0-9]*(\.[0-9]*)?)$/, D = {
 			hex: !0,
 			leadingZeros: !0,
 			decimalPoint: ".",
 			eNotation: !0
 		};
-		const D = /^([-+])?(0*)(\d*(\.\d*)?[eE][-\+]?\d+)$/;
-		function L(t) {
-			return "function" == typeof t ? t : Array.isArray(t) ? (e) => {
-				for (const n of t) {
-					if ("string" == typeof n && e === n) return !0;
-					if (n instanceof RegExp && n.test(e)) return !0;
-				}
-			} : () => !1;
-		}
-		class F {
+		const j = /^([-+])?(0*)(\d*(\.\d*)?[eE][-\+]?\d+)$/;
+		class L {
 			constructor(t) {
+				var e;
 				if (this.options = t, this.currentNode = null, this.tagsNodeStack = [], this.docTypeEntities = {}, this.lastEntities = {
 					apos: {
 						regex: /&(apos|#39|#x27);/g,
@@ -9491,7 +9495,12 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 						regex: /&#x([0-9a-fA-F]{1,6});/g,
 						val: (t, e) => K(e, 16, "&#x")
 					}
-				}, this.addExternalEntities = j, this.parseXml = B, this.parseTextData = M, this.resolveNameSpace = _, this.buildAttributesMap = U, this.isItStopNode = X, this.replaceEntitiesValue = Y, this.readStopNodeData = q, this.saveTextToParentTag = G, this.addChild = R, this.ignoreAttributesFn = L(this.options.ignoreAttributes), this.entityExpansionCount = 0, this.currentExpandedLength = 0, this.options.stopNodes && this.options.stopNodes.length > 0) {
+				}, this.addExternalEntities = F, this.parseXml = R, this.parseTextData = M, this.resolveNameSpace = k, this.buildAttributesMap = U, this.isItStopNode = X, this.replaceEntitiesValue = Y, this.readStopNodeData = q, this.saveTextToParentTag = G, this.addChild = B, this.ignoreAttributesFn = "function" == typeof (e = this.options.ignoreAttributes) ? e : Array.isArray(e) ? (t) => {
+					for (const n of e) {
+						if ("string" == typeof n && t === n) return !0;
+						if (n instanceof RegExp && n.test(t)) return !0;
+					}
+				} : () => !1, this.entityExpansionCount = 0, this.currentExpandedLength = 0, this.options.stopNodes && this.options.stopNodes.length > 0) {
 					this.stopNodesExact = /* @__PURE__ */ new Set(), this.stopNodesWildcard = /* @__PURE__ */ new Set();
 					for (let t = 0; t < this.options.stopNodes.length; t++) {
 						const e = this.options.stopNodes[t];
@@ -9500,7 +9509,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				}
 			}
 		}
-		function j(t) {
+		function F(t) {
 			const e = Object.keys(t);
 			for (let n = 0; n < e.length; n++) {
 				const i = e[n], s = i.replace(/[.\-+*:]/g, "\\.");
@@ -9517,7 +9526,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				return null == i ? t : typeof i != typeof t || i !== t ? i : this.options.trimValues || t.trim() === t ? Z(t, this.options.parseTagValue, this.options.numberParseOptions) : t;
 			}
 		}
-		function _(t) {
+		function k(t) {
 			if (this.options.removeNSPrefix) {
 				const e = t.split(":"), n = "/" === t.charAt(0) ? "/" : "";
 				if ("xmlns" === e[0]) return "";
@@ -9525,10 +9534,10 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			}
 			return t;
 		}
-		const k = /* @__PURE__ */ new RegExp("([^\\s=]+)\\s*(=\\s*(['\"])([\\s\\S]*?)\\3)?", "gm");
+		const _ = /* @__PURE__ */ new RegExp("([^\\s=]+)\\s*(=\\s*(['\"])([\\s\\S]*?)\\3)?", "gm");
 		function U(t, e, n) {
 			if (!0 !== this.options.ignoreAttributes && "string" == typeof t) {
-				const i = s(t, k), r = i.length, o = {};
+				const i = s(t, _), r = i.length, o = {};
 				for (let t = 0; t < r; t++) {
 					const s = this.resolveNameSpace(i[t][1]);
 					if (this.ignoreAttributesFn(s, e)) continue;
@@ -9547,12 +9556,12 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				return o;
 			}
 		}
-		const B = function(t) {
+		const R = function(t) {
 			t = t.replace(/\r\n?/g, "\n");
 			const e = new I("!xml");
 			let n = e, i = "", s = "";
 			this.entityExpansionCount = 0, this.currentExpandedLength = 0;
-			const r = new O(this.options.processEntities);
+			const r = new P(this.options.processEntities);
 			for (let o = 0; o < t.length; o++) if ("<" === t[o]) if ("/" === t[o + 1]) {
 				const e = z(t, ">", o, "Closing Tag is not closed.");
 				let r = t.substring(o + 2, e).trim();
@@ -9592,26 +9601,27 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			} else {
 				let r = W(t, o, this.options.removeNSPrefix), a = r.tagName;
 				const l = r.rawTagName;
-				let u = r.tagExp, h = r.attrExpPresent, d = r.closeIndex;
+				let u = r.tagExp, d = r.attrExpPresent, h = r.closeIndex;
 				if (this.options.transformTagName) {
 					const t = this.options.transformTagName(a);
 					u === a && (u = t), a = t;
 				}
+				if (this.options.strictReservedNames && (a === this.options.commentPropName || a === this.options.cdataPropName)) throw new Error(`Invalid tag name: ${a}`);
 				n && i && "!xml" !== n.tagname && (i = this.saveTextToParentTag(i, n, s, !1));
 				const p = n;
 				p && -1 !== this.options.unpairedTags.indexOf(p.tagname) && (n = this.tagsNodeStack.pop(), s = s.substring(0, s.lastIndexOf("."))), a !== e.tagname && (s += s ? "." + a : a);
-				const f = o;
+				const c = o;
 				if (this.isItStopNode(this.stopNodesExact, this.stopNodesWildcard, s, a)) {
 					let e = "";
 					if (u.length > 0 && u.lastIndexOf("/") === u.length - 1) "/" === a[a.length - 1] ? (a = a.substr(0, a.length - 1), s = s.substr(0, s.length - 1), u = a) : u = u.substr(0, u.length - 1), o = r.closeIndex;
 					else if (-1 !== this.options.unpairedTags.indexOf(a)) o = r.closeIndex;
 					else {
-						const n = this.readStopNodeData(t, l, d + 1);
+						const n = this.readStopNodeData(t, l, h + 1);
 						if (!n) throw new Error(`Unexpected end of ${l}`);
 						o = n.i, e = n.tagContent;
 					}
 					const i = new I(a);
-					a !== u && h && (i[":@"] = this.buildAttributesMap(u, s, a)), e && (e = this.parseTextData(e, a, s, !0, h, !0, !0)), s = s.substr(0, s.lastIndexOf(".")), i.add(this.options.textNodeName, e), this.addChild(n, i, s, f);
+					a !== u && d && (i[":@"] = this.buildAttributesMap(u, s, a)), e && (e = this.parseTextData(e, a, s, !0, d, !0, !0)), s = s.substr(0, s.lastIndexOf(".")), i.add(this.options.textNodeName, e), this.addChild(n, i, s, c);
 				} else {
 					if (u.length > 0 && u.lastIndexOf("/") === u.length - 1) {
 						if ("/" === a[a.length - 1] ? (a = a.substr(0, a.length - 1), s = s.substr(0, s.length - 1), u = a) : u = u.substr(0, u.length - 1), this.options.transformTagName) {
@@ -9619,18 +9629,26 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 							u === a && (u = t), a = t;
 						}
 						const t = new I(a);
-						a !== u && h && (t[":@"] = this.buildAttributesMap(u, s, a)), this.addChild(n, t, s, f), s = s.substr(0, s.lastIndexOf("."));
+						a !== u && d && (t[":@"] = this.buildAttributesMap(u, s, a)), this.addChild(n, t, s, c), s = s.substr(0, s.lastIndexOf("."));
 					} else {
-						const t = new I(a);
-						this.tagsNodeStack.push(n), a !== u && h && (t[":@"] = this.buildAttributesMap(u, s, a)), this.addChild(n, t, s, f), n = t;
+						if (-1 !== this.options.unpairedTags.indexOf(a)) {
+							const t = new I(a);
+							a !== u && d && (t[":@"] = this.buildAttributesMap(u, s)), this.addChild(n, t, s, c), s = s.substr(0, s.lastIndexOf(".")), o = r.closeIndex;
+							continue;
+						}
+						{
+							const t = new I(a);
+							if (this.tagsNodeStack.length > this.options.maxNestedTags) throw new Error("Maximum nested tags exceeded");
+							this.tagsNodeStack.push(n), a !== u && d && (t[":@"] = this.buildAttributesMap(u, s, a)), this.addChild(n, t, s, c), n = t;
+						}
 					}
-					i = "", o = d;
+					i = "", o = h;
 				}
 			}
 			else i += t[o];
 			return e.child;
 		};
-		function R(t, e, n, i) {
+		function B(t, e, n, i) {
 			this.options.captureMetaData || (i = void 0);
 			const s = this.options.updateTag(e.tagname, n, e[":@"]);
 			!1 === s || ("string" == typeof s ? (e.tagname = s, t.addChild(e, i)) : t.addChild(e, i));
@@ -9697,7 +9715,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			const o = s.index, a = r.search(/\s/);
 			let l = r, u = !0;
 			-1 !== a && (l = r.substring(0, a), r = r.substring(a + 1).trimStart());
-			const h = l;
+			const d = l;
 			if (n) {
 				const t = l.indexOf(":");
 				-1 !== t && (l = l.substr(t + 1), u = l !== s.data.substr(t + 1));
@@ -9707,7 +9725,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				tagExp: r,
 				closeIndex: o,
 				attrExpPresent: u,
-				rawTagName: h
+				rawTagName: d
 			};
 		}
 		function q(t, e, n) {
@@ -9732,19 +9750,19 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			if (e && "string" == typeof t) {
 				const e = t.trim();
 				return "true" === e || "false" !== e && function(t, e = {}) {
-					if (e = Object.assign({}, V, e), !t || "string" != typeof t) return t;
+					if (e = Object.assign({}, D, e), !t || "string" != typeof t) return t;
 					let n = t.trim();
 					if (void 0 !== e.skipLike && e.skipLike.test(n)) return t;
 					if ("0" === t) return 0;
-					if (e.hex && C.test(n)) return function(t) {
+					if (e.hex && $.test(n)) return function(t) {
 						if (parseInt) return parseInt(t, 16);
 						if (Number.parseInt) return Number.parseInt(t, 16);
 						if (window && window.parseInt) return window.parseInt(t, 16);
 						throw new Error("parseInt, Number.parseInt, window.parseInt are not supported");
 					}(n);
-					if (-1 !== n.search(/.+[eE].+/)) return function(t, e, n) {
+					if (n.includes("e") || n.includes("E")) return function(t, e, n) {
 						if (!n.eNotation) return t;
-						const i = e.match(D);
+						const i = e.match(j);
 						if (i) {
 							let s = i[1] || "";
 							const r = -1 === i[3].indexOf("e") ? "E" : "e", o = i[2], a = s ? t[o.length + 1] === r : t[o.length] === r;
@@ -9753,7 +9771,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 						return t;
 					}(t, n, e);
 					{
-						const s = $.exec(n);
+						const s = V.exec(n);
 						if (s) {
 							const r = s[1] || "", o = s[2];
 							let a = (i = s[3]) && -1 !== i.indexOf(".") ? ("." === (i = i.replace(/0+$/, "")) ? i = "0" : "." === i[0] ? i = "0" + i : "." === i[i.length - 1] && (i = i.substring(0, i.length - 1)), i) : i;
@@ -9761,7 +9779,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 							if (!e.leadingZeros && (o.length > 1 || 1 === o.length && !l)) return t;
 							{
 								const i = Number(n), s = String(i);
-								if (0 === i || -0 === i) return i;
+								if (0 === i) return i;
 								if (-1 !== s.search(/[eE]/)) return e.eNotation ? i : t;
 								if (-1 !== n.indexOf(".")) return "0" === s || s === a || s === `${r}${a}` ? i : t;
 								let l = o ? a : n;
@@ -9795,7 +9813,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 					if (o[a]) {
 						let t = H(o[a], e, l);
 						const n = nt(t, e);
-						void 0 !== o[Q] && (t[Q] = o[Q]), o[":@"] ? et(t, o[":@"], l, e) : 1 !== Object.keys(t).length || void 0 === t[e.textNodeName] || e.alwaysCreateTextNode ? 0 === Object.keys(t).length && (e.alwaysCreateTextNode ? t[e.textNodeName] = "" : t = "") : t = t[e.textNodeName], void 0 !== s[a] && s.hasOwnProperty(a) ? (Array.isArray(s[a]) || (s[a] = [s[a]]), s[a].push(t)) : e.isArray(a, l, n) ? s[a] = [t] : s[a] = t;
+						o[":@"] ? et(t, o[":@"], l, e) : 1 !== Object.keys(t).length || void 0 === t[e.textNodeName] || e.alwaysCreateTextNode ? 0 === Object.keys(t).length && (e.alwaysCreateTextNode ? t[e.textNodeName] = "" : t = "") : t = t[e.textNodeName], void 0 !== o[Q] && "object" == typeof t && null !== t && (t[Q] = o[Q]), void 0 !== s[a] && Object.prototype.hasOwnProperty.call(s, a) ? (Array.isArray(s[a]) || (s[a] = [s[a]]), s[a].push(t)) : e.isArray(a, l, n) ? s[a] = [t] : s[a] = t;
 					}
 				}
 			}
@@ -9823,7 +9841,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		}
 		class it {
 			constructor(t) {
-				this.externalEntities = {}, this.options = w(t);
+				this.externalEntities = {}, this.options = v(t);
 			}
 			parse(t, e) {
 				if ("string" != typeof t && t.toString) t = t.toString();
@@ -9833,7 +9851,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 					const n = a(t, e);
 					if (!0 !== n) throw Error(`${n.err.msg}:${n.err.line}:${n.err.col}`);
 				}
-				const n = new F(this.options);
+				const n = new L(this.options);
 				n.addExternalEntities(this.externalEntities);
 				const i = n.parseXml(t);
 				return this.options.preserveOrder || void 0 === i ? i : J(i, this.options);
@@ -9854,6 +9872,13 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 		}
 		function rt(t, e, n, i) {
 			let s = "", r = !1;
+			if (!Array.isArray(t)) {
+				if (null != t) {
+					let n = t.toString();
+					return n = ut(n, e), n;
+				}
+				return "";
+			}
 			for (let o = 0; o < t.length; o++) {
 				const a = t[o], l = ot(a);
 				if (void 0 === l) continue;
@@ -9877,10 +9902,10 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 					o = 0 !== o.length ? " " + o : "", s += n + `<${l}${o}${t}?>`, r = !0;
 					continue;
 				}
-				let h = i;
-				"" !== h && (h += e.indentBy);
-				const d = i + `<${l}${at(a[":@"], e)}`, p = rt(a[l], e, u, h);
-				-1 !== e.unpairedTags.indexOf(l) ? e.suppressUnpairedNode ? s += d + ">" : s += d + "/>" : p && 0 !== p.length || !e.suppressEmptyNode ? p && p.endsWith(">") ? s += d + `>${p}${i}</${l}>` : (s += d + ">", p && "" !== i && (p.includes("/>") || p.includes("</")) ? s += i + e.indentBy + p + i : s += p, s += `</${l}>`) : s += d + "/>", r = !0;
+				let d = i;
+				"" !== d && (d += e.indentBy);
+				const h = i + `<${l}${at(a[":@"], e)}`, p = rt(a[l], e, u, d);
+				-1 !== e.unpairedTags.indexOf(l) ? e.suppressUnpairedNode ? s += h + ">" : s += h + "/>" : p && 0 !== p.length || !e.suppressEmptyNode ? p && p.endsWith(">") ? s += h + `>${p}${i}</${l}>` : (s += h + ">", p && "" !== i && (p.includes("/>") || p.includes("</")) ? s += i + e.indentBy + p + i : s += p, s += `</${l}>`) : s += h + "/>", r = !0;
 			}
 			return s;
 		}
@@ -9888,13 +9913,13 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			const e = Object.keys(t);
 			for (let n = 0; n < e.length; n++) {
 				const i = e[n];
-				if (t.hasOwnProperty(i) && ":@" !== i) return i;
+				if (Object.prototype.hasOwnProperty.call(t, i) && ":@" !== i) return i;
 			}
 		}
 		function at(t, e) {
 			let n = "";
 			if (t && !e.ignoreAttributes) for (let i in t) {
-				if (!t.hasOwnProperty(i)) continue;
+				if (!Object.prototype.hasOwnProperty.call(t, i)) continue;
 				let s = e.attributeValueProcessor(i, t[i]);
 				s = ut(s, e), !0 === s && e.suppressBooleanAttributes ? n += ` ${i.substr(e.attributeNamePrefix.length)}` : n += ` ${i.substr(e.attributeNamePrefix.length)}="${s}"`;
 			}
@@ -9912,7 +9937,7 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			}
 			return t;
 		}
-		const ht = {
+		const dt = {
 			attributeNamePrefix: "@_",
 			attributesGroupName: !1,
 			textNodeName: "#text",
@@ -9958,10 +9983,16 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			stopNodes: [],
 			oneListGroup: !1
 		};
-		function dt(t) {
-			this.options = Object.assign({}, ht, t), !0 === this.options.ignoreAttributes || this.options.attributesGroupName ? this.isAttribute = function() {
+		function ht(t) {
+			var e;
+			this.options = Object.assign({}, dt, t), !0 === this.options.ignoreAttributes || this.options.attributesGroupName ? this.isAttribute = function() {
 				return !1;
-			} : (this.ignoreAttributesFn = L(this.options.ignoreAttributes), this.attrPrefixLen = this.options.attributeNamePrefix.length, this.isAttribute = ct), this.processTextOrObjNode = pt, this.options.format ? (this.indentate = ft, this.tagEndChar = ">\n", this.newLine = "\n") : (this.indentate = function() {
+			} : (this.ignoreAttributesFn = "function" == typeof (e = this.options.ignoreAttributes) ? e : Array.isArray(e) ? (t) => {
+				for (const n of e) {
+					if ("string" == typeof n && t === n) return !0;
+					if (n instanceof RegExp && n.test(t)) return !0;
+				}
+			} : () => !1, this.attrPrefixLen = this.options.attributeNamePrefix.length, this.isAttribute = ft), this.processTextOrObjNode = pt, this.options.format ? (this.indentate = ct, this.tagEndChar = ">\n", this.newLine = "\n") : (this.indentate = function() {
 				return "";
 			}, this.tagEndChar = ">", this.newLine = "");
 		}
@@ -9969,15 +10000,15 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 			const s = this.j2x(t, n + 1, i.concat(e));
 			return void 0 !== t[this.options.textNodeName] && 1 === Object.keys(t).length ? this.buildTextValNode(t[this.options.textNodeName], e, s.attrStr, n) : this.buildObjectNode(s.val, e, s.attrStr, n);
 		}
-		function ft(t) {
+		function ct(t) {
 			return this.options.indentBy.repeat(t);
 		}
-		function ct(t) {
+		function ft(t) {
 			return !(!t.startsWith(this.options.attributeNamePrefix) || t === this.options.textNodeName) && t.substr(this.attrPrefixLen);
 		}
-		dt.prototype.build = function(t) {
+		ht.prototype.build = function(t) {
 			return this.options.preserveOrder ? st(t, this.options) : (Array.isArray(t) && this.options.arrayNodeName && this.options.arrayNodeName.length > 1 && (t = { [this.options.arrayNodeName]: t }), this.j2x(t, 0, []).val);
-		}, dt.prototype.j2x = function(t, e, n) {
+		}, ht.prototype.j2x = function(t, e, n) {
 			let i = "", s = "";
 			const r = n.join(".");
 			for (let o in t) if (Object.prototype.hasOwnProperty.call(t, o)) if (void 0 === t[o]) this.isAttribute(o) && (s += "");
@@ -10015,18 +10046,18 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				attrStr: i,
 				val: s
 			};
-		}, dt.prototype.buildAttrPairStr = function(t, e) {
+		}, ht.prototype.buildAttrPairStr = function(t, e) {
 			return e = this.options.attributeValueProcessor(t, "" + e), e = this.replaceEntitiesValue(e), this.options.suppressBooleanAttributes && "true" === e ? " " + t : " " + t + "=\"" + e + "\"";
-		}, dt.prototype.buildObjectNode = function(t, e, n, i) {
+		}, ht.prototype.buildObjectNode = function(t, e, n, i) {
 			if ("" === t) return "?" === e[0] ? this.indentate(i) + "<" + e + n + "?" + this.tagEndChar : this.indentate(i) + "<" + e + n + this.closeTag(e) + this.tagEndChar;
 			{
 				let s = "</" + e + this.tagEndChar, r = "";
 				return "?" === e[0] && (r = "?", s = ""), !n && "" !== n || -1 !== t.indexOf("<") ? !1 !== this.options.commentPropName && e === this.options.commentPropName && 0 === r.length ? this.indentate(i) + `\x3c!--${t}--\x3e` + this.newLine : this.indentate(i) + "<" + e + n + r + this.tagEndChar + t + this.indentate(i) + s : this.indentate(i) + "<" + e + n + r + ">" + t + s;
 			}
-		}, dt.prototype.closeTag = function(t) {
+		}, ht.prototype.closeTag = function(t) {
 			let e = "";
 			return -1 !== this.options.unpairedTags.indexOf(t) ? this.options.suppressUnpairedNode || (e = "/") : e = this.options.suppressEmptyNode ? "/" : `></${t}`, e;
-		}, dt.prototype.buildTextValNode = function(t, e, n, i) {
+		}, ht.prototype.buildTextValNode = function(t, e, n, i) {
 			if (!1 !== this.options.cdataPropName && e === this.options.cdataPropName) return this.indentate(i) + `<![CDATA[${t}]]>` + this.newLine;
 			if (!1 !== this.options.commentPropName && e === this.options.commentPropName) return this.indentate(i) + `\x3c!--${t}--\x3e` + this.newLine;
 			if ("?" === e[0]) return this.indentate(i) + "<" + e + n + "?" + this.tagEndChar;
@@ -10034,14 +10065,14 @@ var require_fxp = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 				let s = this.options.tagValueProcessor(e, t);
 				return s = this.replaceEntitiesValue(s), "" === s ? this.indentate(i) + "<" + e + n + this.closeTag(e) + this.tagEndChar : this.indentate(i) + "<" + e + n + ">" + s + "</" + e + this.tagEndChar;
 			}
-		}, dt.prototype.replaceEntitiesValue = function(t) {
+		}, ht.prototype.replaceEntitiesValue = function(t) {
 			if (t && t.length > 0 && this.options.processEntities) for (let e = 0; e < this.options.entities.length; e++) {
 				const n = this.options.entities[e];
 				t = t.replace(n.regex, n.val);
 			}
 			return t;
 		};
-		const gt = { validate: a };
+		const gt = ht, xt = { validate: a };
 		module.exports = e;
 	})();
 }));
@@ -10058,7 +10089,8 @@ var require_xml_parser = /* @__PURE__ */ __commonJSMin(((exports) => {
 		ignoreDeclaration: true,
 		parseTagValue: false,
 		trimValues: false,
-		tagValueProcessor: (_, val) => val.trim() === "" && val.includes("\n") ? "" : void 0
+		tagValueProcessor: (_, val) => val.trim() === "" && val.includes("\n") ? "" : void 0,
+		maxNestedTags: 1024
 	});
 	parser.addEntity("#xD", "\r");
 	parser.addEntity("#10", "\n");
@@ -10069,7 +10101,7 @@ var require_xml_parser = /* @__PURE__ */ __commonJSMin(((exports) => {
 
 //#endregion
 //#region node_modules/@aws-sdk/xml-builder/dist-cjs/index.js
-var require_dist_cjs$2 = /* @__PURE__ */ __commonJSMin(((exports) => {
+var require_dist_cjs$4 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	var xmlParser = require_xml_parser();
 	function escapeAttribute(value) {
 		return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -10170,11 +10202,11 @@ var require_dist_cjs$2 = /* @__PURE__ */ __commonJSMin(((exports) => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js
 var import_dist_cjs$8, import_dist_cjs$9, import_dist_cjs$10, XmlShapeDeserializer;
 var init_XmlShapeDeserializer = __esmMin((() => {
-	import_dist_cjs$8 = require_dist_cjs$2();
+	import_dist_cjs$8 = require_dist_cjs$4();
 	init_protocols$1();
 	init_schema();
-	import_dist_cjs$9 = require_dist_cjs$3();
-	import_dist_cjs$10 = require_dist_cjs$19();
+	import_dist_cjs$9 = require_dist_cjs$5();
+	import_dist_cjs$10 = require_dist_cjs$21();
 	init_ConfigurableSerdeContext();
 	init_UnionSerde();
 	XmlShapeDeserializer = class extends SerdeContextConfig {
@@ -10212,15 +10244,15 @@ var init_XmlShapeDeserializer = __esmMin((() => {
 			if (ns.isListSchema() && !Array.isArray(value)) return this.readSchema(ns, [value]);
 			if (value == null) return value;
 			if (typeof value === "object") {
-				const sparse = !!traits.sparse;
 				const flat = !!traits.xmlFlattened;
 				if (ns.isListSchema()) {
 					const listValue = ns.getValueSchema();
 					const buffer = [];
 					const sourceKey = listValue.getMergedTraits().xmlName ?? "member";
 					const source = flat ? value : (value[0] ?? value)[sourceKey];
+					if (source == null) return buffer;
 					const sourceArray = Array.isArray(source) ? source : [source];
-					for (const v of sourceArray) if (v != null || sparse) buffer.push(this.readSchema(listValue, v));
+					for (const v of sourceArray) buffer.push(this.readSchema(listValue, v));
 					return buffer;
 				}
 				const buffer = {};
@@ -10235,7 +10267,7 @@ var init_XmlShapeDeserializer = __esmMin((() => {
 					for (const entry of entries) {
 						const key = entry[keyProperty];
 						const value = entry[valueProperty];
-						if (value != null || sparse) buffer[key] = this.readSchema(memberNs, value);
+						buffer[key] = this.readSchema(memberNs, value);
 					}
 					return buffer;
 				}
@@ -10289,8 +10321,8 @@ var init_QueryShapeSerializer = __esmMin((() => {
 	init_protocols$1();
 	init_schema();
 	init_serde();
-	import_dist_cjs$6 = require_dist_cjs$3();
-	import_dist_cjs$7 = require_dist_cjs$18();
+	import_dist_cjs$6 = require_dist_cjs$5();
+	import_dist_cjs$7 = require_dist_cjs$20();
 	init_ConfigurableSerdeContext();
 	QueryShapeSerializer = class extends SerdeContextConfig {
 		settings;
@@ -10570,6 +10602,9 @@ var init_AwsEc2QueryProtocol = __esmMin((() => {
 				ec2: true
 			});
 		}
+		getShapeId() {
+			return "aws.protocols#ec2Query";
+		}
 		useNestedResult() {
 			return false;
 		}
@@ -10577,11 +10612,15 @@ var init_AwsEc2QueryProtocol = __esmMin((() => {
 }));
 
 //#endregion
+//#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/query/QuerySerializerSettings.js
+var init_QuerySerializerSettings = __esmMin((() => {}));
+
+//#endregion
 //#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js
 var import_dist_cjs$4, import_dist_cjs$5, parseXmlBody, parseXmlErrorBody, loadRestXmlErrorCode;
 var init_parseXmlBody = __esmMin((() => {
-	import_dist_cjs$4 = require_dist_cjs$2();
-	import_dist_cjs$5 = require_dist_cjs$3();
+	import_dist_cjs$4 = require_dist_cjs$4();
+	import_dist_cjs$5 = require_dist_cjs$5();
 	init_common();
 	parseXmlBody = (streamBody, context) => collectBodyString(streamBody, context).then((encoded) => {
 		if (encoded.length) {
@@ -10619,12 +10658,12 @@ var init_parseXmlBody = __esmMin((() => {
 //#region node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js
 var import_dist_cjs$1, import_dist_cjs$2, import_dist_cjs$3, XmlShapeSerializer;
 var init_XmlShapeSerializer = __esmMin((() => {
-	import_dist_cjs$1 = require_dist_cjs$2();
+	import_dist_cjs$1 = require_dist_cjs$4();
 	init_protocols$1();
 	init_schema();
 	init_serde();
-	import_dist_cjs$2 = require_dist_cjs$3();
-	import_dist_cjs$3 = require_dist_cjs$18();
+	import_dist_cjs$2 = require_dist_cjs$5();
+	import_dist_cjs$3 = require_dist_cjs$20();
 	init_ConfigurableSerdeContext();
 	XmlShapeSerializer = class extends SerdeContextConfig {
 		settings;
@@ -10940,6 +10979,8 @@ var init_protocols = __esmMin((() => {
 	init_parseJsonBody();
 	init_AwsEc2QueryProtocol();
 	init_AwsQueryProtocol();
+	init_QuerySerializerSettings();
+	init_QueryShapeSerializer();
 	init_AwsRestXmlProtocol();
 	init_XmlCodec();
 	init_XmlShapeDeserializer();
@@ -10966,6 +11007,7 @@ var dist_es_exports = /* @__PURE__ */ __exportAll({
 	JsonShapeSerializer: () => JsonShapeSerializer,
 	NODE_AUTH_SCHEME_PREFERENCE_OPTIONS: () => NODE_AUTH_SCHEME_PREFERENCE_OPTIONS,
 	NODE_SIGV4A_CONFIG_OPTIONS: () => NODE_SIGV4A_CONFIG_OPTIONS,
+	QueryShapeSerializer: () => QueryShapeSerializer,
 	XmlCodec: () => XmlCodec,
 	XmlShapeDeserializer: () => XmlShapeDeserializer,
 	XmlShapeSerializer: () => XmlShapeSerializer,
@@ -10997,12 +11039,353 @@ var init_dist_es = __esmMin((() => {
 }));
 
 //#endregion
+//#region node_modules/@smithy/service-error-classification/dist-cjs/index.js
+var require_dist_cjs$3 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	const CLOCK_SKEW_ERROR_CODES = [
+		"AuthFailure",
+		"InvalidSignatureException",
+		"RequestExpired",
+		"RequestInTheFuture",
+		"RequestTimeTooSkewed",
+		"SignatureDoesNotMatch"
+	];
+	const THROTTLING_ERROR_CODES = [
+		"BandwidthLimitExceeded",
+		"EC2ThrottledException",
+		"LimitExceededException",
+		"PriorRequestNotComplete",
+		"ProvisionedThroughputExceededException",
+		"RequestLimitExceeded",
+		"RequestThrottled",
+		"RequestThrottledException",
+		"SlowDown",
+		"ThrottledException",
+		"Throttling",
+		"ThrottlingException",
+		"TooManyRequestsException",
+		"TransactionInProgressException"
+	];
+	const TRANSIENT_ERROR_CODES = [
+		"TimeoutError",
+		"RequestTimeout",
+		"RequestTimeoutException"
+	];
+	const TRANSIENT_ERROR_STATUS_CODES = [
+		500,
+		502,
+		503,
+		504
+	];
+	const NODEJS_TIMEOUT_ERROR_CODES = [
+		"ECONNRESET",
+		"ECONNREFUSED",
+		"EPIPE",
+		"ETIMEDOUT"
+	];
+	const NODEJS_NETWORK_ERROR_CODES = [
+		"EHOSTUNREACH",
+		"ENETUNREACH",
+		"ENOTFOUND"
+	];
+	const isRetryableByTrait = (error) => error?.$retryable !== void 0;
+	const isClockSkewError = (error) => CLOCK_SKEW_ERROR_CODES.includes(error.name);
+	const isClockSkewCorrectedError = (error) => error.$metadata?.clockSkewCorrected;
+	const isBrowserNetworkError = (error) => {
+		const errorMessages = new Set([
+			"Failed to fetch",
+			"NetworkError when attempting to fetch resource",
+			"The Internet connection appears to be offline",
+			"Load failed",
+			"Network request failed"
+		]);
+		if (!(error && error instanceof TypeError)) return false;
+		return errorMessages.has(error.message);
+	};
+	const isThrottlingError = (error) => error.$metadata?.httpStatusCode === 429 || THROTTLING_ERROR_CODES.includes(error.name) || error.$retryable?.throttling == true;
+	const isTransientError = (error, depth = 0) => isRetryableByTrait(error) || isClockSkewCorrectedError(error) || TRANSIENT_ERROR_CODES.includes(error.name) || NODEJS_TIMEOUT_ERROR_CODES.includes(error?.code || "") || NODEJS_NETWORK_ERROR_CODES.includes(error?.code || "") || TRANSIENT_ERROR_STATUS_CODES.includes(error.$metadata?.httpStatusCode || 0) || isBrowserNetworkError(error) || error.cause !== void 0 && depth <= 10 && isTransientError(error.cause, depth + 1);
+	const isServerError = (error) => {
+		if (error.$metadata?.httpStatusCode !== void 0) {
+			const statusCode = error.$metadata.httpStatusCode;
+			if (500 <= statusCode && statusCode <= 599 && !isTransientError(error)) return true;
+			return false;
+		}
+		return false;
+	};
+	exports.isBrowserNetworkError = isBrowserNetworkError;
+	exports.isClockSkewCorrectedError = isClockSkewCorrectedError;
+	exports.isClockSkewError = isClockSkewError;
+	exports.isRetryableByTrait = isRetryableByTrait;
+	exports.isServerError = isServerError;
+	exports.isThrottlingError = isThrottlingError;
+	exports.isTransientError = isTransientError;
+}));
+
+//#endregion
+//#region node_modules/@smithy/util-retry/dist-cjs/index.js
+var require_dist_cjs$2 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	var serviceErrorClassification = require_dist_cjs$3();
+	exports.RETRY_MODES = void 0;
+	(function(RETRY_MODES) {
+		RETRY_MODES["STANDARD"] = "standard";
+		RETRY_MODES["ADAPTIVE"] = "adaptive";
+	})(exports.RETRY_MODES || (exports.RETRY_MODES = {}));
+	const DEFAULT_MAX_ATTEMPTS = 3;
+	const DEFAULT_RETRY_MODE = exports.RETRY_MODES.STANDARD;
+	var DefaultRateLimiter = class DefaultRateLimiter {
+		static setTimeoutFn = setTimeout;
+		beta;
+		minCapacity;
+		minFillRate;
+		scaleConstant;
+		smooth;
+		currentCapacity = 0;
+		enabled = false;
+		lastMaxRate = 0;
+		measuredTxRate = 0;
+		requestCount = 0;
+		fillRate;
+		lastThrottleTime;
+		lastTimestamp = 0;
+		lastTxRateBucket;
+		maxCapacity;
+		timeWindow = 0;
+		constructor(options) {
+			this.beta = options?.beta ?? .7;
+			this.minCapacity = options?.minCapacity ?? 1;
+			this.minFillRate = options?.minFillRate ?? .5;
+			this.scaleConstant = options?.scaleConstant ?? .4;
+			this.smooth = options?.smooth ?? .8;
+			this.lastThrottleTime = this.getCurrentTimeInSeconds();
+			this.lastTxRateBucket = Math.floor(this.getCurrentTimeInSeconds());
+			this.fillRate = this.minFillRate;
+			this.maxCapacity = this.minCapacity;
+		}
+		getCurrentTimeInSeconds() {
+			return Date.now() / 1e3;
+		}
+		async getSendToken() {
+			return this.acquireTokenBucket(1);
+		}
+		async acquireTokenBucket(amount) {
+			if (!this.enabled) return;
+			this.refillTokenBucket();
+			if (amount > this.currentCapacity) {
+				const delay = (amount - this.currentCapacity) / this.fillRate * 1e3;
+				await new Promise((resolve) => DefaultRateLimiter.setTimeoutFn(resolve, delay));
+			}
+			this.currentCapacity = this.currentCapacity - amount;
+		}
+		refillTokenBucket() {
+			const timestamp = this.getCurrentTimeInSeconds();
+			if (!this.lastTimestamp) {
+				this.lastTimestamp = timestamp;
+				return;
+			}
+			const fillAmount = (timestamp - this.lastTimestamp) * this.fillRate;
+			this.currentCapacity = Math.min(this.maxCapacity, this.currentCapacity + fillAmount);
+			this.lastTimestamp = timestamp;
+		}
+		updateClientSendingRate(response) {
+			let calculatedRate;
+			this.updateMeasuredRate();
+			if (serviceErrorClassification.isThrottlingError(response)) {
+				const rateToUse = !this.enabled ? this.measuredTxRate : Math.min(this.measuredTxRate, this.fillRate);
+				this.lastMaxRate = rateToUse;
+				this.calculateTimeWindow();
+				this.lastThrottleTime = this.getCurrentTimeInSeconds();
+				calculatedRate = this.cubicThrottle(rateToUse);
+				this.enableTokenBucket();
+			} else {
+				this.calculateTimeWindow();
+				calculatedRate = this.cubicSuccess(this.getCurrentTimeInSeconds());
+			}
+			const newRate = Math.min(calculatedRate, 2 * this.measuredTxRate);
+			this.updateTokenBucketRate(newRate);
+		}
+		calculateTimeWindow() {
+			this.timeWindow = this.getPrecise(Math.pow(this.lastMaxRate * (1 - this.beta) / this.scaleConstant, 1 / 3));
+		}
+		cubicThrottle(rateToUse) {
+			return this.getPrecise(rateToUse * this.beta);
+		}
+		cubicSuccess(timestamp) {
+			return this.getPrecise(this.scaleConstant * Math.pow(timestamp - this.lastThrottleTime - this.timeWindow, 3) + this.lastMaxRate);
+		}
+		enableTokenBucket() {
+			this.enabled = true;
+		}
+		updateTokenBucketRate(newRate) {
+			this.refillTokenBucket();
+			this.fillRate = Math.max(newRate, this.minFillRate);
+			this.maxCapacity = Math.max(newRate, this.minCapacity);
+			this.currentCapacity = Math.min(this.currentCapacity, this.maxCapacity);
+		}
+		updateMeasuredRate() {
+			const t = this.getCurrentTimeInSeconds();
+			const timeBucket = Math.floor(t * 2) / 2;
+			this.requestCount++;
+			if (timeBucket > this.lastTxRateBucket) {
+				const currentRate = this.requestCount / (timeBucket - this.lastTxRateBucket);
+				this.measuredTxRate = this.getPrecise(currentRate * this.smooth + this.measuredTxRate * (1 - this.smooth));
+				this.requestCount = 0;
+				this.lastTxRateBucket = timeBucket;
+			}
+		}
+		getPrecise(num) {
+			return parseFloat(num.toFixed(8));
+		}
+	};
+	const DEFAULT_RETRY_DELAY_BASE = 100;
+	const MAXIMUM_RETRY_DELAY = 20 * 1e3;
+	const THROTTLING_RETRY_DELAY_BASE = 500;
+	const INITIAL_RETRY_TOKENS = 500;
+	const RETRY_COST = 5;
+	const TIMEOUT_RETRY_COST = 10;
+	const NO_RETRY_INCREMENT = 1;
+	const INVOCATION_ID_HEADER = "amz-sdk-invocation-id";
+	const REQUEST_HEADER = "amz-sdk-request";
+	const getDefaultRetryBackoffStrategy = () => {
+		let delayBase = DEFAULT_RETRY_DELAY_BASE;
+		const computeNextBackoffDelay = (attempts) => {
+			return Math.floor(Math.min(MAXIMUM_RETRY_DELAY, Math.random() * 2 ** attempts * delayBase));
+		};
+		const setDelayBase = (delay) => {
+			delayBase = delay;
+		};
+		return {
+			computeNextBackoffDelay,
+			setDelayBase
+		};
+	};
+	const createDefaultRetryToken = ({ retryDelay, retryCount, retryCost }) => {
+		const getRetryCount = () => retryCount;
+		const getRetryDelay = () => Math.min(MAXIMUM_RETRY_DELAY, retryDelay);
+		const getRetryCost = () => retryCost;
+		return {
+			getRetryCount,
+			getRetryDelay,
+			getRetryCost
+		};
+	};
+	var StandardRetryStrategy = class {
+		maxAttempts;
+		mode = exports.RETRY_MODES.STANDARD;
+		capacity = INITIAL_RETRY_TOKENS;
+		retryBackoffStrategy = getDefaultRetryBackoffStrategy();
+		maxAttemptsProvider;
+		constructor(maxAttempts) {
+			this.maxAttempts = maxAttempts;
+			this.maxAttemptsProvider = typeof maxAttempts === "function" ? maxAttempts : async () => maxAttempts;
+		}
+		async acquireInitialRetryToken(retryTokenScope) {
+			return createDefaultRetryToken({
+				retryDelay: DEFAULT_RETRY_DELAY_BASE,
+				retryCount: 0
+			});
+		}
+		async refreshRetryTokenForRetry(token, errorInfo) {
+			const maxAttempts = await this.getMaxAttempts();
+			if (this.shouldRetry(token, errorInfo, maxAttempts)) {
+				const errorType = errorInfo.errorType;
+				this.retryBackoffStrategy.setDelayBase(errorType === "THROTTLING" ? THROTTLING_RETRY_DELAY_BASE : DEFAULT_RETRY_DELAY_BASE);
+				const delayFromErrorType = this.retryBackoffStrategy.computeNextBackoffDelay(token.getRetryCount());
+				const retryDelay = errorInfo.retryAfterHint ? Math.max(errorInfo.retryAfterHint.getTime() - Date.now() || 0, delayFromErrorType) : delayFromErrorType;
+				const capacityCost = this.getCapacityCost(errorType);
+				this.capacity -= capacityCost;
+				return createDefaultRetryToken({
+					retryDelay,
+					retryCount: token.getRetryCount() + 1,
+					retryCost: capacityCost
+				});
+			}
+			throw new Error("No retry token available");
+		}
+		recordSuccess(token) {
+			this.capacity = Math.max(INITIAL_RETRY_TOKENS, this.capacity + (token.getRetryCost() ?? NO_RETRY_INCREMENT));
+		}
+		getCapacity() {
+			return this.capacity;
+		}
+		async getMaxAttempts() {
+			try {
+				return await this.maxAttemptsProvider();
+			} catch (error) {
+				console.warn(`Max attempts provider could not resolve. Using default of ${DEFAULT_MAX_ATTEMPTS}`);
+				return DEFAULT_MAX_ATTEMPTS;
+			}
+		}
+		shouldRetry(tokenToRenew, errorInfo, maxAttempts) {
+			return tokenToRenew.getRetryCount() + 1 < maxAttempts && this.capacity >= this.getCapacityCost(errorInfo.errorType) && this.isRetryableError(errorInfo.errorType);
+		}
+		getCapacityCost(errorType) {
+			return errorType === "TRANSIENT" ? TIMEOUT_RETRY_COST : RETRY_COST;
+		}
+		isRetryableError(errorType) {
+			return errorType === "THROTTLING" || errorType === "TRANSIENT";
+		}
+	};
+	var AdaptiveRetryStrategy = class {
+		maxAttemptsProvider;
+		rateLimiter;
+		standardRetryStrategy;
+		mode = exports.RETRY_MODES.ADAPTIVE;
+		constructor(maxAttemptsProvider, options) {
+			this.maxAttemptsProvider = maxAttemptsProvider;
+			const { rateLimiter } = options ?? {};
+			this.rateLimiter = rateLimiter ?? new DefaultRateLimiter();
+			this.standardRetryStrategy = new StandardRetryStrategy(maxAttemptsProvider);
+		}
+		async acquireInitialRetryToken(retryTokenScope) {
+			await this.rateLimiter.getSendToken();
+			return this.standardRetryStrategy.acquireInitialRetryToken(retryTokenScope);
+		}
+		async refreshRetryTokenForRetry(tokenToRenew, errorInfo) {
+			this.rateLimiter.updateClientSendingRate(errorInfo);
+			return this.standardRetryStrategy.refreshRetryTokenForRetry(tokenToRenew, errorInfo);
+		}
+		recordSuccess(token) {
+			this.rateLimiter.updateClientSendingRate({});
+			this.standardRetryStrategy.recordSuccess(token);
+		}
+	};
+	var ConfiguredRetryStrategy = class extends StandardRetryStrategy {
+		computeNextBackoffDelay;
+		constructor(maxAttempts, computeNextBackoffDelay = DEFAULT_RETRY_DELAY_BASE) {
+			super(typeof maxAttempts === "function" ? maxAttempts : async () => maxAttempts);
+			if (typeof computeNextBackoffDelay === "number") this.computeNextBackoffDelay = () => computeNextBackoffDelay;
+			else this.computeNextBackoffDelay = computeNextBackoffDelay;
+		}
+		async refreshRetryTokenForRetry(tokenToRenew, errorInfo) {
+			const token = await super.refreshRetryTokenForRetry(tokenToRenew, errorInfo);
+			token.getRetryDelay = () => this.computeNextBackoffDelay(token.getRetryCount());
+			return token;
+		}
+	};
+	exports.AdaptiveRetryStrategy = AdaptiveRetryStrategy;
+	exports.ConfiguredRetryStrategy = ConfiguredRetryStrategy;
+	exports.DEFAULT_MAX_ATTEMPTS = DEFAULT_MAX_ATTEMPTS;
+	exports.DEFAULT_RETRY_DELAY_BASE = DEFAULT_RETRY_DELAY_BASE;
+	exports.DEFAULT_RETRY_MODE = DEFAULT_RETRY_MODE;
+	exports.DefaultRateLimiter = DefaultRateLimiter;
+	exports.INITIAL_RETRY_TOKENS = INITIAL_RETRY_TOKENS;
+	exports.INVOCATION_ID_HEADER = INVOCATION_ID_HEADER;
+	exports.MAXIMUM_RETRY_DELAY = MAXIMUM_RETRY_DELAY;
+	exports.NO_RETRY_INCREMENT = NO_RETRY_INCREMENT;
+	exports.REQUEST_HEADER = REQUEST_HEADER;
+	exports.RETRY_COST = RETRY_COST;
+	exports.StandardRetryStrategy = StandardRetryStrategy;
+	exports.THROTTLING_RETRY_DELAY_BASE = THROTTLING_RETRY_DELAY_BASE;
+	exports.TIMEOUT_RETRY_COST = TIMEOUT_RETRY_COST;
+}));
+
+//#endregion
 //#region node_modules/@aws-sdk/middleware-user-agent/dist-cjs/index.js
 var require_dist_cjs$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	var core = (init_dist_es$1(), __toCommonJS(dist_es_exports$1));
-	var utilEndpoints = require_dist_cjs$7();
-	var protocolHttp = require_dist_cjs$23();
+	var utilEndpoints = require_dist_cjs$9();
+	var protocolHttp = require_dist_cjs$25();
 	var core$1 = (init_dist_es(), __toCommonJS(dist_es_exports));
+	var utilRetry = require_dist_cjs$2();
 	const DEFAULT_UA_APP_ID = void 0;
 	function isValidUserAgentAppId(appId) {
 		if (appId === void 0) return true;
@@ -11029,9 +11412,14 @@ var require_dist_cjs$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
 		if (args.request?.headers?.["smithy-protocol"] === "rpc-v2-cbor") core$1.setFeature(context, "PROTOCOL_RPC_V2_CBOR", "M");
 		if (typeof config.retryStrategy === "function") {
 			const retryStrategy = await config.retryStrategy();
-			if (typeof retryStrategy.acquireInitialRetryToken === "function") if (retryStrategy.constructor?.name?.includes("Adaptive")) core$1.setFeature(context, "RETRY_MODE_ADAPTIVE", "F");
-			else core$1.setFeature(context, "RETRY_MODE_STANDARD", "E");
-			else core$1.setFeature(context, "RETRY_MODE_LEGACY", "D");
+			if (typeof retryStrategy.mode === "string") switch (retryStrategy.mode) {
+				case utilRetry.RETRY_MODES.ADAPTIVE:
+					core$1.setFeature(context, "RETRY_MODE_ADAPTIVE", "F");
+					break;
+				case utilRetry.RETRY_MODES.STANDARD:
+					core$1.setFeature(context, "RETRY_MODE_STANDARD", "E");
+					break;
+			}
 		}
 		if (typeof config.accountIdEndpointMode === "function") {
 			const endpointV2 = context.endpointV2;
@@ -11172,19 +11560,21 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 	const getTypeScriptPackageJsonPaths = (dirname) => {
 		const cwdPath = node_path.join(process.cwd(), typescriptPackageJsonPath);
 		if (!dirname) return [cwdPath];
-		const paths = [];
 		const parts = node_path.normalize(dirname).split(node_path.sep);
 		const nodeModulesIndex = parts.indexOf("node_modules");
 		const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : dirname;
 		const parentDirPath = node_path.join(parentDir, typescriptPackageJsonPath);
-		paths.push(parentDirPath);
-		if (cwdPath !== parentDirPath) paths.push(cwdPath);
-		return paths;
+		if (cwdPath === parentDirPath) return [cwdPath];
+		return [parentDirPath, cwdPath];
 	};
 	let tscVersion;
 	const getTypeScriptUserAgentPair = async () => {
 		if (tscVersion === null) return;
 		else if (typeof tscVersion === "string") return ["md/tsc", tscVersion];
+		if (process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED) {
+			tscVersion = null;
+			return;
+		}
 		const dirname = typeof __dirname !== "undefined" ? __dirname : void 0;
 		for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) try {
 			const packageJson = await promises.readFile(typescriptPackageJsonPath, "utf-8");
