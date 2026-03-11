@@ -67,17 +67,15 @@ const getTypeScriptPackageJsonPaths = (dirname) => {
     if (!dirname) {
         return [cwdPath];
     }
-    const paths = [];
     const normalizedPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_normalize__(dirname);
     const parts = normalizedPath.split(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__);
     const nodeModulesIndex = parts.indexOf("node_modules");
     const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(__WEBPACK_EXTERNAL_MODULE_node_path_02319fef_sep__) : dirname;
     const parentDirPath = __WEBPACK_EXTERNAL_MODULE_node_path_02319fef_join__(parentDir, typescriptPackageJsonPath);
-    paths.push(parentDirPath);
-    if (cwdPath !== parentDirPath) {
-        paths.push(cwdPath);
+    if (cwdPath === parentDirPath) {
+        return [cwdPath];
     }
-    return paths;
+    return [parentDirPath, cwdPath];
 };
 
 ;// ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
@@ -91,6 +89,10 @@ const getTypeScriptUserAgentPair = async () => {
     }
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
+    }
+    if (process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED) {
+        tscVersion = null;
+        return undefined;
     }
     const dirname =  true ? __webpack_dirname__ : 0;
     for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {

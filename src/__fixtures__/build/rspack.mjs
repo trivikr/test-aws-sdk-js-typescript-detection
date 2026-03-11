@@ -65,17 +65,15 @@ const getTypeScriptPackageJsonPaths = (dirname) => {
     if (!dirname) {
         return [cwdPath];
     }
-    const paths = [];
     const normalizedPath = (0,external_node_path_namespaceObject.normalize)(dirname);
     const parts = normalizedPath.split(external_node_path_namespaceObject.sep);
     const nodeModulesIndex = parts.indexOf("node_modules");
     const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(external_node_path_namespaceObject.sep) : dirname;
     const parentDirPath = (0,external_node_path_namespaceObject.join)(parentDir, getTypeScriptPackageJsonPaths_typescriptPackageJsonPath);
-    paths.push(parentDirPath);
-    if (cwdPath !== parentDirPath) {
-        paths.push(cwdPath);
+    if (cwdPath === parentDirPath) {
+        return [cwdPath];
     }
-    return paths;
+    return [parentDirPath, cwdPath];
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@aws-sdk/util-user-agent-node/dist-es/getTypeScriptUserAgentPair.js
@@ -90,6 +88,10 @@ const getTypeScriptUserAgentPair = async () => {
     }
     else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
+    }
+    if (process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED) {
+        tscVersion = null;
+        return undefined;
     }
     const dirname =  true ? getTypeScriptUserAgentPair_dirname : 0;
     for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) {
