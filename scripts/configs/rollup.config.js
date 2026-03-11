@@ -1,7 +1,6 @@
 import { join } from "node:path";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
-import terser from "@rollup/plugin-terser";
 import json from "@rollup/plugin-json";
 
 import { ModuleSystem } from "./utils/constants.js";
@@ -9,22 +8,14 @@ import { getOutputDir } from "./utils/getOutputDir.js";
 import { getInputPath } from "./utils/getInputPath.js";
 import { getOutputFilename } from "./utils/getOutputFilename.js";
 
-const createConfig = (minify, moduleSystem) => ({
-  plugins: [
-    resolve({ preferBuiltins: true }),
-    commonjs(),
-    ...(minify ? [terser()] : []),
-    json(),
-  ],
+const createConfig = (moduleSystem) => ({
+  plugins: [resolve({ preferBuiltins: true }), commonjs(), json()],
   input: getInputPath(),
   output: {
-    file: join(
-      getOutputDir(),
-      getOutputFilename("rollup", minify, moduleSystem),
-    ),
+    file: join(getOutputDir(), getOutputFilename("rollup", moduleSystem)),
     format: moduleSystem,
     inlineDynamicImports: true,
-    minify,
+    minify: false,
     banner:
       moduleSystem === ModuleSystem.esm
         ? `
@@ -37,10 +28,8 @@ const __dirname = __dn(__ftp(import.meta.url));
 });
 
 const configs = [];
-for (const minify of [true, false]) {
-  for (const moduleSystem of Object.values(ModuleSystem)) {
-    configs.push(createConfig(minify, moduleSystem));
-  }
+for (const moduleSystem of Object.values(ModuleSystem)) {
+  configs.push(createConfig(moduleSystem));
 }
 
 export default configs;

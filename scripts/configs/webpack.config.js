@@ -10,11 +10,11 @@ const LibraryType = {
   [ModuleSystem.esm]: "module",
 };
 
-const createConfig = (minify, moduleSystem) => ({
+const createConfig = (moduleSystem) => ({
   target: "node",
   mode: "production",
   optimization: {
-    minimize: minify,
+    minimize: false,
   },
   plugins: [new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })],
   experiments: {
@@ -23,16 +23,14 @@ const createConfig = (minify, moduleSystem) => ({
   entry: getInputPath(),
   output: {
     path: getOutputDir(),
-    filename: getOutputFilename("webpack", minify, moduleSystem),
+    filename: getOutputFilename("webpack", moduleSystem),
     library: { type: LibraryType[moduleSystem] },
   },
 });
 
 const configs = [];
-for (const minify of [true, false]) {
-  for (const moduleSystem of Object.values(ModuleSystem)) {
-    configs.push(createConfig(minify, moduleSystem));
-  }
+for (const moduleSystem of Object.values(ModuleSystem)) {
+  configs.push(createConfig(moduleSystem));
 }
 
 export default configs;
