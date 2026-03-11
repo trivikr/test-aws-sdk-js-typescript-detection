@@ -34,10 +34,11 @@ jobs:
       - name: test-mjs
         run: node --test src/getUserAgent.spec.mjs
 
-  test-typescript-prerelease:
+  test-typescript-detection-disabled:
     runs-on: ubuntu-latest
     env:
-      TSC_VERSION: "5.9.0-dev.20250731"
+      TSC_VERSION: "5.9.3"
+      AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED: "1"
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6

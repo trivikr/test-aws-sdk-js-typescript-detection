@@ -5,7 +5,10 @@ const { getUserAgent } = require("./getUserAgent.cjs");
 it("getUserAgent", async () => {
   const userAgent = await getUserAgent();
 
-  if (process.env.TSC_VERSION) {
+  if (
+    process.env.TSC_VERSION &&
+    !process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED
+  ) {
     strictEqual(userAgent[5][0], "md/tsc");
     strictEqual(userAgent[5][1], process.env.TSC_VERSION);
   } else {
