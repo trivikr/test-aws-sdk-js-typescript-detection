@@ -62,7 +62,7 @@ jobs:
       - name: install
         run: |
           npm install
-          npm install -D -E typescript@TSC_VERSION_UNSEEN
+          npm install -D -E typescript@$TSC_VERSION_UNSEEN
           jq 'del(.devDependencies.typescript)' package.json > tmp.json && mv tmp.json package.json
       - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs
