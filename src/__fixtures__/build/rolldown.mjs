@@ -41,6 +41,30 @@ var __toCommonJS = (mod) => __hasOwnProp.call(mod, "module.exports") ? mod["modu
 var __require = /* @__PURE__ */ createRequire(import.meta.url);
 
 //#endregion
+//#region node_modules/@smithy/util-config-provider/dist-cjs/index.js
+var require_dist_cjs$28 = /* @__PURE__ */ __commonJSMin(((exports) => {
+	const booleanSelector = (obj, key, type) => {
+		if (!(key in obj)) return void 0;
+		if (obj[key] === "true") return true;
+		if (obj[key] === "false") return false;
+		throw new Error(`Cannot load ${type} "${key}". Expected "true" or "false", got ${obj[key]}.`);
+	};
+	const numberSelector = (obj, key, type) => {
+		if (!(key in obj)) return void 0;
+		const numberValue = parseInt(obj[key], 10);
+		if (Number.isNaN(numberValue)) throw new TypeError(`Cannot load ${type} '${key}'. Expected number, got '${obj[key]}'.`);
+		return numberValue;
+	};
+	exports.SelectorType = void 0;
+	(function(SelectorType) {
+		SelectorType["ENV"] = "env";
+		SelectorType["CONFIG"] = "shared config entry";
+	})(exports.SelectorType || (exports.SelectorType = {}));
+	exports.booleanSelector = booleanSelector;
+	exports.numberSelector = numberSelector;
+}));
+
+//#endregion
 //#region node_modules/@smithy/types/dist-cjs/index.js
 var require_dist_cjs$27 = /* @__PURE__ */ __commonJSMin(((exports) => {
 	exports.HttpAuthLocation = void 0;
@@ -11533,6 +11557,7 @@ var require_dist_cjs$1 = /* @__PURE__ */ __commonJSMin(((exports) => {
 var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 	var node_os = __require("node:os");
 	var node_process = __require("node:process");
+	var utilConfigProvider = require_dist_cjs$28();
 	var promises = __require("node:fs/promises");
 	var node_path = __require("node:path");
 	var middlewareUserAgent = require_dist_cjs$1();
@@ -11543,6 +11568,16 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 			"llrt"
 		]) if (node_process.versions[runtime]) return [`md/${runtime}`, node_process.versions[runtime]];
 		return ["md/nodejs", node_process.versions.node];
+	};
+	const getNodeModulesParentDirs = (dirname) => {
+		const cwd = process.cwd();
+		if (!dirname) return [cwd];
+		const normalizedPath = node_path.normalize(dirname);
+		const parts = normalizedPath.split(node_path.sep);
+		const nodeModulesIndex = parts.indexOf("node_modules");
+		const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : normalizedPath;
+		if (cwd === parentDir) return [cwd];
+		return [parentDir, cwd];
 	};
 	const SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?$/;
 	const getSanitizedTypeScriptVersion = (version = "") => {
@@ -11556,35 +11591,78 @@ var require_dist_cjs = /* @__PURE__ */ __commonJSMin(((exports) => {
 		];
 		return prerelease ? `${major}.${minor}.${patch}-${prerelease}` : `${major}.${minor}.${patch}`;
 	};
-	const typescriptPackageJsonPath = node_path.join("node_modules", "typescript", "package.json");
-	const getTypeScriptPackageJsonPaths = (dirname) => {
-		const cwdPath = node_path.join(process.cwd(), typescriptPackageJsonPath);
-		if (!dirname) return [cwdPath];
-		const parts = node_path.normalize(dirname).split(node_path.sep);
-		const nodeModulesIndex = parts.indexOf("node_modules");
-		const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : dirname;
-		const parentDirPath = node_path.join(parentDir, typescriptPackageJsonPath);
-		if (cwdPath === parentDirPath) return [cwdPath];
-		return [parentDirPath, cwdPath];
+	const ALLOWED_PREFIXES = [
+		"^",
+		"~",
+		">=",
+		"<=",
+		">",
+		"<"
+	];
+	const ALLOWED_DIST_TAGS = [
+		"latest",
+		"beta",
+		"dev",
+		"rc",
+		"insiders",
+		"next"
+	];
+	const getSanitizedDevTypeScriptVersion = (version = "") => {
+		if (ALLOWED_DIST_TAGS.includes(version)) return version;
+		const prefix = ALLOWED_PREFIXES.find((p) => version.startsWith(p)) ?? "";
+		const sanitizedTypeScriptVersion = getSanitizedTypeScriptVersion(version.slice(prefix.length));
+		if (!sanitizedTypeScriptVersion) return;
+		return `${prefix}${sanitizedTypeScriptVersion}`;
 	};
 	let tscVersion;
+	const TS_PACKAGE_JSON = node_path.join("node_modules", "typescript", "package.json");
 	const getTypeScriptUserAgentPair = async () => {
 		if (tscVersion === null) return;
 		else if (typeof tscVersion === "string") return ["md/tsc", tscVersion];
-		if (process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED) {
+		let isTypeScriptDetectionDisabled = false;
+		try {
+			isTypeScriptDetectionDisabled = utilConfigProvider.booleanSelector(process.env, "AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED", utilConfigProvider.SelectorType.ENV) || false;
+		} catch {}
+		if (isTypeScriptDetectionDisabled) {
 			tscVersion = null;
 			return;
 		}
-		const dirname = typeof __dirname !== "undefined" ? __dirname : void 0;
-		for (const typescriptPackageJsonPath of getTypeScriptPackageJsonPaths(dirname)) try {
-			const packageJson = await promises.readFile(typescriptPackageJsonPath, "utf-8");
+		const nodeModulesParentDirs = getNodeModulesParentDirs(typeof __dirname !== "undefined" ? __dirname : void 0);
+		let versionFromApp;
+		for (const nodeModulesParentDir of nodeModulesParentDirs) try {
+			const appPackageJsonPath = node_path.join(nodeModulesParentDir, "package.json");
+			const packageJson = await promises.readFile(appPackageJsonPath, "utf-8");
+			const { dependencies, devDependencies } = JSON.parse(packageJson);
+			const version = devDependencies?.typescript ?? dependencies?.typescript;
+			if (typeof version !== "string") continue;
+			versionFromApp = version;
+			break;
+		} catch {}
+		if (!versionFromApp) {
+			tscVersion = null;
+			return;
+		}
+		let versionFromNodeModules;
+		for (const nodeModulesParentDir of nodeModulesParentDirs) try {
+			const tsPackageJsonPath = node_path.join(nodeModulesParentDir, TS_PACKAGE_JSON);
+			const packageJson = await promises.readFile(tsPackageJsonPath, "utf-8");
 			const { version } = JSON.parse(packageJson);
 			const sanitizedVersion = getSanitizedTypeScriptVersion(version);
 			if (typeof sanitizedVersion !== "string") continue;
-			tscVersion = sanitizedVersion;
-			return ["md/tsc", tscVersion];
+			versionFromNodeModules = sanitizedVersion;
+			break;
 		} catch {}
-		tscVersion = null;
+		if (versionFromNodeModules) {
+			tscVersion = versionFromNodeModules;
+			return ["md/tsc", tscVersion];
+		}
+		const sanitizedVersion = getSanitizedDevTypeScriptVersion(versionFromApp);
+		if (typeof sanitizedVersion !== "string") {
+			tscVersion = null;
+			return;
+		}
+		tscVersion = `dev_${sanitizedVersion}`;
+		return ["md/tsc", tscVersion];
 	};
 	const crtAvailability = { isCrtAvailable: false };
 	const isCrtAvailable = () => {
