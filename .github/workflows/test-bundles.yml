@@ -82,9 +82,10 @@ jobs:
       - name: install
         run: |
           npm install
-          npm install -D -E typescript@5.9.3 --prefix src/__fixtures__/build
+          npm install -D -E typescript@TSC_VERSION_UNSEEN --prefix src/__fixtures__/build
           jq 'del(.devDependencies.typescript)' src/__fixtures__/build/package.json > tmp.json && mv tmp.json src/__fixtures__/build/package.json
-          npm install -D -E typescript@$TSC_VERSION_UNSEEN
+          npm install -D -E typescript@TSC_VERSION_UNSEEN
+          jq 'del(.devDependencies.typescript)' package.json > tmp.json && mv tmp.json package.json
       - name: test-bundles-cjs
         run: node --test src/getUserAgent.bundle.spec.cjs
       - name: test-bundles-mjs

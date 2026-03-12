@@ -54,13 +54,15 @@ jobs:
 
   test-typescript-missing-dev-deps-in-package-json:
     runs-on: ubuntu-latest
+    env:
+      TSC_VERSION_UNSEEN: "5.9.3"
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
       - name: install
         run: |
           npm install
-          npm install -D -E typescript@5.9.3
+          npm install -D -E typescript@TSC_VERSION_UNSEEN
           jq 'del(.devDependencies.typescript)' package.json > tmp.json && mv tmp.json package.json
       - name: test-cjs
         run: node --test src/getUserAgent.spec.cjs
