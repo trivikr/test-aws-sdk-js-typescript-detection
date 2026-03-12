@@ -43,8 +43,40 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// node_modules/@smithy/types/dist-cjs/index.js
+// node_modules/@smithy/util-config-provider/dist-cjs/index.js
 var require_dist_cjs = __commonJS({
+  "node_modules/@smithy/util-config-provider/dist-cjs/index.js"(exports) {
+    "use strict";
+    var booleanSelector = (obj, key, type) => {
+      if (!(key in obj))
+        return void 0;
+      if (obj[key] === "true")
+        return true;
+      if (obj[key] === "false")
+        return false;
+      throw new Error(`Cannot load ${type} "${key}". Expected "true" or "false", got ${obj[key]}.`);
+    };
+    var numberSelector = (obj, key, type) => {
+      if (!(key in obj))
+        return void 0;
+      const numberValue = parseInt(obj[key], 10);
+      if (Number.isNaN(numberValue)) {
+        throw new TypeError(`Cannot load ${type} '${key}'. Expected number, got '${obj[key]}'.`);
+      }
+      return numberValue;
+    };
+    exports.SelectorType = void 0;
+    (function(SelectorType) {
+      SelectorType["ENV"] = "env";
+      SelectorType["CONFIG"] = "shared config entry";
+    })(exports.SelectorType || (exports.SelectorType = {}));
+    exports.booleanSelector = booleanSelector;
+    exports.numberSelector = numberSelector;
+  }
+});
+
+// node_modules/@smithy/types/dist-cjs/index.js
+var require_dist_cjs2 = __commonJS({
   "node_modules/@smithy/types/dist-cjs/index.js"(exports) {
     "use strict";
     exports.HttpAuthLocation = void 0;
@@ -134,16 +166,16 @@ var require_dist_cjs = __commonJS({
 var import_types, getSmithyContext;
 var init_getSmithyContext = __esm({
   "node_modules/@smithy/core/dist-es/getSmithyContext.js"() {
-    import_types = __toESM(require_dist_cjs());
+    import_types = __toESM(require_dist_cjs2());
     getSmithyContext = (context) => context[import_types.SMITHY_CONTEXT_KEY] || (context[import_types.SMITHY_CONTEXT_KEY] = {});
   }
 });
 
 // node_modules/@smithy/util-middleware/dist-cjs/index.js
-var require_dist_cjs2 = __commonJS({
+var require_dist_cjs3 = __commonJS({
   "node_modules/@smithy/util-middleware/dist-cjs/index.js"(exports) {
     "use strict";
-    var types = require_dist_cjs();
+    var types = require_dist_cjs2();
     var getSmithyContext7 = (context) => context[types.SMITHY_CONTEXT_KEY] || (context[types.SMITHY_CONTEXT_KEY] = {});
     var normalizeProvider2 = (input) => {
       if (typeof input === "function")
@@ -194,7 +226,7 @@ function convertHttpAuthSchemesToMap(httpAuthSchemes) {
 var import_util_middleware, httpAuthSchemeMiddleware;
 var init_httpAuthSchemeMiddleware = __esm({
   "node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/httpAuthSchemeMiddleware.js"() {
-    import_util_middleware = __toESM(require_dist_cjs2());
+    import_util_middleware = __toESM(require_dist_cjs3());
     init_resolveAuthOptions();
     httpAuthSchemeMiddleware = (config, mwOptions) => (next, context) => async (args) => {
       const options = config.httpAuthSchemeProvider(await mwOptions.httpAuthSchemeParametersProvider(config, context, args.input));
@@ -257,10 +289,10 @@ var init_getHttpAuthSchemeEndpointRuleSetPlugin = __esm({
 });
 
 // node_modules/@smithy/protocol-http/dist-cjs/index.js
-var require_dist_cjs3 = __commonJS({
+var require_dist_cjs4 = __commonJS({
   "node_modules/@smithy/protocol-http/dist-cjs/index.js"(exports) {
     "use strict";
-    var types = require_dist_cjs();
+    var types = require_dist_cjs2();
     var getHttpHandlerExtensionConfiguration = (runtimeConfig) => {
       return {
         setHttpHandler(handler) {
@@ -415,10 +447,10 @@ var require_dist_cjs3 = __commonJS({
 });
 
 // node_modules/@smithy/middleware-serde/dist-cjs/index.js
-var require_dist_cjs4 = __commonJS({
+var require_dist_cjs5 = __commonJS({
   "node_modules/@smithy/middleware-serde/dist-cjs/index.js"(exports) {
     "use strict";
-    var protocolHttp = require_dist_cjs3();
+    var protocolHttp = require_dist_cjs4();
     var deserializerMiddleware = (options, deserializer) => (next, context) => async (args) => {
       const { response } = await next(args);
       try {
@@ -516,7 +548,7 @@ var require_dist_cjs4 = __commonJS({
 var import_middleware_serde, httpAuthSchemeMiddlewareOptions, getHttpAuthSchemePlugin;
 var init_getHttpAuthSchemePlugin = __esm({
   "node_modules/@smithy/core/dist-es/middleware-http-auth-scheme/getHttpAuthSchemePlugin.js"() {
-    import_middleware_serde = __toESM(require_dist_cjs4());
+    import_middleware_serde = __toESM(require_dist_cjs5());
     init_httpAuthSchemeMiddleware();
     httpAuthSchemeMiddlewareOptions = {
       step: "serialize",
@@ -550,8 +582,8 @@ var init_middleware_http_auth_scheme = __esm({
 var import_protocol_http, import_util_middleware2, defaultErrorHandler, defaultSuccessHandler, httpSigningMiddleware;
 var init_httpSigningMiddleware = __esm({
   "node_modules/@smithy/core/dist-es/middleware-http-signing/httpSigningMiddleware.js"() {
-    import_protocol_http = __toESM(require_dist_cjs3());
-    import_util_middleware2 = __toESM(require_dist_cjs2());
+    import_protocol_http = __toESM(require_dist_cjs4());
+    import_util_middleware2 = __toESM(require_dist_cjs3());
     defaultErrorHandler = (signingProperties) => (error2) => {
       throw error2;
     };
@@ -668,7 +700,7 @@ var init_createPaginator = __esm({
 });
 
 // node_modules/@smithy/is-array-buffer/dist-cjs/index.js
-var require_dist_cjs5 = __commonJS({
+var require_dist_cjs6 = __commonJS({
   "node_modules/@smithy/is-array-buffer/dist-cjs/index.js"(exports) {
     "use strict";
     var isArrayBuffer = (arg) => typeof ArrayBuffer === "function" && arg instanceof ArrayBuffer || Object.prototype.toString.call(arg) === "[object ArrayBuffer]";
@@ -677,10 +709,10 @@ var require_dist_cjs5 = __commonJS({
 });
 
 // node_modules/@smithy/util-buffer-from/dist-cjs/index.js
-var require_dist_cjs6 = __commonJS({
+var require_dist_cjs7 = __commonJS({
   "node_modules/@smithy/util-buffer-from/dist-cjs/index.js"(exports) {
     "use strict";
-    var isArrayBuffer = require_dist_cjs5();
+    var isArrayBuffer = require_dist_cjs6();
     var buffer = __require("buffer");
     var fromArrayBuffer = (input, offset = 0, length = input.byteLength - offset) => {
       if (!isArrayBuffer.isArrayBuffer(input)) {
@@ -705,7 +737,7 @@ var require_fromBase64 = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.fromBase64 = void 0;
-    var util_buffer_from_1 = require_dist_cjs6();
+    var util_buffer_from_1 = require_dist_cjs7();
     var BASE64_REGEX = /^[A-Za-z0-9+/]*={0,2}$/;
     var fromBase645 = (input) => {
       if (input.length * 3 % 4 !== 0) {
@@ -722,10 +754,10 @@ var require_fromBase64 = __commonJS({
 });
 
 // node_modules/@smithy/util-utf8/dist-cjs/index.js
-var require_dist_cjs7 = __commonJS({
+var require_dist_cjs8 = __commonJS({
   "node_modules/@smithy/util-utf8/dist-cjs/index.js"(exports) {
     "use strict";
-    var utilBufferFrom = require_dist_cjs6();
+    var utilBufferFrom = require_dist_cjs7();
     var fromUtf84 = (input) => {
       const buf = utilBufferFrom.fromString(input, "utf8");
       return new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength / Uint8Array.BYTES_PER_ELEMENT);
@@ -760,8 +792,8 @@ var require_toBase64 = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.toBase64 = void 0;
-    var util_buffer_from_1 = require_dist_cjs6();
-    var util_utf8_1 = require_dist_cjs7();
+    var util_buffer_from_1 = require_dist_cjs7();
+    var util_utf8_1 = require_dist_cjs8();
     var toBase645 = (_input) => {
       let input;
       if (typeof _input === "string") {
@@ -779,7 +811,7 @@ var require_toBase64 = __commonJS({
 });
 
 // node_modules/@smithy/util-base64/dist-cjs/index.js
-var require_dist_cjs8 = __commonJS({
+var require_dist_cjs9 = __commonJS({
   "node_modules/@smithy/util-base64/dist-cjs/index.js"(exports) {
     "use strict";
     var fromBase645 = require_fromBase64();
@@ -807,7 +839,7 @@ var require_ChecksumStream = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.ChecksumStream = void 0;
-    var util_base64_1 = require_dist_cjs8();
+    var util_base64_1 = require_dist_cjs9();
     var stream_1 = __require("stream");
     var ChecksumStream = class extends stream_1.Duplex {
       expectedChecksum;
@@ -902,7 +934,7 @@ var require_createChecksumStream_browser = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.createChecksumStream = void 0;
-    var util_base64_1 = require_dist_cjs8();
+    var util_base64_1 = require_dist_cjs9();
     var stream_type_check_1 = require_stream_type_check();
     var ChecksumStream_browser_1 = require_ChecksumStream_browser();
     var createChecksumStream = ({ expectedChecksum, checksum, source, checksumSourceLocation, base64Encoder }) => {
@@ -1346,7 +1378,7 @@ var require_headStream = __commonJS({
 });
 
 // node_modules/@smithy/util-uri-escape/dist-cjs/index.js
-var require_dist_cjs9 = __commonJS({
+var require_dist_cjs10 = __commonJS({
   "node_modules/@smithy/util-uri-escape/dist-cjs/index.js"(exports) {
     "use strict";
     var escapeUri = (uri) => encodeURIComponent(uri).replace(/[!'()*]/g, hexEncode);
@@ -1358,10 +1390,10 @@ var require_dist_cjs9 = __commonJS({
 });
 
 // node_modules/@smithy/querystring-builder/dist-cjs/index.js
-var require_dist_cjs10 = __commonJS({
+var require_dist_cjs11 = __commonJS({
   "node_modules/@smithy/querystring-builder/dist-cjs/index.js"(exports) {
     "use strict";
-    var utilUriEscape = require_dist_cjs9();
+    var utilUriEscape = require_dist_cjs10();
     function buildQueryString(query) {
       const parts = [];
       for (let key of Object.keys(query).sort()) {
@@ -1386,11 +1418,11 @@ var require_dist_cjs10 = __commonJS({
 });
 
 // node_modules/@smithy/node-http-handler/dist-cjs/index.js
-var require_dist_cjs11 = __commonJS({
+var require_dist_cjs12 = __commonJS({
   "node_modules/@smithy/node-http-handler/dist-cjs/index.js"(exports) {
     "use strict";
-    var protocolHttp = require_dist_cjs3();
-    var querystringBuilder = require_dist_cjs10();
+    var protocolHttp = require_dist_cjs4();
+    var querystringBuilder = require_dist_cjs11();
     var http = __require("http");
     var https = __require("https");
     var stream = __require("stream");
@@ -2103,12 +2135,12 @@ or increase socketAcquisitionWarningTimeout=(millis) in the NodeHttpHandler conf
 });
 
 // node_modules/@smithy/fetch-http-handler/dist-cjs/index.js
-var require_dist_cjs12 = __commonJS({
+var require_dist_cjs13 = __commonJS({
   "node_modules/@smithy/fetch-http-handler/dist-cjs/index.js"(exports) {
     "use strict";
-    var protocolHttp = require_dist_cjs3();
-    var querystringBuilder = require_dist_cjs10();
-    var utilBase64 = require_dist_cjs8();
+    var protocolHttp = require_dist_cjs4();
+    var querystringBuilder = require_dist_cjs11();
+    var utilBase64 = require_dist_cjs9();
     function createRequest(url, requestOptions) {
       return new Request(url, requestOptions);
     }
@@ -2330,7 +2362,7 @@ var require_dist_cjs12 = __commonJS({
 });
 
 // node_modules/@smithy/util-hex-encoding/dist-cjs/index.js
-var require_dist_cjs13 = __commonJS({
+var require_dist_cjs14 = __commonJS({
   "node_modules/@smithy/util-hex-encoding/dist-cjs/index.js"(exports) {
     "use strict";
     var SHORT_TO_HEX = {};
@@ -2376,10 +2408,10 @@ var require_sdk_stream_mixin_browser = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.sdkStreamMixin = void 0;
-    var fetch_http_handler_1 = require_dist_cjs12();
-    var util_base64_1 = require_dist_cjs8();
-    var util_hex_encoding_1 = require_dist_cjs13();
-    var util_utf8_1 = require_dist_cjs7();
+    var fetch_http_handler_1 = require_dist_cjs13();
+    var util_base64_1 = require_dist_cjs9();
+    var util_hex_encoding_1 = require_dist_cjs14();
+    var util_utf8_1 = require_dist_cjs8();
     var stream_type_check_1 = require_stream_type_check();
     var ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED = "The stream has already been transformed.";
     var sdkStreamMixin2 = (stream) => {
@@ -2443,8 +2475,8 @@ var require_sdk_stream_mixin = __commonJS({
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     exports.sdkStreamMixin = void 0;
-    var node_http_handler_1 = require_dist_cjs11();
-    var util_buffer_from_1 = require_dist_cjs6();
+    var node_http_handler_1 = require_dist_cjs12();
+    var util_buffer_from_1 = require_dist_cjs7();
     var stream_1 = __require("stream");
     var sdk_stream_mixin_browser_1 = require_sdk_stream_mixin_browser();
     var ERR_MSG_STREAM_HAS_BEEN_TRANSFORMED = "The stream has already been transformed.";
@@ -2534,11 +2566,11 @@ var require_splitStream = __commonJS({
 });
 
 // node_modules/@smithy/util-stream/dist-cjs/index.js
-var require_dist_cjs14 = __commonJS({
+var require_dist_cjs15 = __commonJS({
   "node_modules/@smithy/util-stream/dist-cjs/index.js"(exports) {
     "use strict";
-    var utilBase64 = require_dist_cjs8();
-    var utilUtf8 = require_dist_cjs7();
+    var utilBase64 = require_dist_cjs9();
+    var utilUtf8 = require_dist_cjs8();
     var ChecksumStream = require_ChecksumStream();
     var createChecksumStream = require_createChecksumStream();
     var createBufferedReadable = require_createBufferedReadable();
@@ -2627,7 +2659,7 @@ var require_dist_cjs14 = __commonJS({
 var import_util_stream, collectBody;
 var init_collect_stream_body = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/collect-stream-body.js"() {
-    import_util_stream = __toESM(require_dist_cjs14());
+    import_util_stream = __toESM(require_dist_cjs15());
     collectBody = async (streamBody = new Uint8Array(), context) => {
       if (streamBody instanceof Uint8Array) {
         return import_util_stream.Uint8ArrayBlobAdapter.mutate(streamBody);
@@ -2683,8 +2715,8 @@ var init_operation = __esm({
 var import_protocol_http2, import_util_middleware3, schemaDeserializationMiddleware, findHeader;
 var init_schemaDeserializationMiddleware = __esm({
   "node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaDeserializationMiddleware.js"() {
-    import_protocol_http2 = __toESM(require_dist_cjs3());
-    import_util_middleware3 = __toESM(require_dist_cjs2());
+    import_protocol_http2 = __toESM(require_dist_cjs4());
+    import_util_middleware3 = __toESM(require_dist_cjs3());
     init_operation();
     schemaDeserializationMiddleware = (config) => (next, context) => async (args) => {
       const { response } = await next(args);
@@ -2751,7 +2783,7 @@ var init_schemaDeserializationMiddleware = __esm({
 var import_util_middleware4, schemaSerializationMiddleware;
 var init_schemaSerializationMiddleware = __esm({
   "node_modules/@smithy/core/dist-es/submodules/schema/middleware/schemaSerializationMiddleware.js"() {
-    import_util_middleware4 = __toESM(require_dist_cjs2());
+    import_util_middleware4 = __toESM(require_dist_cjs3());
     init_operation();
     schemaSerializationMiddleware = (config) => (next, context) => async (args) => {
       const { operationSchema } = (0, import_util_middleware4.getSmithyContext)(context);
@@ -4386,7 +4418,7 @@ var require_randomUUID = __commonJS({
 });
 
 // node_modules/@smithy/uuid/dist-cjs/index.js
-var require_dist_cjs15 = __commonJS({
+var require_dist_cjs16 = __commonJS({
   "node_modules/@smithy/uuid/dist-cjs/index.js"(exports) {
     "use strict";
     var randomUUID = require_randomUUID();
@@ -4409,7 +4441,7 @@ var require_dist_cjs15 = __commonJS({
 var import_uuid;
 var init_generateIdempotencyToken = __esm({
   "node_modules/@smithy/core/dist-es/submodules/serde/generateIdempotencyToken.js"() {
-    import_uuid = __toESM(require_dist_cjs15());
+    import_uuid = __toESM(require_dist_cjs16());
   }
 });
 
@@ -4745,7 +4777,7 @@ var init_SerdeContext = __esm({
 var import_util_utf8, EventStreamSerde;
 var init_EventStreamSerde = __esm({
   "node_modules/@smithy/core/dist-es/submodules/event-streams/EventStreamSerde.js"() {
-    import_util_utf8 = __toESM(require_dist_cjs7());
+    import_util_utf8 = __toESM(require_dist_cjs8());
     EventStreamSerde = class {
       marshaller;
       serializer;
@@ -4999,7 +5031,7 @@ var import_protocol_http3, HttpProtocol;
 var init_HttpProtocol = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/HttpProtocol.js"() {
     init_schema();
-    import_protocol_http3 = __toESM(require_dist_cjs3());
+    import_protocol_http3 = __toESM(require_dist_cjs4());
     init_SerdeContext();
     HttpProtocol = class extends SerdeContext {
       options;
@@ -5136,8 +5168,8 @@ var init_HttpBindingProtocol = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/HttpBindingProtocol.js"() {
     init_schema();
     init_serde();
-    import_protocol_http4 = __toESM(require_dist_cjs3());
-    import_util_stream2 = __toESM(require_dist_cjs14());
+    import_protocol_http4 = __toESM(require_dist_cjs4());
+    import_util_stream2 = __toESM(require_dist_cjs15());
     init_collect_stream_body();
     init_extended_encode_uri_component();
     init_HttpProtocol();
@@ -5413,7 +5445,7 @@ var import_protocol_http5, RpcProtocol;
 var init_RpcProtocol = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/RpcProtocol.js"() {
     init_schema();
-    import_protocol_http5 = __toESM(require_dist_cjs3());
+    import_protocol_http5 = __toESM(require_dist_cjs4());
     init_collect_stream_body();
     init_HttpProtocol();
     RpcProtocol = class extends HttpProtocol {
@@ -5534,7 +5566,7 @@ function requestBuilder(input, context) {
 var import_protocol_http6, RequestBuilder;
 var init_requestBuilder = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/requestBuilder.js"() {
-    import_protocol_http6 = __toESM(require_dist_cjs3());
+    import_protocol_http6 = __toESM(require_dist_cjs4());
     init_resolve_path();
     RequestBuilder = class {
       input;
@@ -5625,8 +5657,8 @@ var init_FromStringShapeDeserializer = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/serde/FromStringShapeDeserializer.js"() {
     init_schema();
     init_serde();
-    import_util_base64 = __toESM(require_dist_cjs8());
-    import_util_utf82 = __toESM(require_dist_cjs7());
+    import_util_base64 = __toESM(require_dist_cjs9());
+    import_util_utf82 = __toESM(require_dist_cjs8());
     init_SerdeContext();
     init_determineTimestampFormat();
     FromStringShapeDeserializer = class extends SerdeContext {
@@ -5697,7 +5729,7 @@ var import_util_utf83, HttpInterceptingShapeDeserializer;
 var init_HttpInterceptingShapeDeserializer = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/serde/HttpInterceptingShapeDeserializer.js"() {
     init_schema();
-    import_util_utf83 = __toESM(require_dist_cjs7());
+    import_util_utf83 = __toESM(require_dist_cjs8());
     init_SerdeContext();
     init_FromStringShapeDeserializer();
     HttpInterceptingShapeDeserializer = class extends SerdeContext {
@@ -5746,7 +5778,7 @@ var init_ToStringShapeSerializer = __esm({
   "node_modules/@smithy/core/dist-es/submodules/protocols/serde/ToStringShapeSerializer.js"() {
     init_schema();
     init_serde();
-    import_util_base642 = __toESM(require_dist_cjs8());
+    import_util_base642 = __toESM(require_dist_cjs9());
     init_SerdeContext();
     init_determineTimestampFormat();
     ToStringShapeSerializer = class extends SerdeContext {
@@ -5960,8 +5992,8 @@ var init_DefaultIdentityProviderConfig = __esm({
 var import_protocol_http7, import_types2, HttpApiKeyAuthSigner;
 var init_httpApiKeyAuth = __esm({
   "node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpApiKeyAuth.js"() {
-    import_protocol_http7 = __toESM(require_dist_cjs3());
-    import_types2 = __toESM(require_dist_cjs());
+    import_protocol_http7 = __toESM(require_dist_cjs4());
+    import_types2 = __toESM(require_dist_cjs2());
     HttpApiKeyAuthSigner = class {
       async sign(httpRequest, identity, signingProperties) {
         if (!signingProperties) {
@@ -5994,7 +6026,7 @@ var init_httpApiKeyAuth = __esm({
 var import_protocol_http8, HttpBearerAuthSigner;
 var init_httpBearerAuth = __esm({
   "node_modules/@smithy/core/dist-es/util-identity-and-auth/httpAuthSchemes/httpBearerAuth.js"() {
-    import_protocol_http8 = __toESM(require_dist_cjs3());
+    import_protocol_http8 = __toESM(require_dist_cjs4());
     HttpBearerAuthSigner = class {
       async sign(httpRequest, identity, signingProperties) {
         const clonedRequest = import_protocol_http8.HttpRequest.clone(httpRequest);
@@ -6139,10 +6171,10 @@ var init_dist_es = __esm({
 });
 
 // node_modules/@smithy/util-endpoints/dist-cjs/index.js
-var require_dist_cjs16 = __commonJS({
+var require_dist_cjs17 = __commonJS({
   "node_modules/@smithy/util-endpoints/dist-cjs/index.js"(exports) {
     "use strict";
-    var types = require_dist_cjs();
+    var types = require_dist_cjs2();
     var EndpointCache = class {
       capacity;
       data = /* @__PURE__ */ new Map();
@@ -6569,7 +6601,7 @@ var require_dist_cjs16 = __commonJS({
 });
 
 // node_modules/@smithy/querystring-parser/dist-cjs/index.js
-var require_dist_cjs17 = __commonJS({
+var require_dist_cjs18 = __commonJS({
   "node_modules/@smithy/querystring-parser/dist-cjs/index.js"(exports) {
     "use strict";
     function parseQueryString(querystring) {
@@ -6598,10 +6630,10 @@ var require_dist_cjs17 = __commonJS({
 });
 
 // node_modules/@smithy/url-parser/dist-cjs/index.js
-var require_dist_cjs18 = __commonJS({
+var require_dist_cjs19 = __commonJS({
   "node_modules/@smithy/url-parser/dist-cjs/index.js"(exports) {
     "use strict";
-    var querystringParser = require_dist_cjs17();
+    var querystringParser = require_dist_cjs18();
     var parseUrl = (url) => {
       if (typeof url === "string") {
         return parseUrl(new URL(url));
@@ -6624,11 +6656,11 @@ var require_dist_cjs18 = __commonJS({
 });
 
 // node_modules/@aws-sdk/util-endpoints/dist-cjs/index.js
-var require_dist_cjs19 = __commonJS({
+var require_dist_cjs20 = __commonJS({
   "node_modules/@aws-sdk/util-endpoints/dist-cjs/index.js"(exports) {
     "use strict";
-    var utilEndpoints = require_dist_cjs16();
-    var urlParser = require_dist_cjs18();
+    var utilEndpoints = require_dist_cjs17();
+    var urlParser = require_dist_cjs19();
     var isVirtualHostableS3Bucket = (value, allowSubDomains = false) => {
       if (allowSubDomains) {
         for (const label of value.split(".")) {
@@ -7102,7 +7134,7 @@ var init_client = __esm({
 var import_protocol_http9, getDateHeader;
 var init_getDateHeader = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/utils/getDateHeader.js"() {
-    import_protocol_http9 = __toESM(require_dist_cjs3());
+    import_protocol_http9 = __toESM(require_dist_cjs4());
     getDateHeader = (response) => import_protocol_http9.HttpResponse.isInstance(response) ? response.headers?.date ?? response.headers?.Date : void 0;
   }
 });
@@ -7152,7 +7184,7 @@ var init_utils = __esm({
 var import_protocol_http10, throwSigningPropertyError, validateSigningProperties, AwsSdkSigV4Signer, AWSSDKSigV4Signer;
 var init_AwsSdkSigV4Signer = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4Signer.js"() {
-    import_protocol_http10 = __toESM(require_dist_cjs3());
+    import_protocol_http10 = __toESM(require_dist_cjs4());
     init_utils();
     throwSigningPropertyError = (name, property) => {
       if (!property) {
@@ -7231,7 +7263,7 @@ var init_AwsSdkSigV4Signer = __esm({
 var import_protocol_http11, AwsSdkSigV4ASigner;
 var init_AwsSdkSigV4ASigner = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/AwsSdkSigV4ASigner.js"() {
-    import_protocol_http11 = __toESM(require_dist_cjs3());
+    import_protocol_http11 = __toESM(require_dist_cjs4());
     init_utils();
     init_AwsSdkSigV4Signer();
     AwsSdkSigV4ASigner = class extends AwsSdkSigV4Signer {
@@ -7299,7 +7331,7 @@ var init_NODE_AUTH_SCHEME_PREFERENCE_OPTIONS = __esm({
 });
 
 // node_modules/@smithy/property-provider/dist-cjs/index.js
-var require_dist_cjs20 = __commonJS({
+var require_dist_cjs21 = __commonJS({
   "node_modules/@smithy/property-provider/dist-cjs/index.js"(exports) {
     "use strict";
     var ProviderError2 = class _ProviderError extends Error {
@@ -7416,7 +7448,7 @@ var import_property_provider, resolveAwsSdkSigV4AConfig, NODE_SIGV4A_CONFIG_OPTI
 var init_resolveAwsSdkSigV4AConfig = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4AConfig.js"() {
     init_dist_es();
-    import_property_provider = __toESM(require_dist_cjs20());
+    import_property_provider = __toESM(require_dist_cjs21());
     resolveAwsSdkSigV4AConfig = (config) => {
       config.sigv4aSigningRegionSet = normalizeProvider(config.sigv4aSigningRegionSet);
       return config;
@@ -7444,15 +7476,15 @@ var init_resolveAwsSdkSigV4AConfig = __esm({
 });
 
 // node_modules/@smithy/signature-v4/dist-cjs/index.js
-var require_dist_cjs21 = __commonJS({
+var require_dist_cjs22 = __commonJS({
   "node_modules/@smithy/signature-v4/dist-cjs/index.js"(exports) {
     "use strict";
-    var utilHexEncoding = require_dist_cjs13();
-    var utilUtf8 = require_dist_cjs7();
-    var isArrayBuffer = require_dist_cjs5();
-    var protocolHttp = require_dist_cjs3();
-    var utilMiddleware = require_dist_cjs2();
-    var utilUriEscape = require_dist_cjs9();
+    var utilHexEncoding = require_dist_cjs14();
+    var utilUtf8 = require_dist_cjs8();
+    var isArrayBuffer = require_dist_cjs6();
+    var protocolHttp = require_dist_cjs4();
+    var utilMiddleware = require_dist_cjs3();
+    var utilUriEscape = require_dist_cjs10();
     var ALGORITHM_QUERY_PARAM = "X-Amz-Algorithm";
     var CREDENTIAL_QUERY_PARAM = "X-Amz-Credential";
     var AMZ_DATE_QUERY_PARAM = "X-Amz-Date";
@@ -8001,7 +8033,7 @@ var init_resolveAwsSdkSigV4Config = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/httpAuthSchemes/aws_sdk/resolveAwsSdkSigV4Config.js"() {
     init_client();
     init_dist_es();
-    import_signature_v4 = __toESM(require_dist_cjs21());
+    import_signature_v4 = __toESM(require_dist_cjs22());
     resolveAwsSdkSigV4Config = (config) => {
       let inputCredentials = config.credentials;
       let isUserSupplied = !!config.credentials;
@@ -8547,7 +8579,7 @@ var import_util_utf84, USE_TEXT_DECODER, USE_BUFFER, payload, dataView, textDeco
 var init_cbor_decode = __esm({
   "node_modules/@smithy/core/dist-es/submodules/cbor/cbor-decode.js"() {
     init_serde();
-    import_util_utf84 = __toESM(require_dist_cjs7());
+    import_util_utf84 = __toESM(require_dist_cjs8());
     init_cbor_types();
     USE_TEXT_DECODER = typeof TextDecoder !== "undefined";
     USE_BUFFER = typeof Buffer !== "undefined";
@@ -8756,7 +8788,7 @@ var import_util_utf85, USE_BUFFER2, initialSize, data, dataView2, cursor;
 var init_cbor_encode = __esm({
   "node_modules/@smithy/core/dist-es/submodules/cbor/cbor-encode.js"() {
     init_serde();
-    import_util_utf85 = __toESM(require_dist_cjs7());
+    import_util_utf85 = __toESM(require_dist_cjs8());
     init_cbor_types();
     USE_BUFFER2 = typeof Buffer !== "undefined";
     initialSize = 2048;
@@ -8840,7 +8872,7 @@ var init_CborCodec = __esm({
     init_schema();
     init_serde();
     init_serde();
-    import_util_base643 = __toESM(require_dist_cjs8());
+    import_util_base643 = __toESM(require_dist_cjs9());
     init_cbor();
     init_parseCborBody();
     CborCodec = class extends SerdeContext {
@@ -9038,7 +9070,7 @@ var init_SmithyRpcV2CborProtocol = __esm({
     init_protocols();
     init_schema();
     init_schema();
-    import_util_middleware5 = __toESM(require_dist_cjs2());
+    import_util_middleware5 = __toESM(require_dist_cjs3());
     init_CborCodec();
     init_parseCborBody();
     SmithyRpcV2CborProtocol = class extends RpcProtocol {
@@ -9145,7 +9177,7 @@ var init_cbor2 = __esm({
 });
 
 // node_modules/@smithy/middleware-stack/dist-cjs/index.js
-var require_dist_cjs22 = __commonJS({
+var require_dist_cjs23 = __commonJS({
   "node_modules/@smithy/middleware-stack/dist-cjs/index.js"(exports) {
     "use strict";
     var getAllAliases = (name, aliases) => {
@@ -9416,12 +9448,12 @@ var require_dist_cjs22 = __commonJS({
 });
 
 // node_modules/@smithy/smithy-client/dist-cjs/index.js
-var require_dist_cjs23 = __commonJS({
+var require_dist_cjs24 = __commonJS({
   "node_modules/@smithy/smithy-client/dist-cjs/index.js"(exports) {
     "use strict";
-    var middlewareStack = require_dist_cjs22();
+    var middlewareStack = require_dist_cjs23();
     var protocols = (init_protocols(), __toCommonJS(protocols_exports));
-    var types = require_dist_cjs();
+    var types = require_dist_cjs2();
     var schema = (init_schema(), __toCommonJS(schema_exports));
     var serde = (init_serde(), __toCommonJS(serde_exports));
     var Client = class {
@@ -10022,7 +10054,7 @@ var import_smithy_client, ProtocolLib;
 var init_ProtocolLib = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/protocols/ProtocolLib.js"() {
     init_schema();
-    import_smithy_client = __toESM(require_dist_cjs23());
+    import_smithy_client = __toESM(require_dist_cjs24());
     ProtocolLib = class {
       queryCompat;
       constructor(queryCompat = false) {
@@ -10326,8 +10358,8 @@ var init_jsonReviver = __esm({
 var import_smithy_client2, import_util_utf86, collectBodyString;
 var init_common = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/protocols/common.js"() {
-    import_smithy_client2 = __toESM(require_dist_cjs23());
-    import_util_utf86 = __toESM(require_dist_cjs7());
+    import_smithy_client2 = __toESM(require_dist_cjs24());
+    import_util_utf86 = __toESM(require_dist_cjs8());
     collectBodyString = (streamBody, context) => (0, import_smithy_client2.collectBody)(streamBody, context).then((body) => (context?.utf8Encoder ?? import_util_utf86.toUtf8)(body));
   }
 });
@@ -10399,7 +10431,7 @@ var init_JsonShapeDeserializer = __esm({
     init_protocols();
     init_schema();
     init_serde();
-    import_util_base644 = __toESM(require_dist_cjs8());
+    import_util_base644 = __toESM(require_dist_cjs9());
     init_ConfigurableSerdeContext();
     init_UnionSerde();
     init_jsonReviver();
@@ -10605,7 +10637,7 @@ var init_JsonShapeSerializer = __esm({
     init_protocols();
     init_schema();
     init_serde();
-    import_util_base645 = __toESM(require_dist_cjs8());
+    import_util_base645 = __toESM(require_dist_cjs9());
     init_ConfigurableSerdeContext();
     init_jsonReplacer();
     JsonShapeSerializer = class extends SerdeContextConfig {
@@ -11033,7 +11065,7 @@ var init_AwsRestJsonProtocol = __esm({
 var import_smithy_client3, awsExpectUnion;
 var init_awsExpectUnion = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/protocols/json/awsExpectUnion.js"() {
-    import_smithy_client3 = __toESM(require_dist_cjs23());
+    import_smithy_client3 = __toESM(require_dist_cjs24());
     awsExpectUnion = (value) => {
       if (value == null) {
         return void 0;
@@ -11951,7 +11983,7 @@ var require_xml_parser = __commonJS({
 });
 
 // node_modules/@aws-sdk/xml-builder/dist-cjs/index.js
-var require_dist_cjs24 = __commonJS({
+var require_dist_cjs25 = __commonJS({
   "node_modules/@aws-sdk/xml-builder/dist-cjs/index.js"(exports) {
     "use strict";
     var xmlParser = require_xml_parser();
@@ -12066,11 +12098,11 @@ var require_dist_cjs24 = __commonJS({
 var import_xml_builder, import_smithy_client4, import_util_utf87, XmlShapeDeserializer;
 var init_XmlShapeDeserializer = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeDeserializer.js"() {
-    import_xml_builder = __toESM(require_dist_cjs24());
+    import_xml_builder = __toESM(require_dist_cjs25());
     init_protocols();
     init_schema();
-    import_smithy_client4 = __toESM(require_dist_cjs23());
-    import_util_utf87 = __toESM(require_dist_cjs7());
+    import_smithy_client4 = __toESM(require_dist_cjs24());
+    import_util_utf87 = __toESM(require_dist_cjs8());
     init_ConfigurableSerdeContext();
     init_UnionSerde();
     XmlShapeDeserializer = class extends SerdeContextConfig {
@@ -12222,8 +12254,8 @@ var init_QueryShapeSerializer = __esm({
     init_protocols();
     init_schema();
     init_serde();
-    import_smithy_client5 = __toESM(require_dist_cjs23());
-    import_util_base646 = __toESM(require_dist_cjs8());
+    import_smithy_client5 = __toESM(require_dist_cjs24());
+    import_util_base646 = __toESM(require_dist_cjs9());
     init_ConfigurableSerdeContext();
     QueryShapeSerializer = class extends SerdeContextConfig {
       settings;
@@ -12576,8 +12608,8 @@ var init_QuerySerializerSettings = __esm({
 var import_xml_builder2, import_smithy_client6, parseXmlBody, parseXmlErrorBody, loadRestXmlErrorCode;
 var init_parseXmlBody = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/parseXmlBody.js"() {
-    import_xml_builder2 = __toESM(require_dist_cjs24());
-    import_smithy_client6 = __toESM(require_dist_cjs23());
+    import_xml_builder2 = __toESM(require_dist_cjs25());
+    import_smithy_client6 = __toESM(require_dist_cjs24());
     init_common();
     parseXmlBody = (streamBody, context) => collectBodyString(streamBody, context).then((encoded) => {
       if (encoded.length) {
@@ -12628,12 +12660,12 @@ var init_parseXmlBody = __esm({
 var import_xml_builder3, import_smithy_client7, import_util_base647, XmlShapeSerializer;
 var init_XmlShapeSerializer = __esm({
   "node_modules/@aws-sdk/core/dist-es/submodules/protocols/xml/XmlShapeSerializer.js"() {
-    import_xml_builder3 = __toESM(require_dist_cjs24());
+    import_xml_builder3 = __toESM(require_dist_cjs25());
     init_protocols();
     init_schema();
     init_serde();
-    import_smithy_client7 = __toESM(require_dist_cjs23());
-    import_util_base647 = __toESM(require_dist_cjs8());
+    import_smithy_client7 = __toESM(require_dist_cjs24());
+    import_util_base647 = __toESM(require_dist_cjs9());
     init_ConfigurableSerdeContext();
     XmlShapeSerializer = class extends SerdeContextConfig {
       settings;
@@ -13104,7 +13136,7 @@ var init_dist_es2 = __esm({
 });
 
 // node_modules/@smithy/service-error-classification/dist-cjs/index.js
-var require_dist_cjs25 = __commonJS({
+var require_dist_cjs26 = __commonJS({
   "node_modules/@smithy/service-error-classification/dist-cjs/index.js"(exports) {
     "use strict";
     var CLOCK_SKEW_ERROR_CODES = [
@@ -13175,10 +13207,10 @@ var require_dist_cjs25 = __commonJS({
 });
 
 // node_modules/@smithy/util-retry/dist-cjs/index.js
-var require_dist_cjs26 = __commonJS({
+var require_dist_cjs27 = __commonJS({
   "node_modules/@smithy/util-retry/dist-cjs/index.js"(exports) {
     "use strict";
-    var serviceErrorClassification = require_dist_cjs25();
+    var serviceErrorClassification = require_dist_cjs26();
     exports.RETRY_MODES = void 0;
     (function(RETRY_MODES) {
       RETRY_MODES["STANDARD"] = "standard";
@@ -13442,14 +13474,14 @@ var require_dist_cjs26 = __commonJS({
 });
 
 // node_modules/@aws-sdk/middleware-user-agent/dist-cjs/index.js
-var require_dist_cjs27 = __commonJS({
+var require_dist_cjs28 = __commonJS({
   "node_modules/@aws-sdk/middleware-user-agent/dist-cjs/index.js"(exports) {
     "use strict";
     var core = (init_dist_es(), __toCommonJS(dist_es_exports));
-    var utilEndpoints = require_dist_cjs19();
-    var protocolHttp = require_dist_cjs3();
+    var utilEndpoints = require_dist_cjs20();
+    var protocolHttp = require_dist_cjs4();
     var core$1 = (init_dist_es2(), __toCommonJS(dist_es_exports2));
-    var utilRetry = require_dist_cjs26();
+    var utilRetry = require_dist_cjs27();
     var DEFAULT_UA_APP_ID = void 0;
     function isValidUserAgentAppId(appId) {
       if (appId === void 0) {
@@ -13623,14 +13655,15 @@ var require_dist_cjs27 = __commonJS({
 });
 
 // node_modules/@aws-sdk/util-user-agent-node/dist-cjs/index.js
-var require_dist_cjs28 = __commonJS({
+var require_dist_cjs29 = __commonJS({
   "node_modules/@aws-sdk/util-user-agent-node/dist-cjs/index.js"(exports) {
     "use strict";
     var node_os = __require("node:os");
     var node_process = __require("node:process");
+    var utilConfigProvider = require_dist_cjs();
     var promises = __require("node:fs/promises");
     var node_path = __require("node:path");
-    var middlewareUserAgent = require_dist_cjs27();
+    var middlewareUserAgent = require_dist_cjs28();
     var getRuntimeUserAgentPair = () => {
       const runtimesToCheck = ["deno", "bun", "llrt"];
       for (const runtime of runtimesToCheck) {
@@ -13639,6 +13672,20 @@ var require_dist_cjs28 = __commonJS({
         }
       }
       return ["md/nodejs", node_process.versions.node];
+    };
+    var getNodeModulesParentDirs = (dirname) => {
+      const cwd = process.cwd();
+      if (!dirname) {
+        return [cwd];
+      }
+      const normalizedPath = node_path.normalize(dirname);
+      const parts = normalizedPath.split(node_path.sep);
+      const nodeModulesIndex = parts.indexOf("node_modules");
+      const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : normalizedPath;
+      if (cwd === parentDir) {
+        return [cwd];
+      }
+      return [parentDir, cwd];
     };
     var SEMVER_REGEX = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*)?$/;
     var getSanitizedTypeScriptVersion = (version = "") => {
@@ -13649,49 +13696,83 @@ var require_dist_cjs28 = __commonJS({
       const [major, minor, patch, prerelease] = [match[1], match[2], match[3], match[4]];
       return prerelease ? `${major}.${minor}.${patch}-${prerelease}` : `${major}.${minor}.${patch}`;
     };
-    var typescriptPackageJsonPath = node_path.join("node_modules", "typescript", "package.json");
-    var getTypeScriptPackageJsonPaths = (dirname) => {
-      const cwdPath = node_path.join(process.cwd(), typescriptPackageJsonPath);
-      if (!dirname) {
-        return [cwdPath];
+    var ALLOWED_PREFIXES = ["^", "~", ">=", "<=", ">", "<"];
+    var ALLOWED_DIST_TAGS = ["latest", "beta", "dev", "rc", "insiders", "next"];
+    var getSanitizedDevTypeScriptVersion = (version = "") => {
+      if (ALLOWED_DIST_TAGS.includes(version)) {
+        return version;
       }
-      const normalizedPath = node_path.normalize(dirname);
-      const parts = normalizedPath.split(node_path.sep);
-      const nodeModulesIndex = parts.indexOf("node_modules");
-      const parentDir = nodeModulesIndex !== -1 ? parts.slice(0, nodeModulesIndex).join(node_path.sep) : dirname;
-      const parentDirPath = node_path.join(parentDir, typescriptPackageJsonPath);
-      if (cwdPath === parentDirPath) {
-        return [cwdPath];
+      const prefix = ALLOWED_PREFIXES.find((p) => version.startsWith(p)) ?? "";
+      const sanitizedTypeScriptVersion = getSanitizedTypeScriptVersion(version.slice(prefix.length));
+      if (!sanitizedTypeScriptVersion) {
+        return void 0;
       }
-      return [parentDirPath, cwdPath];
+      return `${prefix}${sanitizedTypeScriptVersion}`;
     };
     var tscVersion;
+    var TS_PACKAGE_JSON = node_path.join("node_modules", "typescript", "package.json");
     var getTypeScriptUserAgentPair = async () => {
       if (tscVersion === null) {
         return void 0;
       } else if (typeof tscVersion === "string") {
         return ["md/tsc", tscVersion];
       }
-      if (process.env.AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED) {
+      let isTypeScriptDetectionDisabled = false;
+      try {
+        isTypeScriptDetectionDisabled = utilConfigProvider.booleanSelector(process.env, "AWS_SDK_JS_TYPESCRIPT_DETECTION_DISABLED", utilConfigProvider.SelectorType.ENV) || false;
+      } catch {
+      }
+      if (isTypeScriptDetectionDisabled) {
         tscVersion = null;
         return void 0;
       }
       const dirname = typeof __dirname !== "undefined" ? __dirname : void 0;
-      for (const typescriptPackageJsonPath2 of getTypeScriptPackageJsonPaths(dirname)) {
+      const nodeModulesParentDirs = getNodeModulesParentDirs(dirname);
+      let versionFromApp;
+      for (const nodeModulesParentDir of nodeModulesParentDirs) {
         try {
-          const packageJson = await promises.readFile(typescriptPackageJsonPath2, "utf-8");
-          const { version } = JSON.parse(packageJson);
-          const sanitizedVersion = getSanitizedTypeScriptVersion(version);
-          if (typeof sanitizedVersion !== "string") {
+          const appPackageJsonPath = node_path.join(nodeModulesParentDir, "package.json");
+          const packageJson = await promises.readFile(appPackageJsonPath, "utf-8");
+          const { dependencies, devDependencies } = JSON.parse(packageJson);
+          const version = devDependencies?.typescript ?? dependencies?.typescript;
+          if (typeof version !== "string") {
             continue;
           }
-          tscVersion = sanitizedVersion;
-          return ["md/tsc", tscVersion];
+          versionFromApp = version;
+          break;
         } catch {
         }
       }
-      tscVersion = null;
-      return void 0;
+      if (!versionFromApp) {
+        tscVersion = null;
+        return void 0;
+      }
+      let versionFromNodeModules;
+      for (const nodeModulesParentDir of nodeModulesParentDirs) {
+        try {
+          const tsPackageJsonPath = node_path.join(nodeModulesParentDir, TS_PACKAGE_JSON);
+          const packageJson = await promises.readFile(tsPackageJsonPath, "utf-8");
+          const { version } = JSON.parse(packageJson);
+          const sanitizedVersion2 = getSanitizedTypeScriptVersion(version);
+          if (typeof sanitizedVersion2 !== "string") {
+            continue;
+          }
+          versionFromNodeModules = sanitizedVersion2;
+          break;
+        } catch {
+        }
+      }
+      if (versionFromNodeModules) {
+        tscVersion = versionFromNodeModules;
+        return ["md/tsc", tscVersion];
+      }
+      const sanitizedVersion = getSanitizedDevTypeScriptVersion(versionFromApp);
+      if (typeof sanitizedVersion !== "string") {
+        tscVersion = null;
+        return void 0;
+      }
+      tscVersion = `dev_${sanitizedVersion}`;
+      return ["md/tsc", tscVersion];
     };
     var crtAvailability = {
       isCrtAvailable: false
@@ -13750,7 +13831,7 @@ var require_dist_cjs28 = __commonJS({
 });
 
 // src/__fixtures__/index.js
-var import_util_user_agent_node = __toESM(require_dist_cjs28(), 1);
+var import_util_user_agent_node = __toESM(require_dist_cjs29(), 1);
 var getUserAgent = async () => (0, import_util_user_agent_node.createDefaultUserAgentProvider)({
   serviceId: "s3",
   clientVersion: "0.1.0"
